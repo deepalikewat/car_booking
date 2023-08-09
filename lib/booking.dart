@@ -12,13 +12,13 @@ class dxx extends State<Booking> {
   Widget build(BuildContext context) {
     // double xwidth = MediaQuery.of(context).size.width;
 
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: Row(
           children: [
             Column(
               children: [
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Icon(
@@ -36,6 +36,30 @@ class dxx extends State<Booking> {
                           color: Color(0xff000000),
                           fontSize: 20,
                         )),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle, border: Border.all()),
+                      height: 120,
+                      width: 122,
+                      child: const ClipOval(
+                          child: Image(
+                        image: AssetImage("img/QT.jpeg"),
+                        width: 100,
+                        height: 300,
+                        fit: BoxFit.cover,
+                      )),
+                    ),
+                    Row(
+                      children: [
+                        Column(
+                          children: [Text("Tata LPT 25211 Truck")],
+                        )
+                      ],
+                    )
                   ],
                 )
               ],
