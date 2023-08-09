@@ -15,6 +15,7 @@ class logx extends State<Login> {
   @override
   Widget build(BuildContext context) {
     double xwidth = MediaQuery.of(context).size.width;
+     double xheight = MediaQuery.of(context).size.height;
 
     return Scaffold(
         body: Center(
@@ -22,9 +23,9 @@ class logx extends State<Login> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Column(children: [
-            const Padding(
-              padding: EdgeInsets.only(top: 300, bottom: 20),
-              child: Text(
+             Padding(
+              padding: EdgeInsets.only(top:(xheight *.1), bottom: 20),
+              child: const Text(
                 "Sign in now",
                 style: TextStyle(
                     fontSize: 35,
@@ -52,7 +53,7 @@ class logx extends State<Login> {
                   Container(
                     height: 45,
                     width: 1,
-                    color: Color(0x87878799),
+                    color: const Color(0x87878799),
                   ),
                   Container(
                     width: xwidth - 180,
@@ -80,7 +81,7 @@ class logx extends State<Login> {
             ),
             const Padding(padding: EdgeInsets.only(top: 250)),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               height: 60,
               width: xwidth,
               child: ElevatedButton(
@@ -89,7 +90,7 @@ class logx extends State<Login> {
                     backgroundColor: const Color(0xff0D6EFD),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16))),
-                child: Text(
+                child: const Text(
                   "Next",
                   style: TextStyle(fontSize: 20),
                 ),
