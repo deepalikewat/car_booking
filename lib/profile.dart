@@ -158,7 +158,7 @@ class dix extends State<Profile> {
               ),
 
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: EdgeInsets.symmetric(horizontal: 40),
                 height: 60,
                 width: xwidth,
                 child: ElevatedButton(
