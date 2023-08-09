@@ -56,7 +56,13 @@ class dxx extends State<Booking> {
                     Row(
                       children: [
                         Column(
-                          children: [Text("Tata LPT 25211 Truck")],
+                          children: [
+                            Text("Tata LPT 25211 Truck"),
+                            Text(
+                              "Amit Das",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            )
+                          ],
                         )
                       ],
                     )
