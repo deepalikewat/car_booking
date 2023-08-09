@@ -101,7 +101,7 @@ class dix extends State<Profile> {
                     child: Container(
                       width: xwidth - 70,
                       child: const Text(
-                        "Enter Number",
+                        "Enter Numberxx",
                         style:
                             TextStyle(fontSize: 18, color: Color(0xff1B1E28)),
                       ),
