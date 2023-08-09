@@ -66,6 +66,7 @@ class dix extends State<Profile> {
                     fontWeight: FontWeight.w400,
                     color: Color(0xff1B1E28)),
               ),
+              
               const Padding(
                 padding: EdgeInsets.only(top: 8, bottom: 50),
                 child: Text(
