@@ -5,6 +5,10 @@ class Login extends StatefulWidget {
   State<Login> createState() => logx();
 }
 
+// https://admin.returnlorry.com/appservice/otp{
+//     "userPhone": "9831166884",
+//     "deviceKey":"durLHMKZShKUM9EFmy8mnW:APA91bEe9ptlVoy9sGyFK0n97X135PS4R2vAJ60f-LKKOSTX9H_yQVu4jnoSOmMrkOUX7qbPqWIcXl4A5PqOW1hr-Tu1bCbNOtYf6QhhZc9jUNIY4eMJKSG2oQ1JUPnyIswX6AD21MpH"
+// }
 class logx extends State<Login> {
   void dinc() {}
 
