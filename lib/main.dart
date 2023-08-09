@@ -1,3 +1,4 @@
+import 'package:car_booking/booking.dart';
 import 'package:car_booking/profile.dart';
 import 'package:car_booking/sign_in.dart';
 import 'package:car_booking/front.dart';
@@ -14,7 +15,7 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: Profile());
+    return MaterialApp(home: Booking());
   }
   //add data
   //wertyu

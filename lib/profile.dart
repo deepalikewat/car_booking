@@ -95,7 +95,7 @@ class dix extends State<Profile> {
               ),
 
               Container(
-                padding: EdgeInsets.only(bottom: 8, top: 12),
+                padding: EdgeInsets.only(bottom: 8, top: 20),
                 width: xwidth - 70,
                 child: const Text(
                   "Enter Number",
@@ -116,7 +116,7 @@ class dix extends State<Profile> {
               ),
 
               Container(
-                padding: EdgeInsets.only(bottom: 8, top: 12),
+                padding: EdgeInsets.only(bottom: 8, top: 20),
                 width: xwidth - 70,
                 child: const Text(
                   "Email Id",
@@ -137,7 +137,7 @@ class dix extends State<Profile> {
               ),
 
               Container(
-                padding: EdgeInsets.only(bottom: 8, top: 12),
+                padding: EdgeInsets.only(bottom: 8, top: 20),
                 width: xwidth - 70,
                 child: const Text(
                   "Enter Address",
@@ -146,6 +146,7 @@ class dix extends State<Profile> {
               ),
 
               Container(
+                padding: EdgeInsets.only(bottom: 200),
                 width: xwidth - 60,
                 child: const TextField(
                   style: TextStyle(fontSize: 16),
@@ -158,7 +159,7 @@ class dix extends State<Profile> {
               ),
 
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 40),
+                padding: EdgeInsets.symmetric(horizontal: 20),
                 height: 60,
                 width: xwidth,
                 child: ElevatedButton(
