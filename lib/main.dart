@@ -5,6 +5,8 @@ import 'package:car_booking/lorry.dart';
 import 'package:car_booking/otp_verify.dart';
 import 'package:flutter/material.dart';
 
+import 'map_with_autocomplete.dart';
+
 void main() {
   runApp(const MainApp());
 }
@@ -14,7 +16,7 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: Profile());
+    return MaterialApp(home: MapScreen());
   }
   //add data
   //wertyu
