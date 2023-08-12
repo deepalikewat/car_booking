@@ -18,5 +18,4 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(home: RLogin());
   }
-
 }
