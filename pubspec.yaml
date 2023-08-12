@@ -9,17 +9,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-<<<<<<< HEAD
-  geolocator: ^9.0.2
-  google_maps_flutter: ^2.4.0
-  google_places_flutter: ^2.0.6
-  maps_places_autocomplete: ^0.0.2
-  # http: ^1.1.0
-=======
   geocoding: ^2.1.0
   google_maps_flutter: ^2.4.0
   http: ^1.1.0
->>>>>>> 4be4f02211179efa60f718e0e6eb04e1afb8ffbd
     
 
 dev_dependencies:
