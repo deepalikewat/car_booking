@@ -5,13 +5,21 @@ class Login extends StatefulWidget {
   State<Login> createState() => logx();
 }
 
+// https://admin.returnlorry.com/appservice/otp{
+//     "userPhone": "9831166884",
+//     "deviceKey":"durLHMKZShKUM9EFmy8mnW:APA91bEe9ptlVoy9sGyFK0n97X135PS4R2vAJ60f-LKKOSTX9H_yQVu4jnoSOmMrkOUX7qbPqWIcXl4A5PqOW1hr-Tu1bCbNOtYf6QhhZc9jUNIY4eMJKSG2oQ1JUPnyIswX6AD21MpH"
+// }
 class logx extends State<Login> {
   void dinc() {}
 
   @override
   Widget build(BuildContext context) {
     double xwidth = MediaQuery.of(context).size.width;
+<<<<<<< HEAD
     double xheight = MediaQuery.of(context).size.width;
+=======
+     double xheight = MediaQuery.of(context).size.height;
+>>>>>>> 4be4f02211179efa60f718e0e6eb04e1afb8ffbd
 
     return Scaffold(
         body: Center(
@@ -20,7 +28,11 @@ class logx extends State<Login> {
         children: [
           Column(children: [
              Padding(
+<<<<<<< HEAD
               padding: EdgeInsets.only(top: xheight*0.27, bottom: 20),
+=======
+              padding: EdgeInsets.only(top:(xheight *.1), bottom: 20),
+>>>>>>> 4be4f02211179efa60f718e0e6eb04e1afb8ffbd
               child: const Text(
                 "Sign in now",
                 style: TextStyle(
@@ -45,6 +57,15 @@ class logx extends State<Login> {
                 //   ),
             
                   Container(
+<<<<<<< HEAD
+=======
+                    height: 45,
+                    width: 1,
+                    color: const Color(0x87878799),
+                  ),
+                  Container(
+                    width: xwidth - 180,
+>>>>>>> 4be4f02211179efa60f718e0e6eb04e1afb8ffbd
                     height: 60,
                     child: const TextField(
                       style: TextStyle(fontSize: 18),

@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 import 'dart:math';
 
+=======
+>>>>>>> 4be4f02211179efa60f718e0e6eb04e1afb8ffbd
 import 'package:flutter/material.dart';
 
 class RLogin extends StatefulWidget {
@@ -18,6 +21,7 @@ class Rloginx extends State<RLogin> {
   Widget build(BuildContext context) {
    
    double xwidth = MediaQuery.of(context).size.width;
+<<<<<<< HEAD
      double xheight = MediaQuery.of(context).size.height;
 
 
@@ -91,6 +95,53 @@ height: 50,
     ],)
     ))
     )
+=======
+     double xheight = 300;MediaQuery.of(context).size.height;
+
+
+   return  const Scaffold(
+    
+backgroundColor: Color.fromARGB(0, 104, 138, 182),
+
+body: Text("xx"),
+//     body: SafeArea(child:Padding(padding: EdgeInsets.all(xheight*.03), child: Center(child: Column(
+//       children: [
+
+//         Padding(padding: EdgeInsets.only(top: xheight*.14,bottom: 10),
+//         child: const Text(
+//                 "Sign in now",
+//                 style: TextStyle(
+//                     fontSize: 30,
+//                     fontWeight: FontWeight.bold,
+//                     color: Color(0xff1B1E28)),
+//               ),
+//         ),
+
+
+//  const Text(
+//               "Please sign in to continue our app",
+//               style: TextStyle(color: Color(0xff7D848D), fontSize: 20),
+//             ),
+
+
+// Padding(padding: EdgeInsets.all(xheight*.05)),
+// TextField(decoration: InputDecoration(
+  
+//   border: OutlineInputBorder(
+//     borderRadius: BorderRadius.circular(15),
+//     borderSide: const BorderSide(color: Color.fromARGB(255, 108, 105, 105)
+
+// ),
+// )
+
+// )
+// )
+
+
+//     ],)
+//     ))
+//     )
+>>>>>>> 4be4f02211179efa60f718e0e6eb04e1afb8ffbd
     
     );
     
