@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:google_places_flutter/model/prediction.dart';
+import 'package:maps_places_autocomplete/maps_places_autocomplete.dart';
+import 'package:maps_places_autocomplete/model/place.dart';
+import 'package:maps_places_autocomplete/model/suggestion.dart';
 
 
 
@@ -12,16 +15,13 @@ class MapScreen extends StatefulWidget {
 
 class _MapScreenState extends State<MapScreen> {
   GoogleMapController? _mapController;
-  TextEditingController _sourceController = TextEditingController();
-  TextEditingController _destinationController = TextEditingController();
+  final TextEditingController _sourceController = TextEditingController();
+  final TextEditingController _destinationController = TextEditingController();
   final apiKey ='AIzaSyDXLXII5-jnC-fJ5hSF3xc5ucf_O_ecOfQ';
   late LatLng _sourceLatLng;
   late LatLng _destinationLatLng;
 
-  @override
-  void initState() {
-    super.initState();
-  }
+
 
 
 
@@ -50,6 +50,13 @@ class _MapScreenState extends State<MapScreen> {
   //     });
   //   }
   // }
+
+
+  void onSuggestionClick(Place placeDetails) {
+
+print(placeDetails);
+  }
+  
   TextEditingController controller = TextEditingController();
 
   @override
@@ -81,45 +88,10 @@ class _MapScreenState extends State<MapScreen> {
             ),
           ),
           
-          GooglePlaceAutoCompleteTextField(
-        textEditingController: controller,
-        googleAPIKey: "YOUR_GOOGLE_API_KEY",
-        inputDecoration: InputDecoration(),
-        debounceTime: 800, // default 600 ms,
-        countries: ["in","fr"],// optional by default null is set
-        isLatLngRequired:true,// if you required coordinates from place detail
-        getPlaceDetailWithLatLng: (Prediction prediction) {
-         // this method will return latlng with place detail
-        print("placeDetails" + prediction.lng.toString());
-        }, // this callback is called when isLatLngRequired is true
-        itemClick: (Prediction prediction) {
-         controller.text=prediction.description!;
-          controller.selection = TextSelection.fromPosition(TextPosition(offset: prediction.description!.length));
-        },
-        // if we want to make custom list item builder
-        itemBuilder: (context, index, Prediction prediction) {
-          return Container(
-            padding: EdgeInsets.all(10),
-            child: Row(
-              children: [
-                Icon(Icons.location_on),
-                SizedBox(
-                  width: 7,
-                ),
-                Expanded(child: Text("${prediction.description??""}"))
-              ],
-            ),
-          );
-        },
-        // if you want to add seperator between list items
-        seperatedBuilder: Divider(),
-        // want to show close icon 
-        isCrossBtnShown: true,
-         
-         
         
         
-    ),
+
+        placesAutoCompleteTextField(),
           
           ElevatedButton(
             onPressed: () {
@@ -130,5 +102,37 @@ class _MapScreenState extends State<MapScreen> {
         ],
       ),
     );
+  }
+
+
+  placesAutoCompleteTextField() {
+    return 
+   
+    SizedBox(
+                    height: 40,
+                    child: MapsPlacesAutocomplete(
+                      mapsApiKey: apiKey,
+                      onSuggestionClick: onSuggestionClick,
+                      buildItem: (Suggestion suggestion, int index) {
+                        return Container(
+                          margin: const EdgeInsets.fromLTRB(2, 2, 2, 0),
+                          padding: const EdgeInsets.all(8),
+                          alignment: Alignment.centerLeft,
+                          color: Colors.white,
+                          child: Text(suggestion.description)
+                        );
+                      },
+                      inputDecoration: const InputDecoration(
+                        contentPadding: EdgeInsets.all(8),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white)),
+                        hintText:
+                            "Digite o endereço com número para melhorar a busca",
+                        errorText: null),
+                      clearButton: const Icon(Icons.close),
+                      componentCountry: 'br',
+                      language: 'pt-Br'
+                    ),
+                  );
   }
 }
