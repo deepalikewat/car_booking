@@ -22,16 +22,15 @@ final picker = ImagePicker();
 
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     
-    print("qwertyui");
-    print(pickedFile);
+    print(pickedFile?.path);
     // File image = await ImagePicker.pickImage(source: ImageSource.gallery);
-    // setState(() {
-    //   if (pickedFile != null) {
-    //     _image = File(pickedFile.path);
-    //   } else {
-    //     print('No image selected');
-    //   }
-    // });
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      } else {
+        print('No image selected');
+      }
+    });
   }
 
   @override
@@ -57,23 +56,31 @@ final picker = ImagePicker();
                 width: 130,
 
                 child: Stack(children: [
-                  const ClipOval(
-                      child: Image(
-                    image: AssetImage("img/QT.jpeg"),
+                   ClipOval(
+                      child: _image.isNull?const Image(
+                    image:AssetImage("img/QT.jpeg"),
                     width: 130,
                     height: 130,
                     fit: BoxFit.cover,
-                  )),
+                  ):Image.network(_image!.path,
+                  width: 130,
+                  height: 130,
+                  fit: BoxFit.cover,
+                  )
+                  
+                  ),
                   Positioned(
                       bottom: 0,
                       right: 0,
                       child: IconButton(
-                        style: const ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Color(0xff2EA7D4)),
-                        ),
-                        icon: const Icon(Icons.camera_alt),
-                        onPressed: () {},
+                       
+                  
+                        
+                        icon: const Icon(Icons.camera_alt,color: Colors.red,),
+                        onPressed: () {
+
+                          getImage();
+                        },
                       ))
 
                   // child: Icon(
@@ -94,11 +101,8 @@ final picker = ImagePicker();
               ),
 
               
-              IconButton(onPressed: (){
-
-                getImage();
-              }, icon: Icon(Icons.camera_alt))
-              ,
+             
+             
               const Padding(padding: EdgeInsets.only(top: 20)),
               Container(
                 padding: const EdgeInsets.only(bottom: 8),

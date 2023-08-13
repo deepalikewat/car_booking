@@ -12,79 +12,109 @@ class dxx extends State<Booking> {
   Widget build(BuildContext context) {
     // double xwidth = MediaQuery.of(context).size.width;
 
-    return Scaffold(
+    return const Scaffold(
       body: Center(
-        child: Row(
-          children: [
-            Column(
-              children: [
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Icon(
-                      Icons.menu,
-                      size: 38,
-                      color: Color.fromARGB(255, 10, 9, 9),
-                    ),
-                    Text("Booking",
-                        style: TextStyle(
-                            color: Color(0xff000000),
-                            fontSize: 28,
-                            fontWeight: FontWeight.bold)),
-                    Text("Cancel",
-                        style: TextStyle(
-                          color: Color(0xff000000),
-                          fontSize: 20,
-                        )),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle, border: Border.all()),
-                      height: 120,
-                      width: 122,
-                      child: const ClipOval(
-                          child: Image(
-                        image: AssetImage("img/QT.jpeg"),
-                        width: 100,
-                        height: 300,
-                        fit: BoxFit.cover,
-                      )),
-                    ),
-                    const Row(
-                      children: [
-                        Column(
-                          children: [
-                            Text("Tata LPT 25211 Truck"),
-                            Text(
-                              "Amit Das",
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.star,
-                                  color: Colors.yellow,
-                                  size: 30,
-                                ),
-                                Text(
-                                  "4.1(155)",
-                                )
-                              ],
-                            )
-                          ],
-                        )
-                      ],
+          child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(padding: EdgeInsets.all(20),
+              child:
+              Icon(
+                Icons.menu,
+                
+                size: 30,
+                color: Color.fromARGB(255, 10, 9, 9),
+              )
+              ),
+              Text("Booking",
+                  style: TextStyle(
+                      color: Color(0xff000000),
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold)),
+              Text("Cancel",
+                  style: TextStyle(
+                    color: Color(0xff000000),
+                    fontSize: 20,
+                  )),
+            ],
+          ),
+
+          Padding(padding: EdgeInsets.symmetric(horizontal: 20),child:
+          Row(
+            verticalDirection: VerticalDirection.down,
+            children: [
+            ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(30)),
+                    child: Image(
+                      image: AssetImage("img/QT.jpeg"),
+                      width: 100,
+                      height: 100,
+                      fit: BoxFit.cover,
                     )
-                  ],
-                )
-              ],
-            )
-          ],
-        ),
-      ),
+              ),
+            
+           
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    // crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Tata LPT 25211 Truck",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xff898787)),
+                      ),
+                      Text(
+                        "Amit Das",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.star,
+                            color: Colors.yellow,
+                            size: 20,
+                          ),
+                          Text(
+                            "4.1(155)",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xff898787)),
+                          )
+                        ],
+                      )
+                    ],
+                  )
+                ,
+              
+            
+                  Column(
+                    children: [
+                      Text("PRICE",
+                          style: TextStyle(
+                              color: Color(0xff0D6EFD),
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold)),
+                      Text("RS.8000",
+                          style: TextStyle(
+                              color: Color(0xff0D6EFD),
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold)),
+                      Text("185.2 km",
+                          style: TextStyle(
+                              color: Color(0xff898787),
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold)),
+                    ],
+                  )
+            
+            ],
+          )
+          )
+        ],
+      )),
     );
   }
 }
