@@ -16,17 +16,13 @@ class dxx extends State<Booking> {
       body: Center(
           child: Column(
         children: [
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Padding(padding: EdgeInsets.all(20),
-              child:
               Icon(
                 Icons.menu,
-                
-                size: 30,
+                size: 38,
                 color: Color.fromARGB(255, 10, 9, 9),
-              )
               ),
               Text("Booking",
                   style: TextStyle(
@@ -40,25 +36,27 @@ class dxx extends State<Booking> {
                   )),
             ],
           ),
-
-          Padding(padding: EdgeInsets.symmetric(horizontal: 20),child:
           Row(
-            verticalDirection: VerticalDirection.down,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-            ClipRRect(
+              Container(
+                decoration:
+                    BoxDecoration(shape: BoxShape.circle, border: Border.all()),
+                height: 120,
+                width: 122,
+                child: const ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(30)),
                     child: Image(
                       image: AssetImage("img/QT.jpeg"),
                       width: 100,
-                      height: 100,
+                      height: 300,
                       fit: BoxFit.cover,
-                    )
+                    )),
               ),
-            
-           
+              const Row(
+                children: [
                   Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    // crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         "Tata LPT 25211 Truck",
@@ -87,20 +85,21 @@ class dxx extends State<Booking> {
                       )
                     ],
                   )
-                ,
-              
-            
+                ],
+              ),
+              const Row(
+                children: [
                   Column(
                     children: [
                       Text("PRICE",
                           style: TextStyle(
                               color: Color(0xff0D6EFD),
-                              fontSize: 10,
+                              fontSize: 15,
                               fontWeight: FontWeight.bold)),
                       Text("RS.8000",
                           style: TextStyle(
                               color: Color(0xff0D6EFD),
-                              fontSize: 10,
+                              fontSize: 20,
                               fontWeight: FontWeight.bold)),
                       Text("185.2 km",
                           style: TextStyle(
@@ -109,9 +108,9 @@ class dxx extends State<Booking> {
                               fontWeight: FontWeight.bold)),
                     ],
                   )
-            
+                ],
+              )
             ],
-          )
           )
         ],
       )),
