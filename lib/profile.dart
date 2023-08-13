@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Profile extends StatefulWidget {
   @override
@@ -7,6 +9,23 @@ class Profile extends StatefulWidget {
 
 //gg
 class dix extends State<Profile> {
+  TextEditingController p_name = TextEditingController();
+  TextEditingController p_num = TextEditingController();
+  TextEditingController p_emailid = TextEditingController();
+  TextEditingController p_addr = TextEditingController();
+
+  // void dinc() {}
+  Future<void> drf_profile() async {
+    final datax = json.encode({
+      "driver_name": p_name.text,
+      "driver_phone": p_num.text,
+      "driver_email": p_emailid.text,
+      "driver_address": p_addr.text,
+    });
+
+    print(datax);
+  }
+
   void dinc() {}
 
   @override
@@ -75,19 +94,20 @@ class dix extends State<Profile> {
         ),
 
         Container(
-          padding: EdgeInsets.only(bottom: 8),
+          padding: const EdgeInsets.only(bottom: 8),
           width: xwidth - 70,
           child: const Text(
-            "First Name",
+            "Full Name",
             style: TextStyle(fontSize: 18, color: Color(0xff1B1E28)),
           ),
         ),
 
         Container(
           width: xwidth - 60,
-          child: const TextField(
-            style: TextStyle(fontSize: 16),
-            decoration: InputDecoration(
+          child: TextField(
+            controller: p_name,
+            style: const TextStyle(fontSize: 16),
+            decoration: const InputDecoration(
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(15))),
               hintText: "Cutest",
@@ -96,7 +116,7 @@ class dix extends State<Profile> {
         ),
 
         Container(
-          padding: EdgeInsets.only(bottom: 8, top: 20),
+          padding: const EdgeInsets.only(bottom: 8, top: 20),
           width: xwidth - 70,
           child: const Text(
             "Enter Number",
@@ -106,9 +126,10 @@ class dix extends State<Profile> {
 
         Container(
           width: xwidth - 60,
-          child: const TextField(
-            style: TextStyle(fontSize: 16),
-            decoration: InputDecoration(
+          child: TextField(
+            controller: p_num,
+            style: const TextStyle(fontSize: 16),
+            decoration: const InputDecoration(
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(15))),
               hintText: "+91",
@@ -117,7 +138,7 @@ class dix extends State<Profile> {
         ),
 
         Container(
-          padding: EdgeInsets.only(bottom: 8, top: 20),
+          padding: const EdgeInsets.only(bottom: 8, top: 20),
           width: xwidth - 70,
           child: const Text(
             "Email Id",
@@ -127,9 +148,10 @@ class dix extends State<Profile> {
 
         Container(
           width: xwidth - 60,
-          child: const TextField(
-            style: TextStyle(fontSize: 16),
-            decoration: InputDecoration(
+          child: TextField(
+            controller: p_emailid,
+            style: const TextStyle(fontSize: 16),
+            decoration: const InputDecoration(
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(15))),
               hintText: "Driver@gmial.com",
@@ -138,7 +160,7 @@ class dix extends State<Profile> {
         ),
 
         Container(
-          padding: EdgeInsets.only(bottom: 8, top: 20),
+          padding: const EdgeInsets.only(bottom: 8, top: 20),
           width: xwidth - 70,
           child: const Text(
             "Enter Address",
@@ -147,11 +169,12 @@ class dix extends State<Profile> {
         ),
 
         Container(
-          padding: EdgeInsets.only(bottom: 200),
+          padding: const EdgeInsets.only(bottom: 200),
           width: xwidth - 60,
-          child: const TextField(
-            style: TextStyle(fontSize: 16),
-            decoration: InputDecoration(
+          child: TextField(
+            controller: p_addr,
+            style: const TextStyle(fontSize: 16),
+            decoration: const InputDecoration(
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(15))),
               hintText: "Enter Full Address",
@@ -160,16 +183,18 @@ class dix extends State<Profile> {
         ),
         const Expanded(child: Text("")),
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           height: 60,
           width: xwidth,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              drf_profile();
+            },
             style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xff0D6EFD),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16))),
-            child: Text(
+            child: const Text(
               "Update",
               style: TextStyle(fontSize: 20),
             ),
