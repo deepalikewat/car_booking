@@ -9,21 +9,21 @@ class Driver extends StatefulWidget {
 }
 
 class ri extends State<Driver> {
-  TextEditingController r_name = TextEditingController();
-  TextEditingController r_num = TextEditingController();
-  TextEditingController r_emailid = TextEditingController();
-  TextEditingController r_addr = TextEditingController();
-  TextEditingController r_adhar = TextEditingController();
-  TextEditingController r_license = TextEditingController();
+  TextEditingController d_name = TextEditingController();
+  TextEditingController d_num = TextEditingController();
+  TextEditingController d_emailid = TextEditingController();
+  TextEditingController d_addr = TextEditingController();
+  TextEditingController d_adhar = TextEditingController();
+  TextEditingController d_license = TextEditingController();
   // void dinc() {}
   Future<void> drf_driver() async {
     final datax = json.encode({
-      "driver_name": r_name.text,
-      "driver_phone": r_num.text,
-      "driver_email": r_emailid.text,
-      "driver_address": r_addr.text,
-      "driver_aadhar_no": r_adhar.text,
-      "driver_driving_license_no": r_license.text,
+      "driver_name": d_name.text,
+      "driver_phone": d_num.text,
+      "driver_email": d_emailid.text,
+      "driver_address": d_addr.text,
+      "driver_aadhar_no": d_adhar.text,
+      "driver_driving_license_no": d_license.text,
     });
 
     //   final dc = await http.post(Uri.parse("http://httpbin.org/post"),
@@ -125,7 +125,7 @@ class ri extends State<Driver> {
         Container(
           width: xwidth - 60,
           child: TextField(
-            controller: r_name,
+            controller: d_name,
             style: const TextStyle(fontSize: 16),
             decoration: const InputDecoration(
               border: OutlineInputBorder(
@@ -145,7 +145,7 @@ class ri extends State<Driver> {
         Container(
           width: xwidth - 60,
           child: TextField(
-            controller: r_num,
+            controller: d_num,
             style: const TextStyle(fontSize: 16),
             decoration: const InputDecoration(
               border: OutlineInputBorder(
@@ -165,7 +165,7 @@ class ri extends State<Driver> {
         Container(
           width: xwidth - 60,
           child: TextField(
-            controller: r_emailid,
+            controller: d_emailid,
             style: const TextStyle(fontSize: 16),
             decoration: const InputDecoration(
               border: OutlineInputBorder(
@@ -186,7 +186,7 @@ class ri extends State<Driver> {
           padding: const EdgeInsets.only(bottom: 20),
           width: xwidth - 60,
           child: TextField(
-            controller: r_addr,
+            controller: d_addr,
             style: const TextStyle(fontSize: 16),
             decoration: const InputDecoration(
               border: OutlineInputBorder(
@@ -209,7 +209,7 @@ class ri extends State<Driver> {
           padding: const EdgeInsets.only(bottom: 20),
           width: xwidth - 60,
           child: TextField(
-            controller: r_adhar,
+            controller: d_adhar,
             style: const TextStyle(fontSize: 16),
             decoration: const InputDecoration(
               border: OutlineInputBorder(
@@ -231,7 +231,7 @@ class ri extends State<Driver> {
         Container(
           width: xwidth - 60,
           child: TextField(
-            controller: r_license,
+            controller: d_license,
             style: const TextStyle(fontSize: 16),
             decoration: const InputDecoration(
               border: OutlineInputBorder(

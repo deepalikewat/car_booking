@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:image_picker/image_picker.dart';
 
 class Owner extends StatefulWidget {
   @override
@@ -9,21 +12,38 @@ class Owner extends StatefulWidget {
 
 //gg
 class rix extends State<Owner> {
+  File? _image;
+  final picker = ImagePicker();
+  Future getImage() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    print(pickedFile?.path);
+    // File image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      } else {
+        print('No image selected');
+      }
+    });
+  }
+
   TextEditingController o_name = TextEditingController();
   TextEditingController o_num = TextEditingController();
   TextEditingController o_emailid = TextEditingController();
   TextEditingController o_addr = TextEditingController();
   TextEditingController o_adhar = TextEditingController();
   TextEditingController o_license = TextEditingController();
+
   // void dinc() {}
   Future<void> drf_owner() async {
     final datax = json.encode({
-      "driver_name": o_name.text,
-      "driver_phone": o_num.text,
-      "driver_email": o_emailid.text,
-      "driver_address": o_addr.text,
-      "driver_aadhar_no": o_adhar.text,
-      "driver_driving_license_no": o_license.text,
+      // "driver_driving_license_no": o_license.text,
+      "owner_name": o_name.text,
+      "owner_phone": o_num.text,
+      "owner_email": o_emailid.text,
+      "owner_address": o_addr.text,
+      "owner_aadhar_no": o_adhar.text,
     });
     print(datax);
   }
@@ -38,6 +58,38 @@ class rix extends State<Owner> {
     return Scaffold(
       body: Center(
           child: Column(children: [
+        Container(
+          height: 130,
+          width: 130,
+          child: Stack(children: [
+            ClipOval(
+                child: _image == null
+                    ? const Image(
+                        image: AssetImage("img/QT.jpeg"),
+                        width: 130,
+                        height: 130,
+                        fit: BoxFit.cover,
+                      )
+                    : Image.network(
+                        _image!.path,
+                        width: 130,
+                        height: 130,
+                        fit: BoxFit.cover,
+                      )),
+            Positioned(
+                bottom: 0,
+                right: 0,
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.camera_alt,
+                    color: Colors.red,
+                  ),
+                  onPressed: () {
+                    getImage();
+                  },
+                ))
+          ]),
+        ),
         SizedBox(
           height: xheight * .01,
         ),
@@ -49,46 +101,48 @@ class rix extends State<Owner> {
               color: Color(0xff1B1E28)),
         ),
         Padding(padding: EdgeInsets.only(top: xheight * 0.03)),
-        Container(
-          height: 130,
-          width: 130,
+        // Container(
+        //   height: 130,
+        //   width: 130,
 
-          child: Stack(children: [
-            const ClipOval(
-                child: Image(
-              image: AssetImage("img/QT.jpeg"),
-              width: 130,
-              height: 130,
-              fit: BoxFit.cover,
-            )),
-            Positioned(
-                bottom: 0,
-                right: 0,
-                child: IconButton(
-                  style: const ButtonStyle(
-                    backgroundColor:
-                        MaterialStatePropertyAll(Color(0xff2EA7D4)),
-                  ),
-                  icon: const Icon(Icons.camera_alt),
-                  onPressed: () {},
-                ))
+        //   child: Stack(children: [
+        //     const ClipOval(
+        //         child: Image(
+        //       image: AssetImage("img/QT.jpeg"),
+        //       width: 130,
+        //       height: 130,
+        //       fit: BoxFit.cover,
+        //     )),
+        //     Positioned(
+        //         bottom: 0,
+        //         right: 0,
+        //         child: IconButton(
+        //           style: const ButtonStyle(
+        //             backgroundColor:
+        //                 MaterialStatePropertyAll(Color(0xff2EA7D4)),
+        //           ),
+        //           icon: const Icon(Icons.camera_alt),
+        //           onPressed: () {
+        //             getImage();
+        //           },
+        //         ))
 
-            // child: Icon(
+        //     // child: Icon(
 
-            //   Icons.camera,
-            //   color: Color(0xff2EA7D4),
-            //   size: 30,
-            // ))
-          ]),
+        //     //   Icons.camera,
+        //     //   color: Color(0xff2EA7D4),
+        //     //   size: 30,
+        //     // ))
+        //   ]),
 
-          // child: const ClipOval(
-          //     child: Image(
-          //   image: AssetImage("img/QT.jpeg"),
-          //   width: 100,
-          //   height: 300,
-          //   fit: BoxFit.cover,
-          // )),
-        ),
+        //   // child: const ClipOval(
+        //   //     child: Image(
+        //   //   image: AssetImage("img/QT.jpeg"),
+        //   //   width: 100,
+        //   //   height: 300,
+        //   //   fit: BoxFit.cover,
+        //   // )),
+        // ),
         const Padding(padding: EdgeInsets.only(top: 20)),
         Container(
           padding: const EdgeInsets.only(bottom: 8),
@@ -100,9 +154,10 @@ class rix extends State<Owner> {
         ),
         Container(
           width: xwidth - 60,
-          child: const TextField(
-            style: TextStyle(fontSize: 16),
-            decoration: InputDecoration(
+          child: TextField(
+            controller: o_name,
+            style: const TextStyle(fontSize: 16),
+            decoration: const InputDecoration(
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(15))),
               hintText: "Cutest",
@@ -119,9 +174,10 @@ class rix extends State<Owner> {
         ),
         Container(
           width: xwidth - 60,
-          child: const TextField(
-            style: TextStyle(fontSize: 16),
-            decoration: InputDecoration(
+          child: TextField(
+            controller: o_num,
+            style: const TextStyle(fontSize: 16),
+            decoration: const InputDecoration(
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(15))),
               hintText: "+91",
@@ -138,9 +194,10 @@ class rix extends State<Owner> {
         ),
         Container(
           width: xwidth - 60,
-          child: const TextField(
-            style: TextStyle(fontSize: 16),
-            decoration: InputDecoration(
+          child: TextField(
+            controller: o_emailid,
+            style: const TextStyle(fontSize: 16),
+            decoration: const InputDecoration(
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(15))),
               hintText: "Driver@gmial.com",
@@ -158,9 +215,10 @@ class rix extends State<Owner> {
         Container(
           padding: const EdgeInsets.only(bottom: 8),
           width: xwidth - 60,
-          child: const TextField(
-            style: TextStyle(fontSize: 16),
-            decoration: InputDecoration(
+          child: TextField(
+            controller: o_addr,
+            style: const TextStyle(fontSize: 16),
+            decoration: const InputDecoration(
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(15))),
               hintText: "Enter Full Address",
@@ -178,9 +236,10 @@ class rix extends State<Owner> {
         Container(
           // padding: const EdgeInsets.only(bottom: ),
           width: xwidth - 60,
-          child: const TextField(
-            style: TextStyle(fontSize: 16),
-            decoration: InputDecoration(
+          child: TextField(
+            controller: o_adhar,
+            style: const TextStyle(fontSize: 16),
+            decoration: const InputDecoration(
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(15))),
               hintText: "000 000 000 000 00",
@@ -193,7 +252,9 @@ class rix extends State<Owner> {
           height: 60,
           width: xwidth,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              drf_owner();
+            },
             style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xff0D6EFD),
                 shape: RoundedRectangleBorder(
