@@ -43,7 +43,7 @@ class rix extends State<Owner> {
                       bottom: 0,
                       right: 0,
                       child: IconButton(
-                        style: ButtonStyle(
+                        style: const ButtonStyle(
                           backgroundColor:
                               MaterialStatePropertyAll(Color(0xff2EA7D4)),
                         ),
