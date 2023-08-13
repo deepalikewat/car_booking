@@ -16,8 +16,6 @@ class OtpVeri extends StatefulWidget {
 class dipx extends State<OtpVeri> {
   void dinc() {}
   final pinController = TextEditingController();
-
-
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
 
