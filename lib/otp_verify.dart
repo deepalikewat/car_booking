@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class OtpVeri extends StatefulWidget {
   
@@ -16,12 +18,16 @@ class dipx extends State<OtpVeri> {
   final pinController = TextEditingController();
 
 
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
+
   int rs = 10; 
   bool _canResend = false;
   late Timer _timer;
 
 
 void _startTimer() {
+
     _canResend = false;
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
@@ -36,9 +42,13 @@ void _startTimer() {
   }
 
 
+
+
   @override
   void initState() {
     super.initState();
+
+
     _startTimer();
   }
 
@@ -48,6 +58,11 @@ void _startTimer() {
 
 
 
+String timefmtx(int s) {
+    int m = s ~/ 60;
+    int rs = s % 60;
+    return '${m.toString().padLeft(2, '0')}:${rs.toString().padLeft(2, '0')}';
+  }
 
 
   @override
@@ -55,12 +70,7 @@ void _startTimer() {
     double xwidth = MediaQuery.of(context).size.width;
     double xheight = MediaQuery.of(context).size.height;
 
- String timefmtx(int s) {
-    int m = s ~/ 60;
-    int rs = s % 60;
-    return '${m.toString().padLeft(2, '0')}:${rs.toString().padLeft(2, '0')}';
-  }
-
+ 
 
 
 
@@ -127,6 +137,7 @@ child:
                 height: xheight * .02,
               ),
               Pinput(
+                length: 6,
                 controller: pinController,
                 listenForMultipleSmsOnAndroid: true,
                 separatorBuilder: (index) => const SizedBox(width: 8),
@@ -142,7 +153,11 @@ child:
                   height: 50,
                   width: xwidth * .9,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+
+otpveryfy();
+
+                    },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xff0D6EFD),
                         shape: RoundedRectangleBorder(
@@ -161,7 +176,10 @@ SizedBox(height: xheight*.015),
                   height: 50,
                   width: xwidth * .9,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      reSendOtp();
+
+                    },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xff0D6EFD),
                         shape: RoundedRectangleBorder(
@@ -188,4 +206,10 @@ SizedBox(height: xheight*.015),
     
     ));
   }
+}
+
+void reSendOtp() {
+}
+
+void otpveryfy() {
 }

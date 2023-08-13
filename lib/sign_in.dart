@@ -15,11 +15,7 @@ class logx extends State<Login> {
   @override
   Widget build(BuildContext context) {
     double xwidth = MediaQuery.of(context).size.width;
-<<<<<<< HEAD
-    double xheight = MediaQuery.of(context).size.width;
-=======
-     double xheight = MediaQuery.of(context).size.height;
->>>>>>> 4be4f02211179efa60f718e0e6eb04e1afb8ffbd
+    double xheight = MediaQuery.of(context).size.height;
 
     return Scaffold(
         body: Center(
@@ -28,11 +24,7 @@ class logx extends State<Login> {
         children: [
           Column(children: [
              Padding(
-<<<<<<< HEAD
               padding: EdgeInsets.only(top: xheight*0.27, bottom: 20),
-=======
-              padding: EdgeInsets.only(top:(xheight *.1), bottom: 20),
->>>>>>> 4be4f02211179efa60f718e0e6eb04e1afb8ffbd
               child: const Text(
                 "Sign in now",
                 style: TextStyle(
@@ -57,15 +49,12 @@ class logx extends State<Login> {
                 //   ),
             
                   Container(
-<<<<<<< HEAD
-=======
                     height: 45,
                     width: 1,
                     color: const Color(0x87878799),
                   ),
                   Container(
                     width: xwidth - 180,
->>>>>>> 4be4f02211179efa60f718e0e6eb04e1afb8ffbd
                     height: 60,
                     child: const TextField(
                       style: TextStyle(fontSize: 18),
