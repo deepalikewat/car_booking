@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:image_picker/image_picker.dart';
 
 class Driver extends StatefulWidget {
   const Driver();
@@ -9,6 +12,22 @@ class Driver extends StatefulWidget {
 }
 
 class ri extends State<Driver> {
+  File? _image;
+  final picker = ImagePicker();
+  Future getImage() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    print(pickedFile?.path);
+    // File image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      } else {
+        print('No image selected');
+      }
+    });
+  }
+
   TextEditingController d_name = TextEditingController();
   TextEditingController d_num = TextEditingController();
   TextEditingController d_emailid = TextEditingController();
@@ -25,57 +44,6 @@ class ri extends State<Driver> {
       "driver_aadhar_no": d_adhar.text,
       "driver_driving_license_no": d_license.text,
     });
-
-    //   final dc = await http.post(Uri.parse("http://httpbin.org/post"),
-    //       body: json.encode({
-    //         "Token":
-    //             "\$2y\$10\$ODc0YTBmMWM5NjIzNGZiZ.Ci8bXLB7A.BwQNMSd8KXUFIOF8d/hmO",
-    //         "userId": 4,
-    //         "userPhone": "9831166884",
-    //         "userType": "2",
-    //         "vehicle_no": "WB7564HG5",
-    //         "vehicle_type": "Truck",
-    //         "vehicle_source_pincode": "731224",
-    //         "transport_year": "2014",
-    //         "driver_name": r_name.text,
-    //         "driver_phone": r_num.text,
-    //         "driver_email": r_emailid.text,
-    //         "driver_dob": "12/24/1958",
-    //         "driver_aadhar_no": r_adhar.text,
-    //         "driver_driving_license_no": r_license.text,
-    //         "owner_aadhar_front_image": "2",
-    //         "owner_aadhar_back_image": "2",
-    //         "owner_photo": "2",
-    //         "vehicle_photo": "2",
-    //         "registration_certificate_front_image": "2",
-    //         "registration_certificate_back_image": "2",
-    //         "permit_part_a_image": "2",
-    //         "permit_part_b_image": "2",
-    //         "permit_part_optional_image": "2",
-    //         "vehicle_insurance_image": "2",
-    //         "driver_adhar_front_image": "2",
-    //         "driver_adhar_back_image": "2",
-    //         "driver_driving_license_front_image": "2",
-    //         "driver_driving_license_back_image": "2"
-    //       }));
-
-    //   // final dc = await http.get(Uri.parse("http://127.0.0.1"));
-
-    //   // final rc = json.decode(dc.body);
-    //   print(r_name.text);
-    //   print(r_num.text);
-    //   print(r_emailid.text);
-
-    //   print(r_adhar.text);
-    //   print(r_license.text);
-
-    //   print(dc.body);
-    //   // print(rc);
-    //   // print(rc["name"]);
-    //   // setState(() {
-
-    //   // });
-
     print(datax);
   }
 
@@ -101,17 +69,39 @@ class ri extends State<Driver> {
         ),
         Padding(padding: EdgeInsets.only(top: xheight * 0.03)),
         Container(
-          decoration:
-              BoxDecoration(shape: BoxShape.circle, border: Border.all()),
-          height: 120,
-          width: 122,
-          child: const ClipOval(
-              child: Image(
-            image: AssetImage("img/QT.jpeg"),
-            width: 100,
-            height: 300,
-            fit: BoxFit.cover,
-          )),
+          height: 130,
+          width: 130,
+          child: Stack(children: [
+            ClipOval(
+                child: _image == null
+                    ? const Image(
+                        image: AssetImage("img/QT.jpeg"),
+                        width: 130,
+                        height: 130,
+                        fit: BoxFit.cover,
+                      )
+                    : Image.file(
+                        _image!,
+                        width: 130,
+                        height: 130,
+                        fit: BoxFit.cover,
+                      )),
+            Positioned(
+                bottom: 0,
+                right: 0,
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.camera_alt,
+                    color: Colors.red,
+                  ),
+                  onPressed: () {
+                    getImage();
+                  },
+                ))
+          ]),
+        ),
+        SizedBox(
+          height: xheight * .01,
         ),
         const Padding(padding: EdgeInsets.only(top: 20)),
         Container(

@@ -33,7 +33,6 @@ class rix extends State<Owner> {
   TextEditingController o_emailid = TextEditingController();
   TextEditingController o_addr = TextEditingController();
   TextEditingController o_adhar = TextEditingController();
-  TextEditingController o_license = TextEditingController();
 
   // void dinc() {}
   Future<void> drf_owner() async {
@@ -58,6 +57,17 @@ class rix extends State<Owner> {
     return Scaffold(
       body: Center(
           child: Column(children: [
+        SizedBox(
+          height: xheight * .02,
+        ),
+        const Text(
+          "Owner Pofile",
+          style: TextStyle(
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+              color: Color(0xff1B1E28)),
+        ),
+        Padding(padding: EdgeInsets.only(top: xheight * 0.03)),
         Container(
           height: 130,
           width: 130,
@@ -70,8 +80,8 @@ class rix extends State<Owner> {
                         height: 130,
                         fit: BoxFit.cover,
                       )
-                    : Image.network(
-                        _image!.path,
+                    : Image.file(
+                        _image!,
                         width: 130,
                         height: 130,
                         fit: BoxFit.cover,
@@ -93,56 +103,7 @@ class rix extends State<Owner> {
         SizedBox(
           height: xheight * .01,
         ),
-        const Text(
-          "Owner Profile",
-          style: TextStyle(
-              fontSize: 25,
-              fontWeight: FontWeight.bold,
-              color: Color(0xff1B1E28)),
-        ),
         Padding(padding: EdgeInsets.only(top: xheight * 0.03)),
-        // Container(
-        //   height: 130,
-        //   width: 130,
-
-        //   child: Stack(children: [
-        //     const ClipOval(
-        //         child: Image(
-        //       image: AssetImage("img/QT.jpeg"),
-        //       width: 130,
-        //       height: 130,
-        //       fit: BoxFit.cover,
-        //     )),
-        //     Positioned(
-        //         bottom: 0,
-        //         right: 0,
-        //         child: IconButton(
-        //           style: const ButtonStyle(
-        //             backgroundColor:
-        //                 MaterialStatePropertyAll(Color(0xff2EA7D4)),
-        //           ),
-        //           icon: const Icon(Icons.camera_alt),
-        //           onPressed: () {
-        //             getImage();
-        //           },
-        //         ))
-
-        //     // child: Icon(
-
-        //     //   Icons.camera,
-        //     //   color: Color(0xff2EA7D4),
-        //     //   size: 30,
-        //     // ))
-        //   ]),
-
-        //   // child: const ClipOval(
-        //   //     child: Image(
-        //   //   image: AssetImage("img/QT.jpeg"),
-        //   //   width: 100,
-        //   //   height: 300,
-        //   //   fit: BoxFit.cover,
-        //   // )),
-        // ),
         const Padding(padding: EdgeInsets.only(top: 20)),
         Container(
           padding: const EdgeInsets.only(bottom: 8),

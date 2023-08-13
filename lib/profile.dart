@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:image_picker/image_picker.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -9,6 +12,22 @@ class Profile extends StatefulWidget {
 
 //gg
 class dix extends State<Profile> {
+  File? _image;
+  final picker = ImagePicker();
+  Future getImage() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    print(pickedFile?.path);
+    // File image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      } else {
+        print('No image selected');
+      }
+    });
+  }
+
   TextEditingController p_name = TextEditingController();
   TextEditingController p_num = TextEditingController();
   TextEditingController p_emailid = TextEditingController();
@@ -34,46 +53,66 @@ class dix extends State<Profile> {
     double xheight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(""),
-              Text(
-                "Edit Profile",
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xff1B1E28)),
-              ),
-              Row(
-                children: [
-                  Text(
-                    "Done",
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff0D6EFD)),
-                  ),
-                ],
-              ),
-            ]),
-      ),
       body: Center(
           child: Column(children: [
-        const Padding(padding: EdgeInsets.only(top: 50)),
+        SizedBox(
+          height: xheight * .01,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text(""),
+            const Text("Edit Profile",
+                style: TextStyle(
+                    color: Color(0xff000000),
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold)),
+            TextButton(
+              onPressed: () {},
+              style: TextButton.styleFrom(
+                  // backgroundColor: const Color.fromARGB(255, 68, 44, 44),
+                  foregroundColor: Colors.blueAccent),
+              child: const Text("Done"),
+            ),
+          ],
+        ),
+
+        Padding(padding: EdgeInsets.only(top: xheight * 0.02)),
+
         Container(
-          decoration:
-              BoxDecoration(shape: BoxShape.circle, border: Border.all()),
-          height: 120,
-          width: 122,
-          child: const ClipOval(
-              child: Image(
-            image: AssetImage("img/QT.jpeg"),
-            width: 100,
-            height: 300,
-            fit: BoxFit.cover,
-          )),
+          height: 130,
+          width: 130,
+          child: Stack(children: [
+            ClipOval(
+                child: _image == null
+                    ? const Image(
+                        image: AssetImage("img/QT.jpeg"),
+                        width: 130,
+                        height: 130,
+                        fit: BoxFit.cover,
+                      )
+                    : Image.file(
+                        _image!,
+                        width: 130,
+                        height: 130,
+                        fit: BoxFit.cover,
+                      )),
+            Positioned(
+                bottom: 0,
+                right: 0,
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.camera_alt,
+                    color: Colors.red,
+                  ),
+                  onPressed: () {
+                    getImage();
+                  },
+                ))
+          ]),
+        ),
+        SizedBox(
+          height: xheight * .01,
         ),
         const Padding(padding: EdgeInsets.only(top: 20)),
         // const Padding(padding: EdgeInsets.only(top: 20, bottom: 10)),
@@ -169,7 +208,6 @@ class dix extends State<Profile> {
         ),
 
         Container(
-          padding: const EdgeInsets.only(bottom: 200),
           width: xwidth - 60,
           child: TextField(
             controller: p_addr,
