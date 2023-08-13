@@ -16,7 +16,7 @@ class dipx extends State<OtpVeri> {
   final pinController = TextEditingController();
 
 
-  int rs = 100; 
+  int rs = 10; 
   bool _canResend = false;
   late Timer _timer;
 
@@ -58,7 +58,7 @@ void _startTimer() {
  String timefmtx(int s) {
     int m = s ~/ 60;
     int rs = s % 60;
-    return '${m.toString().padLeft(2, '0')}xx:${rs.toString().padLeft(2, '0')}';
+    return '${m.toString().padLeft(2, '0')}:${rs.toString().padLeft(2, '0')}';
   }
 
 
@@ -156,6 +156,21 @@ child:
 SizedBox(height: xheight*.015),
 
             
+            _canResend?
+             Container(
+                  height: 50,
+                  width: xwidth * .9,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xff0D6EFD),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16))),
+                    child: const Text(
+                      "Resend OTP",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  )):
             SizedBox( width: xwidth*.8,child:
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
