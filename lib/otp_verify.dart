@@ -1,27 +1,83 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
 
-class L_3 extends StatefulWidget {
+import 'package:flutter/material.dart';
+import 'package:pinput/pinput.dart';
+
+class OtpVeri extends StatefulWidget {
+  
+   const OtpVeri({super.key});
+
   @override
-  State<L_3> createState() => dipx();
+  State<OtpVeri> createState() => dipx();
 }
 
-class dipx extends State<L_3> {
+class dipx extends State<OtpVeri> {
   void dinc() {}
+  final pinController = TextEditingController();
+
+
+  int rs = 100; 
+  bool _canResend = false;
+  late Timer _timer;
+
+
+void _startTimer() {
+    _canResend = false;
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        if (rs > 0) {
+          rs--;
+        } else {
+          _canResend = true;
+          _timer.cancel();
+        }
+      });
+    });
+  }
+
+
+  @override
+  void initState() {
+    super.initState();
+    _startTimer();
+  }
+
+
+
+
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
     double xwidth = MediaQuery.of(context).size.width;
+    double xheight = MediaQuery.of(context).size.height;
+
+ String timefmtx(int s) {
+    int m = s ~/ 60;
+    int rs = s % 60;
+    return '${m.toString().padLeft(2, '0')}xx:${rs.toString().padLeft(2, '0')}';
+  }
+
+
+
+
+
+
+
+
 
     return Scaffold(
         body: Center(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
+
+child:
           Column(
             children: [
-              const Padding(
-                  padding: EdgeInsets.only(top: 300, bottom: 20),
-                  child: Text(
+              Padding(
+                  padding: EdgeInsets.only(top: xheight * 0.1, bottom: 20),
+                  child: const Text(
                     "OTP Verification",
                     style: TextStyle(
                         fontSize: 30,
@@ -39,7 +95,7 @@ class dipx extends State<L_3> {
               const Padding(padding: EdgeInsets.only(top: 60)),
               Container(
                 child: const Text(
-                  "OTP codex",
+                  "OTP code",
                   style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -66,23 +122,55 @@ class dipx extends State<L_3> {
               //     ],
               //   ),
               // ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                height: 60,
-                width: xwidth,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: const Text("Verify", style: TextStyle(fontSize: 20)),
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xff0D6EFD),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16))),
-                ),
+
+              SizedBox(
+                height: xheight * .02,
               ),
+              Pinput(
+                controller: pinController,
+                listenForMultipleSmsOnAndroid: true,
+                separatorBuilder: (index) => const SizedBox(width: 8),
+                validator: (value) {
+                  return value == '2222' ? "currect pin" : 'Pin is incorrect';
+                },
+              ),
+              SizedBox(
+                height: xheight * .02,
+              ),
+
+              Container(
+                  height: 50,
+                  width: xwidth * .9,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xff0D6EFD),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16))),
+                    child: const Text(
+                      "Verify",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  )),
+
+SizedBox(height: xheight*.015),
+
+            
+            SizedBox( width: xwidth*.8,child:
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                    const Text("Resend code in"),
+                    Text(timefmtx(rs))
+                  ],)
+
+
+)
+
             ],
           )
-        ],
-      ),
+    
+    
     ));
   }
 }
