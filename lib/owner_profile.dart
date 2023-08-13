@@ -39,14 +39,6 @@ final picker = ImagePicker();
     double xwidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-<<<<<<< HEAD
-      appBar: AppBar(
-        title:  Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                _image.isNull?"Owner Profile":"raju",
-=======
       body: Center(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -55,35 +47,11 @@ final picker = ImagePicker();
               const Padding(padding: EdgeInsets.only(top: 10)),
               const Text(
                 "Owner Profile",
->>>>>>> 26e3416bc5012314266bef721d64554c3a60964a
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Color(0xff1B1E28)),
               ),
-<<<<<<< HEAD
-
-              Row(
-                children: [
-                  Text(
-                    "Done",
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff0D6EFD)),
-                  ),
-                ],
-              ),
-            ]),
-      ),
-      body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Column(children: [
-              const Padding(padding: EdgeInsets.only(top: 50)),
-=======
->>>>>>> 26e3416bc5012314266bef721d64554c3a60964a
               Container(
                 height: 130,
                 width: 130,
