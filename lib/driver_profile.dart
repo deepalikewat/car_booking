@@ -8,7 +8,6 @@ class Driver extends StatefulWidget {
   State<Driver> createState() => ri();
 }
 
-//gg
 class ri extends State<Driver> {
   TextEditingController r_name = TextEditingController();
   TextEditingController r_num = TextEditingController();
@@ -18,60 +17,66 @@ class ri extends State<Driver> {
   TextEditingController r_license = TextEditingController();
   // void dinc() {}
   Future<void> drf_driver() async {
-    final dc = await http.post(Uri.parse("http://httpbin.org/post"),
-        body: json.encode({
-          "Token":
-              "\$2y\$10\$ODc0YTBmMWM5NjIzNGZiZ.Ci8bXLB7A.BwQNMSd8KXUFIOF8d/hmO",
-          "userId": 4,
-          "userPhone": "9831166884",
-          "userType": "2",
-          "owner_name": r_name.text,
-          "owner_phone": r_num.text,
-          "owner_email": r_emailid.text,
-          "owner_address": r_addr.text,
-          "owner_aadhar_no": r_adhar.text,
-          "vehicle_no": "WB7564HG5",
-          "vehicle_type": "Truck",
-          "vehicle_source_pincode": "731224",
-          "transport_year": "2014",
-          "driver_name": "Mr Das",
-          "driver_phone": "9658745868",
-          "driver_email": "das@gmail.com",
-          "driver_dob": "12/24/1958",
-          "driver_aadhar_no": "6985698541250215",
-          "driver_driving_license_no": r_license.text,
-          "owner_aadhar_front_image": "2",
-          "owner_aadhar_back_image": "2",
-          "owner_photo": "2",
-          "vehicle_photo": "2",
-          "registration_certificate_front_image": "2",
-          "registration_certificate_back_image": "2",
-          "permit_part_a_image": "2",
-          "permit_part_b_image": "2",
-          "permit_part_optional_image": "2",
-          "vehicle_insurance_image": "2",
-          "driver_adhar_front_image": "2",
-          "driver_adhar_back_image": "2",
-          "driver_driving_license_front_image": "2",
-          "driver_driving_license_back_image": "2"
-        }));
+    final datax = json.encode({
+      "driver_name": r_name.text,
+      "driver_phone": r_num.text,
+      "driver_email": r_emailid.text,
+      "driver_address": r_addr.text,
+      "driver_aadhar_no": r_adhar.text,
+      "driver_driving_license_no": r_license.text,
+    });
 
-    // final dc = await http.get(Uri.parse("http://127.0.0.1"));
+    //   final dc = await http.post(Uri.parse("http://httpbin.org/post"),
+    //       body: json.encode({
+    //         "Token":
+    //             "\$2y\$10\$ODc0YTBmMWM5NjIzNGZiZ.Ci8bXLB7A.BwQNMSd8KXUFIOF8d/hmO",
+    //         "userId": 4,
+    //         "userPhone": "9831166884",
+    //         "userType": "2",
+    //         "vehicle_no": "WB7564HG5",
+    //         "vehicle_type": "Truck",
+    //         "vehicle_source_pincode": "731224",
+    //         "transport_year": "2014",
+    //         "driver_name": r_name.text,
+    //         "driver_phone": r_num.text,
+    //         "driver_email": r_emailid.text,
+    //         "driver_dob": "12/24/1958",
+    //         "driver_aadhar_no": r_adhar.text,
+    //         "driver_driving_license_no": r_license.text,
+    //         "owner_aadhar_front_image": "2",
+    //         "owner_aadhar_back_image": "2",
+    //         "owner_photo": "2",
+    //         "vehicle_photo": "2",
+    //         "registration_certificate_front_image": "2",
+    //         "registration_certificate_back_image": "2",
+    //         "permit_part_a_image": "2",
+    //         "permit_part_b_image": "2",
+    //         "permit_part_optional_image": "2",
+    //         "vehicle_insurance_image": "2",
+    //         "driver_adhar_front_image": "2",
+    //         "driver_adhar_back_image": "2",
+    //         "driver_driving_license_front_image": "2",
+    //         "driver_driving_license_back_image": "2"
+    //       }));
 
-    // final rc = json.decode(dc.body);
-    print(r_name.text);
-    print(r_num.text);
-    print(r_emailid.text);
-    print(r_addr.text);
-    print(r_adhar.text);
-    print(r_license.text);
+    //   // final dc = await http.get(Uri.parse("http://127.0.0.1"));
 
-    print(dc.body);
-    // print(rc);
-    // print(rc["name"]);
-    // setState(() {
+    //   // final rc = json.decode(dc.body);
+    //   print(r_name.text);
+    //   print(r_num.text);
+    //   print(r_emailid.text);
 
-    // });
+    //   print(r_adhar.text);
+    //   print(r_license.text);
+
+    //   print(dc.body);
+    //   // print(rc);
+    //   // print(rc["name"]);
+    //   // setState(() {
+
+    //   // });
+
+    print(datax);
   }
 
   void dinc() {}
