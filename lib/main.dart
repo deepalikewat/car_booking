@@ -18,6 +18,6 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: Owner());
+    return MaterialApp(home: Upload());
   }
 }
