@@ -37,18 +37,31 @@ final picker = ImagePicker();
   @override
   Widget build(BuildContext context) {
     double xwidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
+<<<<<<< HEAD
       appBar: AppBar(
         title:  Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 _image.isNull?"Owner Profile":"raju",
+=======
+      body: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Column(children: [
+              const Padding(padding: EdgeInsets.only(top: 10)),
+              const Text(
+                "Owner Profile",
+>>>>>>> 26e3416bc5012314266bef721d64554c3a60964a
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Color(0xff1B1E28)),
               ),
+<<<<<<< HEAD
 
               Row(
                 children: [
@@ -69,18 +82,47 @@ final picker = ImagePicker();
           children: [
             Column(children: [
               const Padding(padding: EdgeInsets.only(top: 50)),
+=======
+>>>>>>> 26e3416bc5012314266bef721d64554c3a60964a
               Container(
-                decoration:
-                    BoxDecoration(shape: BoxShape.circle, border: Border.all()),
-                height: 120,
-                width: 122,
-                child: const ClipOval(
-                    child: Image(
-                  image: AssetImage("img/QT.jpeg"),
-                  width: 100,
-                  height: 300,
-                  fit: BoxFit.cover,
-                )),
+                height: 130,
+                width: 130,
+
+                child: Stack(children: [
+                  const ClipOval(
+                      child: Image(
+                    image: AssetImage("img/QT.jpeg"),
+                    width: 130,
+                    height: 130,
+                    fit: BoxFit.cover,
+                  )),
+                  Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: IconButton(
+                        style: const ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Color(0xff2EA7D4)),
+                        ),
+                        icon: const Icon(Icons.camera_alt),
+                        onPressed: () {},
+                      ))
+
+                  // child: Icon(
+
+                  //   Icons.camera,
+                  //   color: Color(0xff2EA7D4),
+                  //   size: 30,
+                  // ))
+                ]),
+
+                // child: const ClipOval(
+                //     child: Image(
+                //   image: AssetImage("img/QT.jpeg"),
+                //   width: 100,
+                //   height: 300,
+                //   fit: BoxFit.cover,
+                // )),
               ),
 
               
@@ -90,32 +132,14 @@ final picker = ImagePicker();
               }, icon: Icon(Icons.camera_alt))
               ,
               const Padding(padding: EdgeInsets.only(top: 20)),
-              // const Padding(padding: EdgeInsets.only(top: 20, bottom: 10)),
-              // const Text(
-              //   "Cutest",
-              //   style: TextStyle(
-              //       fontSize: 24,
-              //       fontWeight: FontWeight.w400,
-              //       color: Color(0xff1B1E28)),
-              // ),
-
-              // const Padding(
-              //   padding: EdgeInsets.only(top: 8, bottom: 50),
-              //   child: Text(
-              //     "Change Profile Picture",
-              //     style: TextStyle(fontSize: 16, color: Color(0xff0D6EFD)),
-              //   ),
-              // ),
-
               Container(
-                padding: EdgeInsets.only(bottom: 8),
+                padding: const EdgeInsets.only(bottom: 8),
                 width: xwidth - 70,
                 child: const Text(
                   "Full  Name",
                   style: TextStyle(fontSize: 18, color: Color(0xff1B1E28)),
                 ),
               ),
-
               Container(
                 width: xwidth - 60,
                 child: const TextField(
@@ -127,16 +151,14 @@ final picker = ImagePicker();
                   ),
                 ),
               ),
-
               Container(
-                padding: EdgeInsets.only(bottom: 8, top: 20),
+                padding: const EdgeInsets.only(bottom: 8, top: 20),
                 width: xwidth - 70,
                 child: const Text(
                   "Enter Number",
                   style: TextStyle(fontSize: 18, color: Color(0xff1B1E28)),
                 ),
               ),
-
               Container(
                 width: xwidth - 60,
                 child: const TextField(
@@ -148,16 +170,14 @@ final picker = ImagePicker();
                   ),
                 ),
               ),
-
               Container(
-                padding: EdgeInsets.only(bottom: 8, top: 20),
+                padding: const EdgeInsets.only(bottom: 8, top: 20),
                 width: xwidth - 70,
                 child: const Text(
                   "Email Id",
                   style: TextStyle(fontSize: 18, color: Color(0xff1B1E28)),
                 ),
               ),
-
               Container(
                 width: xwidth - 60,
                 child: const TextField(
@@ -169,9 +189,8 @@ final picker = ImagePicker();
                   ),
                 ),
               ),
-
               Container(
-                padding: EdgeInsets.only(bottom: 8, top: 20),
+                padding: const EdgeInsets.only(bottom: 8, top: 20),
                 width: xwidth - 70,
                 child: const Text(
                   "Full Address",
@@ -179,7 +198,7 @@ final picker = ImagePicker();
                 ),
               ),
               Container(
-                padding: EdgeInsets.only(bottom: 200),
+                padding: const EdgeInsets.only(bottom: 8),
                 width: xwidth - 60,
                 child: const TextField(
                   style: TextStyle(fontSize: 16),
@@ -190,18 +209,16 @@ final picker = ImagePicker();
                   ),
                 ),
               ),
-
               Container(
-                padding: EdgeInsets.only(bottom: 8, top: 20),
+                padding: const EdgeInsets.only(bottom: 8, top: 20),
                 width: xwidth - 70,
                 child: const Text(
                   "Aadhar Card Number",
                   style: TextStyle(fontSize: 18, color: Color(0xff1B1E28)),
                 ),
               ),
-
               Container(
-                padding: EdgeInsets.only(bottom: 200),
+                // padding: const EdgeInsets.only(bottom: ),
                 width: xwidth - 60,
                 child: const TextField(
                   style: TextStyle(fontSize: 16),
@@ -212,9 +229,9 @@ final picker = ImagePicker();
                   ),
                 ),
               ),
-
+              const Expanded(child: Text("")),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 height: 60,
                 width: xwidth,
                 child: ElevatedButton(
@@ -223,12 +240,15 @@ final picker = ImagePicker();
                       backgroundColor: const Color(0xff0D6EFD),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16))),
-                  child: Text(
+                  child: const Text(
                     "Next",
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
               ),
+              const SizedBox(
+                height: 20,
+              )
             ])
           ],
         ),

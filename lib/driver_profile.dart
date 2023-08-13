@@ -59,27 +59,27 @@ class ri extends State<Driver> {
               ),
               const Padding(padding: EdgeInsets.only(top: 20)),
               // const Padding(padding: EdgeInsets.only(top: 20, bottom: 10)),
-              const Text(
-                "Cutest",
-                style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w400,
-                    color: Color(0xff1B1E28)),
-              ),
+              // const Text(
+              //   "Cutest",
+              //   style: TextStyle(
+              //       fontSize: 24,
+              //       fontWeight: FontWeight.w400,
+              //       color: Color(0xff1B1E28)),
+              // ),
 
-              const Padding(
-                padding: EdgeInsets.only(top: 8, bottom: 50),
-                child: Text(
-                  "Change Profile Picture",
-                  style: TextStyle(fontSize: 16, color: Color(0xff0D6EFD)),
-                ),
-              ),
+              // const Padding(
+              //   padding: EdgeInsets.only(top: 8, bottom: 50),
+              //   child: Text(
+              //     "Change Profile Picture",
+              //     style: TextStyle(fontSize: 16, color: Color(0xff0D6EFD)),
+              //   ),
+              // ),
 
               Container(
                 padding: EdgeInsets.only(bottom: 8),
                 width: xwidth - 70,
                 child: const Text(
-                  "First Name",
+                  "Full  Name",
                   style: TextStyle(fontSize: 18, color: Color(0xff1B1E28)),
                 ),
               ),
@@ -142,13 +142,13 @@ class ri extends State<Driver> {
                 padding: EdgeInsets.only(bottom: 8, top: 20),
                 width: xwidth - 70,
                 child: const Text(
-                  "Enter Address",
+                  "Full Address",
                   style: TextStyle(fontSize: 18, color: Color(0xff1B1E28)),
                 ),
               ),
 
               Container(
-                padding: EdgeInsets.only(bottom: 200),
+                padding: EdgeInsets.only(bottom: 20),
                 width: xwidth - 60,
                 child: const TextField(
                   style: TextStyle(fontSize: 16),
@@ -161,7 +161,52 @@ class ri extends State<Driver> {
               ),
 
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: EdgeInsets.only(
+                  bottom: 8,
+                ),
+                width: xwidth - 70,
+                child: const Text(
+                  "Aadhar Card Number",
+                  style: TextStyle(fontSize: 18, color: Color(0xff1B1E28)),
+                ),
+              ),
+
+              Container(
+                padding: EdgeInsets.only(bottom: 20),
+                width: xwidth - 60,
+                child: const TextField(
+                  style: TextStyle(fontSize: 16),
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15))),
+                    hintText: "000 000 000 000 00",
+                  ),
+                ),
+              ),
+
+              Container(
+                padding: EdgeInsets.only(bottom: 8, top: 20),
+                width: xwidth - 70,
+                child: const Text(
+                  "Driving License Number",
+                  style: TextStyle(fontSize: 18, color: Color(0xff1B1E28)),
+                ),
+              ),
+
+              Container(
+                width: xwidth - 60,
+                child: const TextField(
+                  style: TextStyle(fontSize: 16),
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15))),
+                    hintText: "00000 0000",
+                  ),
+                ),
+              ),
+              Expanded(child: Text("")),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 30),
                 height: 60,
                 width: xwidth,
                 child: ElevatedButton(
@@ -171,11 +216,14 @@ class ri extends State<Driver> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16))),
                   child: Text(
-                    "Update",
+                    "Next",
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
               ),
+              SizedBox(
+                height: 20,
+              )
             ])
           ],
         ),
