@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Owner extends StatefulWidget {
   @override
@@ -7,6 +9,25 @@ class Owner extends StatefulWidget {
 
 //gg
 class rix extends State<Owner> {
+  TextEditingController o_name = TextEditingController();
+  TextEditingController o_num = TextEditingController();
+  TextEditingController o_emailid = TextEditingController();
+  TextEditingController o_addr = TextEditingController();
+  TextEditingController o_adhar = TextEditingController();
+  TextEditingController o_license = TextEditingController();
+  // void dinc() {}
+  Future<void> drf_owner() async {
+    final datax = json.encode({
+      "driver_name": o_name.text,
+      "driver_phone": o_num.text,
+      "driver_email": o_emailid.text,
+      "driver_address": o_addr.text,
+      "driver_aadhar_no": o_adhar.text,
+      "driver_driving_license_no": o_license.text,
+    });
+    print(datax);
+  }
+
   void dinc() {}
 
   @override
