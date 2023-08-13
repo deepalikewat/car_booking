@@ -17,7 +17,6 @@ class rix extends State<Owner> {
         title: const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(""),
               Text(
                 "Owner Profile",
                 style: TextStyle(
