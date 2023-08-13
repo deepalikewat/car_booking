@@ -1,4 +1,9 @@
+import 'dart:io';
+import 'dart:js_interop';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:image_picker_for_web/image_picker_for_web.dart';
 
 class Owner extends StatefulWidget {
   @override
@@ -9,21 +14,42 @@ class Owner extends StatefulWidget {
 class rix extends State<Owner> {
   void dinc() {}
 
+
+File? _image;
+final picker = ImagePicker();
+ Future getImage() async {
+
+
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    
+    print("qwertyui");
+    print(pickedFile);
+    // File image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    // setState(() {
+    //   if (pickedFile != null) {
+    //     _image = File(pickedFile.path);
+    //   } else {
+    //     print('No image selected');
+    //   }
+    // });
+  }
+
   @override
   Widget build(BuildContext context) {
     double xwidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: const Row(
+        title:  Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Owner Profile",
+                _image.isNull?"Owner Profile":"raju",
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Color(0xff1B1E28)),
               ),
+
               Row(
                 children: [
                   Text(
@@ -56,6 +82,13 @@ class rix extends State<Owner> {
                   fit: BoxFit.cover,
                 )),
               ),
+
+              
+              IconButton(onPressed: (){
+
+                getImage();
+              }, icon: Icon(Icons.camera_alt))
+              ,
               const Padding(padding: EdgeInsets.only(top: 20)),
               // const Padding(padding: EdgeInsets.only(top: 20, bottom: 10)),
               // const Text(
