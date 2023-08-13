@@ -53,7 +53,7 @@ class dxx extends State<Booking> {
                         fit: BoxFit.cover,
                       )),
                     ),
-                    Row(
+                    const Row(
                       children: [
                         Column(
                           children: [
@@ -61,6 +61,18 @@ class dxx extends State<Booking> {
                             Text(
                               "Amit Das",
                               style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.star,
+                                  color: Colors.yellow,
+                                  size: 30,
+                                ),
+                                Text(
+                                  "4.1(155)",
+                                )
+                              ],
                             )
                           ],
                         )
