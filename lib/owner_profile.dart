@@ -28,6 +28,8 @@ class rix extends State<Owner> {
     });
   }
 
+  //rsuj
+
   TextEditingController o_name = TextEditingController();
   TextEditingController o_num = TextEditingController();
   TextEditingController o_emailid = TextEditingController();
