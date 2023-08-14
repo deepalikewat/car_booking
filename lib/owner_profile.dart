@@ -28,6 +28,8 @@ class rix extends State<Owner> {
     });
   }
 
+  //rsuj
+
   TextEditingController o_name = TextEditingController();
   TextEditingController o_num = TextEditingController();
   TextEditingController o_emailid = TextEditingController();
@@ -49,14 +51,11 @@ class rix extends State<Owner> {
 
   void dinc() {}
 
-
-File? _image;
-final picker = ImagePicker();
- Future getImage() async {
-
-
+  File? _image;
+  final picker = ImagePicker();
+  Future getImage() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    
+
     print(pickedFile?.path);
     // File image = await ImagePicker.pickImage(source: ImageSource.gallery);
     setState(() {
