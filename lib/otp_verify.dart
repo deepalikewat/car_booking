@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:car_booking/lorry.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,7 +20,7 @@ class dipx extends State<OtpVeri> {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
 
-  int rs = 10; 
+  int rs = 120; 
   bool _canResend = false;
   late Timer _timer;
 
@@ -135,7 +136,7 @@ child:
                 height: xheight * .02,
               ),
               Pinput(
-                length: 6,
+                length: 5,
                 controller: pinController,
                 listenForMultipleSmsOnAndroid: true,
                 separatorBuilder: (index) => const SizedBox(width: 8),
@@ -153,7 +154,13 @@ child:
                   child: ElevatedButton(
                     onPressed: () {
 
-otpveryfy();
+// otpveryfy();
+  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                           
+                           return L_4();
+                           
+
+                         },));
 
                     },
                     style: ElevatedButton.styleFrom(

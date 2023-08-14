@@ -50,23 +50,7 @@ class rix extends State<Owner> {
   void dinc() {}
 
 
-File? _image;
-final picker = ImagePicker();
- Future getImage() async {
 
-
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    
-    print(pickedFile?.path);
-    // File image = await ImagePicker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      if (pickedFile != null) {
-        _image = File(pickedFile.path);
-      } else {
-        print('No image selected');
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +58,7 @@ final picker = ImagePicker();
     double xheight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      body: Center(
+      body: SingleChildScrollView(child:  Center(
           child: Column(children: [
         SizedBox(
           height: xheight * .02,
@@ -226,7 +210,9 @@ final picker = ImagePicker();
             ),
           ),
         ),
-        const Expanded(child: Text("")),
+const SizedBox(
+          height: 10,
+        ),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           height: 60,
@@ -249,6 +235,6 @@ final picker = ImagePicker();
           height: 20,
         )
       ])),
-    );
+    ));
   }
 }

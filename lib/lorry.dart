@@ -1,3 +1,5 @@
+import 'package:car_booking/driver_profile.dart';
+import 'package:car_booking/profile.dart';
 import 'package:car_booking/rough.dart';
 import 'package:flutter/material.dart';
 
@@ -47,7 +49,15 @@ class L_4 extends StatelessWidget {
               height: 60,
               width: xwidth,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                           
+                           return Profile();
+                           
+
+                         },));
+                },
                 child: Text("Passenger", style: TextStyle(fontSize: 20)),
                 style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xff0D6EFD),
@@ -55,13 +65,22 @@ class L_4 extends StatelessWidget {
                         borderRadius: BorderRadius.circular(16))),
               ),
             ),
-            const Padding(padding: EdgeInsets.only(top: 50)),
+            const Padding(padding: EdgeInsets.only(top: 20)),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 20),
               height: 60,
               width: xwidth,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+
+
+                   Navigator.push(context, MaterialPageRoute(builder: (context) {
+                           
+                           return Driver();
+                           
+
+                         },));
+                },
                 child: const Text("Driver", style: TextStyle(fontSize: 20)),
                 style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xff0D6EFD),

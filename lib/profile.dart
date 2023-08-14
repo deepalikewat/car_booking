@@ -58,26 +58,26 @@ class dix extends State<Profile> {
         SizedBox(
           height: xheight * .01,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text(""),
-            const Text("Edit Profile",
-                style: TextStyle(
-                    color: Color(0xff000000),
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold)),
-            TextButton(
-              onPressed: () {},
-              style: TextButton.styleFrom(
-                  // backgroundColor: const Color.fromARGB(255, 68, 44, 44),
-                  foregroundColor: Colors.blueAccent),
-              child: const Text("Done"),
-            ),
-          ],
-        ),
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //   children: [
+        //     const Text(""),
+        //     const Text("Edit Profile",
+        //         style: TextStyle(
+        //             color: Color(0xff000000),
+        //             fontSize: 28,
+        //             fontWeight: FontWeight.bold)),
+        //     TextButton(
+        //       onPressed: () {},
+        //       style: TextButton.styleFrom(
+        //           // backgroundColor: const Color.fromARGB(255, 68, 44, 44),
+        //           foregroundColor: Colors.blueAccent),
+        //       child: const Text("Done"),
+        //     ),
+        //   ],
+        // ),
 
-        Padding(padding: EdgeInsets.only(top: xheight * 0.02)),
+        Padding(padding: EdgeInsets.only(top: xheight * 0.01)),
 
         Container(
           height: 130,
@@ -114,18 +114,18 @@ class dix extends State<Profile> {
         SizedBox(
           height: xheight * .01,
         ),
-        const Padding(padding: EdgeInsets.only(top: 20)),
+        const Padding(padding: EdgeInsets.only(top: 10)),
         // const Padding(padding: EdgeInsets.only(top: 20, bottom: 10)),
         const Text(
-          "Cutest",
+          "ABC XYZ",
           style: TextStyle(
-              fontSize: 24,
+              fontSize: 18,
               fontWeight: FontWeight.w400,
               color: Color(0xff1B1E28)),
         ),
 
         const Padding(
-          padding: EdgeInsets.only(top: 8, bottom: 50),
+          padding: EdgeInsets.only(top: 8, bottom: 10),
           child: Text(
             "Change Profile Picture",
             style: TextStyle(fontSize: 16, color: Color(0xff0D6EFD)),
