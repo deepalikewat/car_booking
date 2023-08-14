@@ -22,9 +22,13 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 <<<<<<< HEAD
+<<<<<<< HEAD
     return  MaterialApp(home: Owner());
 =======
     return MaterialApp(home: RLogin());
 >>>>>>> 26e3416bc5012314266bef721d64554c3a60964a
+=======
+    return MaterialApp(home: Login());
+>>>>>>> f06c0cf (.)
   }
 }
