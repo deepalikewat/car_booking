@@ -53,11 +53,9 @@ class dix extends State<Profile> {
     double xheight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      body: Center(
+        body: SafeArea(
+      child: Center(
           child: Column(children: [
-        SizedBox(
-          height: xheight * .01,
-        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -242,6 +240,6 @@ class dix extends State<Profile> {
           height: 20,
         )
       ])),
-    );
+    ));
   }
 }

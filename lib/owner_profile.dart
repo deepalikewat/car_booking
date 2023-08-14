@@ -55,7 +55,8 @@ class rix extends State<Owner> {
     double xheight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      body: Center(
+        body: SafeArea(
+      child: Center(
           child: Column(children: [
         SizedBox(
           height: xheight * .02,
@@ -230,6 +231,6 @@ class rix extends State<Owner> {
           height: 20,
         )
       ])),
-    );
+    ));
   }
 }

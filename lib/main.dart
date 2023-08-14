@@ -6,6 +6,7 @@ import 'package:car_booking/rloginn.dart';
 import 'package:car_booking/front.dart';
 import 'package:car_booking/lorry.dart';
 import 'package:car_booking/otp_verify.dart';
+import 'package:car_booking/upload.dart';
 import 'package:flutter/material.dart';
 
 void main() {
