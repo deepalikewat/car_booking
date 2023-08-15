@@ -56,8 +56,10 @@ class ri extends State<Driver> {
     double xheight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      body: SingleChildScrollView(child:  Center(
-          child: Column(children: [
+        body: SafeArea(
+      child: SingleChildScrollView(
+          child: Center(
+              child: Column(children: [
         SizedBox(
           height: xheight * .01,
         ),
@@ -231,22 +233,20 @@ class ri extends State<Driver> {
             ),
           ),
         ),
-
-SizedBox(height: 10,),
+        SizedBox(
+          height: 10,
+        ),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 30),
           height: 60,
           width: xwidth,
           child: ElevatedButton(
             onPressed: () {
- Navigator.push(context, MaterialPageRoute(builder: (context) {
-                           
-                           return Owner();
-                           
-
-                         },));
-
-
+              Navigator.push(context, MaterialPageRoute(
+                builder: (context) {
+                  return Owner();
+                },
+              ));
             },
             style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xff0D6EFD),
@@ -261,8 +261,7 @@ SizedBox(height: 10,),
         const SizedBox(
           height: 20,
         )
-      ])
-      )),
-    );
+      ]))),
+    ));
   }
 }

@@ -51,16 +51,15 @@ class rix extends State<Owner> {
 
   void dinc() {}
 
-
-
-
   @override
   Widget build(BuildContext context) {
     double xwidth = MediaQuery.of(context).size.width;
     double xheight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      body: SingleChildScrollView(child:  Center(
+        body: SafeArea(
+            child: SingleChildScrollView(
+      child: Center(
           child: Column(children: [
         SizedBox(
           height: xheight * .02,
@@ -212,7 +211,7 @@ class rix extends State<Owner> {
             ),
           ),
         ),
-const SizedBox(
+        const SizedBox(
           height: 10,
         ),
         Container(
@@ -237,6 +236,6 @@ const SizedBox(
           height: 20,
         )
       ])),
-    ));
+    )));
   }
 }
