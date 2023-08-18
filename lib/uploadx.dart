@@ -49,103 +49,110 @@ class du extends State<Uploadx> {
     double xheight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-        body: SafeArea(
+        body: Container(
+            height: 500,
+            width: 500,
             child: Center(
                 child: Column(
-      children: [
-        const Text(
-          "Upload Documents",
-          style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-              color: Color(0xff1B1E28)),
-        ),
-        SizedBox(
-          height: xheight * .1,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Column(
               children: [
-                ElevatedButton.icon(
-                  onPressed: () {
-                    dinc(context);
-
-                    getImage();
-                  },
-                  icon: const Icon(
-                    Icons.add_card,
-                    size: 70,
-                  ),
-                  label: const Text(""),
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.transparent,
-                      shape: BeveledRectangleBorder(
-                          borderRadius: BorderRadius.circular(5))),
+                const Text(
+                  "Upload Documents",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Color(0xff1B1E28)),
                 ),
                 SizedBox(
-                  height: xheight * .02,
+                  height: xheight * .1,
                 ),
-                const Text(
-                  "Front",
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                ElevatedButton.icon(
-                  onPressed: () {
-                    dinc(context);
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Column(
+                      children: [
+                        ElevatedButton.icon(
+                          onPressed: () {
+                            dinc(context);
 
-                    getImage();
-                  },
-                  icon: const Icon(
-                    Icons.add_card,
-                    size: 70,
-                  ),
-                  label: const Text(""),
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.transparent,
-                      shape: BeveledRectangleBorder(
-                          borderRadius: BorderRadius.circular(5))),
+                            getImage();
+                          },
+                          icon: const Icon(
+                            Icons.add_card,
+                            size: 70,
+                          ),
+                          label: const Text(""),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.transparent,
+                              shape: BeveledRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5))),
+                        ),
+                        SizedBox(
+                          height: xheight * .02,
+                        ),
+                        const Text(
+                          "Front",
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        ElevatedButton.icon(
+                          onPressed: () {
+                            dinc(context);
+
+                            getImage();
+                          },
+                          icon: const Icon(
+                            Icons.add_card,
+                            size: 70,
+                          ),
+                          label: const Text(""),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.transparent,
+                              shape: BeveledRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5))),
+                        ),
+                        SizedBox(
+                          height: xheight * .02,
+                        ),
+                        const Text(
+                          "Back",
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
                 SizedBox(
-                  height: xheight * .02,
+                  height: xheight * .06,
                 ),
-                const Text(
-                  "Back",
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                const Expanded(child: Text("")),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  height: 60,
+                  width: xwidth,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xff0D6EFD),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16))),
+                    child: const Text(
+                      "Submit ",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
                 ),
+                const SizedBox(
+                  height: 20,
+                )
               ],
-            ),
-          ],
-        ),
-        SizedBox(
-          height: xheight * .06,
-        ),
-        const Expanded(child: Text("")),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          height: 60,
-          width: xwidth,
-          child: ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xff0D6EFD),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16))),
-            child: const Text(
-              "Submit ",
-              style: TextStyle(fontSize: 20),
-            ),
-          ),
-        ),
-        const SizedBox(
-          height: 20,
-        )
-      ],
-    ))));
+            )
+            )
+            )
+            );
   }
 }
