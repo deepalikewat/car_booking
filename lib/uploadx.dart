@@ -28,7 +28,20 @@ class du extends State<Uploadx> {
     });
   }
 
-  void dinc() {}
+  void dinc(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Container(
+              color: Color.fromARGB(255, 67, 67, 99),
+              child: const Row(
+                children: [Icon(Icons.dangerous)],
+              ),
+            ),
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,29 +68,21 @@ class du extends State<Uploadx> {
           children: [
             Column(
               children: [
-                Container(
-                  child: Stack(
-                    children: [
-                      const Center(
-                          child: Icon(
-                        Icons.add_card,
-                        size: 70,
-                      )),
-                      Positioned(
-                          bottom: 0,
-                          right: 0,
-                          child: IconButton(
-                            icon: const Icon(
-                              Icons.add,
-                              color: Colors.black,
-                              size: 40,
-                            ),
-                            onPressed: () {
-                              getImage();
-                            },
-                          ))
-                    ],
+                ElevatedButton.icon(
+                  onPressed: () {
+                    dinc(context);
+
+                    getImage();
+                  },
+                  icon: const Icon(
+                    Icons.add_card,
+                    size: 70,
                   ),
+                  label: const Text(""),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.transparent,
+                      shape: BeveledRectangleBorder(
+                          borderRadius: BorderRadius.circular(5))),
                 ),
                 SizedBox(
                   height: xheight * .02,
@@ -90,35 +95,27 @@ class du extends State<Uploadx> {
             ),
             Column(
               children: [
-                Container(
-                  child: Stack(
-                    children: [
-                      const Center(
-                          child: Icon(
-                        Icons.add_card,
-                        size: 70,
-                      )),
-                      Positioned(
-                          bottom: 0,
-                          right: 0,
-                          child: IconButton(
-                            icon: const Icon(
-                              Icons.add,
-                              color: Colors.black,
-                              size: 40,
-                            ),
-                            onPressed: () {
-                              getImage();
-                            },
-                          ))
-                    ],
+                ElevatedButton.icon(
+                  onPressed: () {
+                    dinc(context);
+
+                    getImage();
+                  },
+                  icon: const Icon(
+                    Icons.add_card,
+                    size: 70,
                   ),
+                  label: const Text(""),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.transparent,
+                      shape: BeveledRectangleBorder(
+                          borderRadius: BorderRadius.circular(5))),
                 ),
                 SizedBox(
                   height: xheight * .02,
                 ),
                 const Text(
-                  "Front",
+                  "Back",
                   style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                 ),
               ],

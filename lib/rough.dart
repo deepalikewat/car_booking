@@ -19,13 +19,14 @@ class dxx extends State<Rough> {
         builder: (BuildContext context) {
           return AlertDialog(
             content: Container(
-              color: Color.fromARGB(255, 31, 14, 184),
-              child: Row(
+              color: Color.fromARGB(255, 67, 67, 99),
+              child: const Row(
                 children: [Icon(Icons.dangerous)],
               ),
             ),
           );
-        });
+        }
+        );
   }
 
   @override
@@ -37,7 +38,7 @@ class dxx extends State<Rough> {
       body: TextButton(
         onPressed: () {
           dinc(context);
-        }, 
+        },
         style: TextButton.styleFrom(
             // backgroundColor: const Color.fromARGB(255, 68, 44, 44),
             foregroundColor: Colors.blueAccent),
