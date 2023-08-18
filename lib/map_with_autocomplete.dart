@@ -52,6 +52,9 @@ class _MapScreenState extends State<MapScreen> {
   //   }
   // }
 
+//   // void onSuggestionClick(Place placeDetails) {
+//   //   print(placeDetails);
+//   // }
 
   TextEditingController controller = TextEditingController();
 

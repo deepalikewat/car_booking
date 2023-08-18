@@ -40,8 +40,7 @@ class dxx extends State<Booking> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                decoration:
-                    BoxDecoration(shape: BoxShape.circle, border: Border.all()),
+                
                 height: 120,
                 width: 122,
                 child: const ClipRRect(

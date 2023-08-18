@@ -111,6 +111,8 @@ class dix extends State<Profile> {
                 ))
           ]),
         ),
+
+        
         SizedBox(
           height: xheight * .01,
         ),

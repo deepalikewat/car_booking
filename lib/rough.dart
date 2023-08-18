@@ -1,12 +1,49 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
-class Rough extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:image_picker/image_picker.dart';
+
+class Rough extends StatefulWidget {
+  @override
+  State<Rough> createState() => dxx();
+}
+
+//gg
+// ignore: camel_case_types
+class dxx extends State<Rough> {
+  void dinc(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Container(
+              color: Color.fromARGB(255, 67, 67, 99),
+              child: const Row(
+                children: [Icon(Icons.dangerous)],
+              ),
+            ),
+          );
+        }
+        );
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Future
+    // double xwidth = MediaQuery.of(context).size.width;
+    // double xheight = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      backgroundColor: Color(0xff0D6EFD),
-      body: Center(child: Text("pahuch gaye")),
+      body: TextButton(
+        onPressed: () {
+          dinc(context);
+        },
+        style: TextButton.styleFrom(
+            // backgroundColor: const Color.fromARGB(255, 68, 44, 44),
+            foregroundColor: Colors.blueAccent),
+        child: const Text("Done"),
+      ),
     );
   }
 }
