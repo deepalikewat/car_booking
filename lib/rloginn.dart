@@ -1,11 +1,12 @@
-import 'dart:math';
-import 'package:car_booking/otp_verify.dart';
+import 'package:car_booking/sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter/material.dart';
 
+import 'otp_verify.dart';
+
 class RLogin extends StatefulWidget {
-  const RLogin();
+  const RLogin({super.key});
 
   @override
   State<RLogin> createState() => Rloginx();
@@ -18,7 +19,11 @@ class RLogin extends StatefulWidget {
 class Rloginx extends State<RLogin> {
   TextEditingController rsign = TextEditingController();
   // void dinc() {}
-  Future<void> drf_login() async {
+  // ignore: non_constant_identifier_names
+  Future<void> drf_login(BuildContext context) async {
+    try {
+      
+   
     final dc = await http.post(
         Uri.parse("https://admin.returnlorry.com/appservice/otp"),
         body: json.encode({
@@ -29,20 +34,42 @@ class Rloginx extends State<RLogin> {
 
     // final dc = await http.get(Uri.parse("http://127.0.0.1"));
 
-    // final rc = json.decode(dc.body);
+    final rc = json.decode(dc.body);
 
     print(dc.body);
     // print(rc);
     // print(rc["name"]);
     // setState(() {
 
+ // ignore: use_build_context_synchronously
+
+ // ignore: use_build_context_synchronously
+ Navigator.push(context, MaterialPageRoute(builder: (context) {
+                           
+                           return  OtpVeri(rc["data"]["data"]["otp"]);
+                           
+
+                         },));
     // });
+
+     // ignore: empty_catches
+     } catch (e) {
+      
+      
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     double xwidth = MediaQuery.of(context).size.width;
     double xheight = MediaQuery.of(context).size.height;
+
+void optgo() {
+  
+  
+}
+
+    
 
     return Scaffold(
         backgroundColor: const Color.fromARGB(0, 104, 138, 182),
@@ -67,15 +94,19 @@ class Rloginx extends State<RLogin> {
                       style: TextStyle(color: Color(0xff7D848D), fontSize: 20),
                     ),
                     Padding(padding: EdgeInsets.all(xwidth * .05)),
-                    TextField(
-                        controller: rsign,
-                        decoration: InputDecoration(
-                            hintText: "+91",
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15),
-                              borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 108, 105, 105)),
-                            ))),
+                    SizedBox(
+                      height: 60,
+                      width: xheight*.8,
+                      // child: TextField(
+                      //     controller: rsign,
+                      //     decoration: InputDecoration(
+                      //         hintText: "+91",
+                      //         border: OutlineInputBorder(
+                      //           borderRadius: BorderRadius.circular(15),
+                      //           borderSide: const BorderSide(
+                      //               color: Color.fromARGB(255, 108, 105, 105)),
+                      //         ))),l.
+                    ),
                     const Padding(
                       padding: EdgeInsets.only(top: 40),
                       child: Text(
@@ -85,25 +116,21 @@ class Rloginx extends State<RLogin> {
                               fontSize: 18, color: Color(0xff7D848D))),
                     ),
                     const Expanded(child: Text("")),
-                    Container(
+                    SizedBox(
                       width: xwidth * 9,
                       height: 50,
                       child: ElevatedButton(
                         onPressed: () {
                          
-                         Navigator.push(context, MaterialPageRoute(builder: (context) {
-                           
-                           return OtpVeri();
-                           
-
-                         },));
+                       drf_login(context);
+                       
                         },
-                        child:
-                            const Text("Next", style: TextStyle(fontSize: 20)),
                         style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xff0D6EFD),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16))),
+                        child:
+                            const Text("Next", style: TextStyle(fontSize: 20)),
                       ),
                     ),
                   ],
