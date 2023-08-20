@@ -8,16 +8,19 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class OtpVeri extends StatefulWidget {
   
-   const OtpVeri({super.key});
+   const OtpVeri(int otpx, {super.key});
 
   @override
-  State<OtpVeri> createState() => dipx();
+  State<OtpVeri> createState() => dipx(3456);
 }
 
 class dipx extends State<OtpVeri> {
+  dipx(int i);
+
   void dinc() {}
   final pinController = TextEditingController();
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
 
 
   int rs = 120; 
