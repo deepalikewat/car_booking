@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:image_picker/image_picker.dart';
-
 class Profile extends StatefulWidget {
   @override
   State<Profile> createState() => dix();
@@ -18,7 +17,9 @@ class dix extends State<Profile> {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
     print(pickedFile?.path);
+
     // File image = await ImagePicker.pickImage(source: ImageSource.gallery);
+
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);

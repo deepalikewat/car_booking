@@ -18,24 +18,24 @@ class L_4 extends StatelessWidget {
               image: const AssetImage("img/truck.png"),
               fit: BoxFit.fill,
               width: xwidth,
-              height: xheight / 2.5,
+              height: xheight *.5,
             ),
-            const Padding(padding: EdgeInsets.only(top: 70)),
+             Padding(padding: EdgeInsets.only(top: xheight*.02)),
             const Text(
-              "Are you a Passenger",
+              "Are You a Passenger",
               style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 30,
+                  fontSize: 25,
                   color: Color(0xff000000)),
             ),
             const Text(
               "or a Driver",
               style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 30,
+                  fontSize: 25,
                   color: Color(0xff000000)),
             ),
-            const Padding(padding: EdgeInsets.only(top: 50)),
+             Padding(padding: EdgeInsets.only(top:  xheight*.02)),
             const Text(
               "You can change the mode",
               style: TextStyle(
@@ -43,9 +43,11 @@ class L_4 extends StatelessWidget {
                   fontSize: 20,
                   color: Color(0xff7D848D)),
             ),
-            const Padding(padding: EdgeInsets.only(top: 60)),
+
+
+const Expanded(child: Text("")),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               height: 60,
               width: xwidth,
               child: ElevatedButton(
@@ -58,7 +60,7 @@ class L_4 extends StatelessWidget {
 
                          },));
                 },
-                child: Text("Passenger", style: TextStyle(fontSize: 20)),
+                child: const Text("Passenger", style: TextStyle(fontSize: 20)),
                 style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xff0D6EFD),
                     shape: RoundedRectangleBorder(
@@ -67,7 +69,7 @@ class L_4 extends StatelessWidget {
             ),
             const Padding(padding: EdgeInsets.only(top: 20)),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               height: 60,
               width: xwidth,
               child: ElevatedButton(
@@ -76,7 +78,7 @@ class L_4 extends StatelessWidget {
 
                    Navigator.push(context, MaterialPageRoute(builder: (context) {
                            
-                           return Driver();
+                           return const Driver();
                            
 
                          },));

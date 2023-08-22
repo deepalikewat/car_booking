@@ -1,21 +1,31 @@
 import 'dart:async';
+import 'dart:convert';
 
+import 'package:car_booking/front.dart';
 import 'package:car_booking/lorry.dart';
+import 'package:car_booking/rloginn.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 
 class OtpVeri extends StatefulWidget {
+  int otp=0;
   
-   const OtpVeri(int otpx, {super.key});
+  String userPhone;
+    OtpVeri({required this.otp,required this.userPhone,super.key});
 
   @override
-  State<OtpVeri> createState() => dipx(3456);
+  State<OtpVeri> createState() => dipx();
 }
 
 class dipx extends State<OtpVeri> {
-  dipx(int i);
+  bool isbtnpgrs=false;
+int xt=0;
+
+  bool isbtnpgrsx=false;
+  
 
   void dinc() {}
   final pinController = TextEditingController();
@@ -23,7 +33,7 @@ class dipx extends State<OtpVeri> {
 
 
 
-  int rs = 120; 
+  int rs = 1; 
   bool _canResend = false;
   late Timer _timer;
 
@@ -32,6 +42,7 @@ void _startTimer() {
 
     _canResend = false;
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      mounted?
       setState(() {
         if (rs > 0) {
           rs--;
@@ -39,8 +50,8 @@ void _startTimer() {
           _canResend = true;
           _timer.cancel();
         }
-      });
-    });
+      }):"";
+    },);
   }
 
 
@@ -49,8 +60,6 @@ void _startTimer() {
   @override
   void initState() {
     super.initState();
-
-
     _startTimer();
   }
 
@@ -59,12 +68,150 @@ void _startTimer() {
 
 
 
+Future<void> drf_login(BuildContext context) async {
+   
+   setState(() {
+         isbtnpgrsx=true;
+
+   });
+   
+   
+    try {
+      
+   
+    final dc = await http.post(
+        Uri.parse("https://admin.returnlorry.com/appservice/otp"),
+        body: json.encode({
+          "userPhone": widget.userPhone,
+          "deviceKey":
+              "durLHMKZShKUM9EFmy8mnW:APA91bEe9ptlVoy9sGyFK0n97X135PS4R2vAJ60f-LKKOSTX9H_yQVu4jnoSOmMrkOUX7qbPqWIcXl4A5PqOW1hr-Tu1bCbNOtYf6QhhZc9jUNIY4eMJKSG2oQ1JUPnyIswX6AD21MpH"
+        }));
+
+    // final dc = await http.get(Uri.parse("http://127.0.0.1"));
+
+    final rc = json.decode(dc.body);
+
+    print(rc);
+
+
+setState(() {
+      widget.otp=rc["data"]["data"]["otp"];
+
+});
+
+ setState(() {
+         isbtnpgrsx=false;
+
+   });
+    // print(rc["name"]);
+    // setState(() {
+
+ // ignore: use_build_context_synchronously
+
+ // ignore: use_build_context_synchronously
+//  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                           
+//                          //  return  OtpVeri(t: rc["data"]["data"]["otp"]);
+                           
+
+//                          },));
+    // });
+
+     // ignore: empty_catches
+     } catch (e) {
+      
+      
+    }
+
+   
+   
+  }
+
+
+
+
+Future<void> drf_verifyotp() async {
+   
+   setState(() {
+         isbtnpgrs=true;
+
+   });
+   
+   
+    try {
+      
+   
+    final dc = await http.post(
+        Uri.parse("https://admin.returnlorry.com/appservice/validateotp"),
+        body: json.encode({
+          "userPhone": widget.userPhone,
+          "Otp":widget.otp
+        }));
+
+    // final dc = await http.get(Uri.parse("http://127.0.0.1"));
+
+final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+
+
+    final jsonData = json.decode(dc.body);
+
+    if(jsonData?["data"]?["data"]?["user_type"]=="NA"){
+
+ final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+        print(
+          prefs.getString("phone")
+        );
+          prefs.setString("phone", jsonData["data"]["data"]["phone"]);
+          prefs.setString("Token", jsonData["data"]["data"]["Token"]);
+
+          prefs.setString("user_type", jsonData["data"]["data"]["user_type"]);
+
+          prefs.setInt("id", jsonData["data"]["data"]["id"]);
+
+if(context.mounted){
+      Navigator.push(context, MaterialPageRoute(builder: (context) =>  L_4()));
+
+}
+
+
+    // print(rc["name"]);
+    // setState(() {
+
+ // ignore: use_build_context_synchronously
+
+ // ignore: use_build_context_synchronously
+//  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                           
+//                          //  return  OtpVeri(t: rc["data"]["data"]["otp"]);
+                           
+
+//                          },));
+    // });
+
+     // ignore: empty_catches
+     } 
+     
+     
+     }
+     // ignore: empty_catches
+     catch (e) {
+      print(e);
+      
+    }
+  }
+
+
+
 
 String timefmtx(int s) {
+  
     int m = s ~/ 60;
     int rs = s % 60;
     return '${m.toString().padLeft(2, '0')}:${rs.toString().padLeft(2, '0')}';
   }
+
 
 
   @override
@@ -104,6 +251,39 @@ child:
                 "Verification code",
                 style: TextStyle(color: Color(0xff7D848D), fontSize: 20),
               ),
+
+
+const Text(""),
+
+                TextButton(
+                  onPressed: () {
+ Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+                           
+                          return  const RLogin();
+                           
+
+                         },));
+                    
+                    
+                  },
+                  child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                   children: [
+                     Text(
+                      '+91 ${widget.userPhone}',
+                      style: const TextStyle(color: Color(0xff0D6EFD), fontSize: 20),
+                              ),
+                
+                
+                    const SizedBox(width: 10,),
+                    
+                     const Icon(Icons.mode_edit)
+                    
+                   ],
+                               ),
+                ),
+
+              
               const Padding(padding: EdgeInsets.only(top: 60)),
               Container(
                 child: const Text(
@@ -139,12 +319,12 @@ child:
                 height: xheight * .02,
               ),
               Pinput(
-                length: 5,
+                length: 4,
                 controller: pinController,
                 listenForMultipleSmsOnAndroid: true,
                 separatorBuilder: (index) => const SizedBox(width: 8),
                 validator: (value) {
-                  return value == '2222' ? "currect pin" : 'Pin is incorrect';
+                  return value == '${widget.otp}' ? rax() : 'Pin is incorrect';
                 },
               ),
               SizedBox(
@@ -157,22 +337,38 @@ child:
                   child: ElevatedButton(
                     onPressed: () {
 
+ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Invalid otp"),backgroundColor: Colors.red,));
+
+// showDialog(context: context, builder: (BuildContext context) {
+//         return AlertDialog( title: "Message",content: "OTP is Invalid",actions: [TextButton(onPressed: , child: child)],
+//         );
+
+// }
+// );
+
+
 // otpveryfy();
-  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                           
-                           return L_4();
-                           
-
-                         },));
-
+ 
                     },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xff0D6EFD),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16))),
-                    child: const Text(
-                      "Verify",
-                      style: TextStyle(fontSize: 20),
+                    child:  isbtnpgrs? const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            
+                            SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(color: Colors.white,)),
+                              
+                              Text("     Please Wait")
+                          
+                          ],
+                        ): Text(
+                      'Verify${widget.otp}',
+                      style: const TextStyle(fontSize: 20),
                     ),
                   )),
 
@@ -185,14 +381,32 @@ SizedBox(height: xheight*.015),
                   width: xwidth * .9,
                   child: ElevatedButton(
                     onPressed: () {
-                      reSendOtp();
+
+
+drf_login(context);
 
                     },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xff0D6EFD),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16))),
-                    child: const Text(
+                    child:
+                    
+                    isbtnpgrsx? const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            
+                            SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(color: Colors.white,)),
+                              
+                              Text("     Please Wait")
+                          
+                          ],
+                        ):
+                    
+                     const Text(
                       "Resend OTP",
                       style: TextStyle(fontSize: 20),
                     ),
@@ -214,10 +428,22 @@ SizedBox(height: xheight*.015),
     
     ));
   }
+
+
+  
+  rax() {
+
+    setState(() {
+      isbtnpgrs=true;
+    });
+
+    drf_verifyotp();
+
+
+
+return "";
+
+  }
 }
 
-void reSendOtp() {
-}
 
-void otpveryfy() {
-}

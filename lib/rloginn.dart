@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'otp_verify.dart';
 
 class RLogin extends StatefulWidget {
-  const RLogin({super.key});
+  const 
+  RLogin({super.key});
 
   @override
   State<RLogin> createState() => Rloginx();
@@ -16,11 +17,22 @@ class RLogin extends StatefulWidget {
 //     "userPhone": "9831166884",
 //     "deviceKey":"durLHMKZShKUM9EFmy8mnW:APA91bEe9ptlVoy9sGyFK0n97X135PS4R2vAJ60f-LKKOSTX9H_yQVu4jnoSOmMrkOUX7qbPqWIcXl4A5PqOW1hr-Tu1bCbNOtYf6QhhZc9jUNIY4eMJKSG2oQ1JUPnyIswX6AD21MpH"
 // }
+
 class Rloginx extends State<RLogin> {
   TextEditingController rsign = TextEditingController();
+
+bool isbtnpgrs=false;
+
   // void dinc() {}
   // ignore: non_constant_identifier_names
   Future<void> drf_login(BuildContext context) async {
+   
+   setState(() {
+         isbtnpgrs=true;
+
+   });
+   
+   
     try {
       
    
@@ -44,9 +56,9 @@ class Rloginx extends State<RLogin> {
  // ignore: use_build_context_synchronously
 
  // ignore: use_build_context_synchronously
- Navigator.push(context, MaterialPageRoute(builder: (context) {
+ Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
                            
-                           return  OtpVeri(rc["data"]["data"]["otp"]);
+                           return  OtpVeri(otp: rc["data"]["data"]["otp"],userPhone: rsign.text,);
                            
 
                          },));
@@ -97,15 +109,33 @@ void optgo() {
                     SizedBox(
                       height: 60,
                       width: xheight*.8,
-                      // child: TextField(
-                      //     controller: rsign,
-                      //     decoration: InputDecoration(
-                      //         hintText: "+91",
-                      //         border: OutlineInputBorder(
-                      //           borderRadius: BorderRadius.circular(15),
-                      //           borderSide: const BorderSide(
-                      //               color: Color.fromARGB(255, 108, 105, 105)),
-                      //         ))),l.
+                      child: TextField(
+                          controller: rsign,
+                          decoration: const InputDecoration(
+                                
+                            prefixIcon:  Padding(
+                                padding: EdgeInsets.all(15),
+                                child: Text('+91  ') ),
+                            // label: Text(
+                            //   "Enter Your Phone Number",
+                            //   textAlign: TextAlign.center,
+                            //   style:  TextStyle(color: Colors.grey),
+                            // ),
+                            hintText: "Enter Your Phone Number",
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(20))
+                              )
+                              // border: OutlineInputBorder(
+                              //   borderRadius: BorderRadius.circular(15),
+                              //   borderSide:  BorderSide(
+                              //       color: Color.fromARGB(255, 108, 105, 105)),
+                              
+                              
+                              // )
+                              
+                              )
+                              
+                              ),
                     ),
                     const Padding(
                       padding: EdgeInsets.only(top: 40),
@@ -117,7 +147,7 @@ void optgo() {
                     ),
                     const Expanded(child: Text("")),
                     SizedBox(
-                      width: xwidth * 9,
+                      width: xwidth * .9,
                       height: 50,
                       child: ElevatedButton(
                         onPressed: () {
@@ -130,6 +160,19 @@ void optgo() {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16))),
                         child:
+                        isbtnpgrs? const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            
+                            SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(color: Colors.white,)),
+                              
+                              Text("     Please Wait")
+                          
+                          ],
+                        ):
                             const Text("Next", style: TextStyle(fontSize: 20)),
                       ),
                     ),
