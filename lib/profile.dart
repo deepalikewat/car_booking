@@ -12,6 +12,7 @@ class Profile extends StatefulWidget {
 //gg
 class dix extends State<Profile> {
   File? _image;
+  String drProfileImg="ABC XYZ";
   final picker = ImagePicker();
   Future getImage() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
@@ -124,9 +125,9 @@ class dix extends State<Profile> {
         ),
         const Padding(padding: EdgeInsets.only(top: 10)),
         // const Padding(padding: EdgeInsets.only(top: 20, bottom: 10)),
-        const Text(
-          "ABC XYZ",
-          style: TextStyle(
+         Text(
+          drProfileImg,
+          style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w400,
               color: Color(0xff1B1E28)),
@@ -154,6 +155,11 @@ class dix extends State<Profile> {
           width: xwidth - 60,
           child: TextField(
             controller: p_name,
+            onChanged: (value) {
+              setState(() {
+                drProfileImg=value;
+              });
+            },
             style: const TextStyle(fontSize: 16),
             decoration: const InputDecoration(
               border: OutlineInputBorder(
