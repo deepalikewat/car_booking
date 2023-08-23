@@ -55,7 +55,10 @@ bool isbtnpgrs=false;
 
  // ignore: use_build_context_synchronously
 
- // ignore: use_build_context_synchronously
+
+ if (mounted){
+  ScaffoldMessenger.of(context).showSnackBar( SnackBar(content: Text(rc["data"]["msg"]),backgroundColor: Colors.indigo,));
+
  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
                            
                            return  OtpVeri(otp: rc["data"]["data"]["otp"],userPhone: rsign.text,);
@@ -63,6 +66,7 @@ bool isbtnpgrs=false;
 
                          },));
     // });
+ }
 
      // ignore: empty_catches
      } catch (e) {

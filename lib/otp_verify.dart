@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+
 import 'package:car_booking/front.dart';
 import 'package:car_booking/lorry.dart';
 import 'package:car_booking/rloginn.dart';
@@ -156,19 +157,16 @@ final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     final jsonData = json.decode(dc.body);
 
-    if(jsonData?["data"]?["data"]?["user_type"]=="NA"){
+print(jsonData);
+    // if(jsonData?["data"]?["data"]?["user_type"]=="NA"){
 
- final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-        print(
-          prefs.getString("phone")
-        );
-          prefs.setString("phone", jsonData["data"]["data"]["phone"]);
-          prefs.setString("Token", jsonData["data"]["data"]["Token"]);
+       
+          prefs.setString("userPhone", "${jsonData["data"]["data"]["phone"]}");
+          prefs.setString("Token", "${jsonData["data"]["data"]["Token"]}");
 
-          prefs.setString("user_type", jsonData["data"]["data"]["user_type"]);
 
-          prefs.setInt("id", jsonData["data"]["data"]["id"]);
+          prefs.setString("userId", "${jsonData["data"]["data"]["id"]}");
 
 if(context.mounted){
       Navigator.push(context, MaterialPageRoute(builder: (context) =>  L_4()));
@@ -191,7 +189,7 @@ if(context.mounted){
     // });
 
      // ignore: empty_catches
-     } 
+    //  } 
      
      
      }
