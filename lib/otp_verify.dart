@@ -34,7 +34,7 @@ int xt=0;
 
 
 
-  int rs = 1; 
+  int rs = 60; 
   bool _canResend = false;
   late Timer _timer;
 

@@ -32,6 +32,7 @@ class UserDashBoardx  extends State<UserDashBoard>{
     double xwidth = MediaQuery.of(context).size.width;
 
   TextEditingController srcctl = TextEditingController();
+  TextEditingController srcctlx = TextEditingController();
 
   final TextEditingController _controllerdx = TextEditingController();
 
@@ -114,7 +115,7 @@ borderRadius: BorderRadius.only(topLeft: Radius.circular(
 MapAutoCompleteField(
 
             googleMapApiKey: apiKey,
-            controller: srcctl,
+            controller: srcctlx,
             itemBuilder: (BuildContext context, suggestion) {
               return ListTile(
                 title: Text(suggestion.description),
