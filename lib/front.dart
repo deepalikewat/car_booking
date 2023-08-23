@@ -16,7 +16,7 @@ class Lorryx  extends State<Lorry>{
 Future<void> checkUserType() async {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-   Future.delayed(const Duration(seconds: 0), () {
+   Future.delayed(const Duration(seconds: 3), () {
     if (prefs.getString("userType")=="1"){
       Navigator.push(context, MaterialPageRoute(builder: (context) =>  UserDashBoard()));
 

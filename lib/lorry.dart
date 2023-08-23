@@ -80,6 +80,7 @@ ScaffoldMessenger.of(context).showSnackBar( SnackBar(content: Text(rc["data"]["m
 
 
 
+
     // print(rc);
     // print(rc["name"]);
     // setState(() {
@@ -87,17 +88,17 @@ ScaffoldMessenger.of(context).showSnackBar( SnackBar(content: Text(rc["data"]["m
  // ignore: use_build_context_synchronously
 
  // ignore: use_build_context_synchronously
-//  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+ Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
                            
-//                            if(user_type==1){
-//                           return  Profile();
+                           if(user_type==1){
+                          return  Profile();
                            
-//                            }else{
-//                            return  Driver();
-//                            }
+                           }else{
+                           return  Driver();
+                           }
 
-//                          },));
-    // });
+                         },));
+
 
      // ignore: empty_catches
      } catch (e) {
