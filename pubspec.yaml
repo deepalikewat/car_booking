@@ -11,7 +11,8 @@ dependencies:
     sdk: flutter
   geocoding: ^2.1.0
   google_maps_flutter: ^2.4.0
-  http: ^1.1.0
+  google_maps_webservice_ex: ^0.0.1+2
+  http: ^0.13.5
   image_picker: ^1.0.2
   intl: ^0.18.1
   map_autocomplete_field: ^0.0.2
