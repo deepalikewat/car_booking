@@ -216,6 +216,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  freezed_annotation:
+    dependency: transitive
+    description:
+      name: freezed_annotation
+      sha256: c3fd9336eb55a38cc1bbd79ab17573113a8deccd0ecbbf926cca3c62803b5c2d
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.4.1"
   geocoding:
     dependency: "direct main"
     description:
@@ -295,7 +303,19 @@ packages:
       sha256: a0a7f40aad00dd07e76abb80b7d28213b5f62c6d7d56e7e85efc15849fabcfbb
       url: "https://pub.dev"
     source: hosted
+<<<<<<< HEAD
     version: "0.5.4"
+=======
+    version: "0.5.3"
+  google_maps_webservice_ex:
+    dependency: "direct main"
+    description:
+      name: google_maps_webservice_ex
+      sha256: cc87a808daa19274267322877cd6b720d39e31d8a39a24f54597ff604ba51ae1
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1+2"
+>>>>>>> 0cb5815 (xx)
   html:
     dependency: transitive
     description:
@@ -308,10 +328,10 @@ packages:
     dependency: "direct main"
     description:
       name: http
-      sha256: "759d1a329847dd0f39226c688d3e06a6b8679668e350e2891a6474f8b4bb8525"
+      sha256: "5895291c13fa8a3bd82e76d5627f69e0d85ca6a30dcac95c4ea19a5d555879c2"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "0.13.6"
   http_parser:
     dependency: transitive
     description:
@@ -408,6 +428,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.4"
+  json_annotation:
+    dependency: transitive
+    description:
+      name: json_annotation
+      sha256: b10a7b2ff83d83c777edba3c6a0f97045ddadd56c944e1a23a3fdf43a1bf4467
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.8.1"
   lints:
     dependency: transitive
     description:
