@@ -27,7 +27,13 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     
-      return    MaterialApp(home: Lorry());
+
+      return    MaterialApp(
+        theme: ThemeData(
+          backgroundColor: Color(0xffF8FBFF)
+
+        ),
+        home: Lorry());
     // 
   }
 }

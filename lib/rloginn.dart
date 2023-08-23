@@ -88,7 +88,6 @@ void optgo() {
     
 
     return Scaffold(
-        backgroundColor: const Color.fromARGB(0, 104, 138, 182),
         body: SafeArea(
             child: Padding(
                 padding: EdgeInsets.all(xheight * .03),

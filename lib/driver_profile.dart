@@ -123,7 +123,7 @@ class ri extends State<Driver> {
             decoration: const InputDecoration(
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(15))),
-              hintText: "Cutest",
+              hintText: "name",
             ),
           ),
         ),

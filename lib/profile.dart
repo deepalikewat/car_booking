@@ -165,7 +165,7 @@ class dix extends State<Profile> {
             decoration: const InputDecoration(
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(15))),
-              hintText: "Cutest",
+              hintText: "name",
             ),
           ),
         ),
@@ -246,8 +246,10 @@ class dix extends State<Profile> {
           width: xwidth,
           child: ElevatedButton(
             onPressed: () {
-UserDashBoard();
+ Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+                       return    UserDashBoard();
 
+ }));
             },
             style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xff0D6EFD),
