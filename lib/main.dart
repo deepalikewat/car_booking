@@ -19,7 +19,7 @@ import 'package:flutter/material.dart';
 import 'map_with_autocomplete.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(Profile());
 }
 //uuc
 
@@ -28,6 +28,7 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     
 <<<<<<< HEAD
       return    MaterialApp(home: Lorry());
@@ -46,5 +47,8 @@ scaffoldBackgroundColor: const Color(0xfff8fbff)
         
 >>>>>>> 881732f (cc)
     // 
+=======
+    return MaterialApp(home: Profile());
+>>>>>>> e33c89d (uploadx)
   }
 }
