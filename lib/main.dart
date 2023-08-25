@@ -16,7 +16,7 @@ import 'package:flutter/material.dart';
 import 'map_with_autocomplete.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(Profile());
 }
 //uuc
 
@@ -24,7 +24,7 @@ class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
   @override
-  Widget build(BuildContext context) {  return   MaterialApp(home: QTF());
-    
+  Widget build(BuildContext context) {
+    return MaterialApp(home: Profile());
   }
 }
