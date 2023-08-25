@@ -57,7 +57,7 @@ Future<void> _selectDate(BuildContext context) async {
    
 return  Scaffold(
 
-body: Stack(
+body: SingleChildScrollView(child:   Stack(
         children: [
 
 SizedBox(height: xheight,),
@@ -82,6 +82,7 @@ SizedBox(height: xheight,),
                 Marker(
                   markerId: const MarkerId("destination"),
                   position: _destinationLatLng,
+                  
                 ),
               },
             ),
@@ -221,6 +222,8 @@ const TextField(
         ]
 )
 
+),
+resizeToAvoidBottomInset: true,
 );
   }
 
