@@ -15,7 +15,7 @@ class logx extends State<Login> {
   @override
   Widget build(BuildContext context) {
     double xwidth = MediaQuery.of(context).size.width;
-     double xheight = MediaQuery.of(context).size.height;
+    double xheight = MediaQuery.of(context).size.height;
 
     return Scaffold(
         body: Center(
@@ -24,7 +24,7 @@ class logx extends State<Login> {
         children: [
           Column(children: [
              Padding(
-              padding: EdgeInsets.only(top:(xheight *.1), bottom: 20),
+              padding: EdgeInsets.only(top: xheight*0.27, bottom: 20),
               child: const Text(
                 "Sign in now",
                 style: TextStyle(
@@ -38,18 +38,16 @@ class logx extends State<Login> {
               style: TextStyle(color: Color(0xff7D848D), fontSize: 20),
             ),
             const Padding(padding: EdgeInsets.all(50)),
-            Container(
-                // padding: EdgeInsets.symmetric(horizontal: 20),
-                decoration: BoxDecoration(
-                    border: Border.all(color: const Color(0x87878799)),
-                    borderRadius: BorderRadius.circular(10)),
-                width: xwidth - 80,
-                child: Row(children: [
-                  const Text(
-                    "  +91",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  const Padding(padding: EdgeInsets.only(left: 30)),
+                // // padding: EdgeInsets.symmetric(horizontal: 20),
+                // decoration: BoxDecoration(
+                //     border: Border.all(color: const Color(0x87878799)),
+                //     borderRadius: BorderRadius.circular(10)),
+                // child: Row(children: [
+                //   const Text(
+                //     "  +91",
+                //     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                //   ),
+            
                   Container(
                     height: 45,
                     width: 1,
@@ -61,7 +59,7 @@ class logx extends State<Login> {
                     child: const TextField(
                       style: TextStyle(fontSize: 18),
                       decoration: InputDecoration(
-                        hintText: "Your number",
+                        hintText: "Your numbmer",
                         border: OutlineInputBorder(
                             borderSide: BorderSide.none,
                             borderRadius:
@@ -69,7 +67,7 @@ class logx extends State<Login> {
                       ),
                     ),
                   ),
-                ])),
+                
             const Padding(padding: EdgeInsets.all(30)),
             const Text(
               "We Will Sent you an OTP on This Mobile",

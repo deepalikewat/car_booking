@@ -11,8 +11,14 @@ dependencies:
     sdk: flutter
   geocoding: ^2.1.0
   google_maps_flutter: ^2.4.0
-  flutter_google_places_autocomplete: ^3.0.2
-  http: ^1.1.0
+  google_maps_webservice_ex: ^0.0.1+2
+  http: ^0.13.5
+  image_picker: ^1.0.2
+  intl: ^0.18.1
+  map_autocomplete_field: ^0.0.2
+  pinput: ^3.0.0
+  shared_preferences: ^2.2.0
+  
     
 
 dev_dependencies:
@@ -20,10 +26,12 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^2.0.0
 
+
 flutter:
   uses-material-design: true
   assets:
     - img/logo.png
     - img/truck.png
     - img/QT.jpeg
+
   

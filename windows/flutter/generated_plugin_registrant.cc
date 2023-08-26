@@ -6,6 +6,15 @@
 
 #include "generated_plugin_registrant.h"
 
+#include <file_selector_windows/file_selector_windows.h>
+#include <map_autocomplete_field/map_autocomplete_field_plugin_c_api.h>
+#include <smart_auth/smart_auth_plugin.h>
 
 void RegisterPlugins(flutter::PluginRegistry* registry) {
+  FileSelectorWindowsRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("FileSelectorWindows"));
+  MapAutocompleteFieldPluginCApiRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("MapAutocompleteFieldPluginCApi"));
+  SmartAuthPluginRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("SmartAuthPlugin"));
 }
