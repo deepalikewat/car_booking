@@ -22,12 +22,12 @@ Future<void> checkUserType() async {
 
     }else if(prefs.getString("userType")=="2"){
 
-            Navigator.push(context, MaterialPageRoute(builder: (context) =>  DriverDashBoard()));
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>  DriverDashBoard()));
 
     }
     else{
 
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const RLogin()));
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const RLogin()));
 
     }
 
