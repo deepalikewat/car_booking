@@ -4,6 +4,10 @@ import 'package:intl/intl.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice_ex/places.dart';
 import 'package:map_autocomplete_field/map_autocomplete_field.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class UserDashBoard extends StatefulWidget {
@@ -21,20 +25,28 @@ class UserDashBoardx  extends State<UserDashBoard>{
   final TextEditingController _sourceController = TextEditingController();
   final TextEditingController _destinationController = TextEditingController();
   final apiKey ='AIzaSyDXLXII5-jnC-fJ5hSF3xc5ucf_O_ecOfQ';
-  late LatLng _sourceLatLng=const LatLng(21.1290, 82.7792);
-  late LatLng _destinationLatLng=const LatLng(21.1280, 82.7792);
+  LatLng _sourceLatLng= const LatLng(0, 0);
+  late LatLng _destinationLatLng= const LatLng(21.1280, 82.7792);
   TextEditingController controller = TextEditingController();
   final GoogleMapsPlaces _place = GoogleMapsPlaces(apiKey: "AIzaSyDXLXII5-jnC-fJ5hSF3xc5ucf_O_ecOfQ" );
 
-  @override
-  Widget build(BuildContext context) {
-    double xheight = MediaQuery.of(context).size.height;
-    double xwidth = MediaQuery.of(context).size.width;
-
   TextEditingController srcctl = TextEditingController();
   TextEditingController srcctlx = TextEditingController();
+  TextEditingController producttype = TextEditingController();
+  TextEditingController offerfare = TextEditingController();
+  TextEditingController distancef = TextEditingController();
 
   final TextEditingController _controllerdx = TextEditingController();
+  
+  bool showsidex=false;
+  double rxt=0;
+  
+  bool isbtnpgrs=false;
+  String spincode="0";
+  String dpincode="0"; 
+  String saddr="";
+  String daddr="";
+  
 
 Future<void> _selectDate(BuildContext context) async {
     final DateTime? selected = await showDatePicker(
@@ -55,12 +67,220 @@ Future<void> _selectDate(BuildContext context) async {
     }
   }
    
+
+
+Future<void> calculateDistance() async {
+    String origin = '${_sourceLatLng.latitude},${_sourceLatLng.longitude}';  // Replace with your origin coordinates
+    String destination = '${_destinationLatLng.latitude},${_destinationLatLng.longitude}';  // Replace with your destination coordinates
+
+    String url = 'https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=$origin&destinations=$destination&key=$apiKey';
+
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      double meters = data['rows'][0]['elements'][0]['distance']['value'];
+      setState(() {
+       
+        rxt = meters;
+
+distancef.text="$rxt";
+      });
+    }
+  }
+
+Future<Map<String, dynamic>?> getPlaceDetails(String placeid) async {
+  final response = await http.get(Uri.parse('https://maps.googleapis.com/maps/api/place/details/json?placeid=$placeid&key=$apiKey'));
+
+  if (response.statusCode == 200) {
+    final data = json.decode(response.body);
+    if (data['status'] == 'OK') {
+      final result = data['result'];
+
+      final geometry = result['geometry'];
+      final location = geometry['location'];
+      final latitude = location['lat'];
+      final longitude = location['lng'];
+
+      String postalCode = '';
+      final addressComponents = result['address_components'];
+      for (var component in addressComponents) {
+        final types = List<String>.from(component['types']);
+        if (types.contains('postal_code')) {
+          postalCode = component['long_name'];
+          break;
+        }
+      }
+
+      if (postalCode.isEmpty) {
+        final nearestPostalCode = await findNearestPostalCode(latitude, longitude);
+        return {'latitude': latitude, 'longitude': longitude, 'postalCode': nearestPostalCode};
+      }
+
+      return {'latitude': latitude, 'longitude': longitude, 'postalCode': postalCode};
+    }
+  }
+  return null;
+}
+
+Future<String?> findNearestPostalCode(double latitude, double longitude) async {
+  final response = await http.get(Uri.parse('https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&key=$apiKey'));
+
+print("find near code");
+  if (response.statusCode == 200) {
+    final data = json.decode(response.body);
+    if (data['status'] == 'OK') {
+      final results = data['results'];
+      if (results.isNotEmpty) {
+        final addressComponents = results[0]['address_components'];
+        for (var component in addressComponents) {
+          final types = List<String>.from(component['types']);
+          if (types.contains('postal_code')) {
+            return component['long_name'];
+          }
+        }
+      }
+    }
+  }
+  return null;
+}
+
+
+
+
+
+
+Future<void> createbooking() async {
+
+
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+
+print(json.encode(
+          
+{
+    "Token": prefs.getString("Token"),
+    "userId": prefs.getString("userId"),
+    "userPhone": prefs.getString("userPhone"),
+    "userType": prefs.getString("userType"),
+    "pick_up_point_lat": "${_sourceLatLng.latitude}",
+    "pick_up_point_long": "${_sourceLatLng.longitude}",
+    "pick_up_point_pincode": "$spincode",
+    "pick_up_point_address": saddr,
+    "destination_lat": "${_destinationLatLng.latitude}",
+    "destination_long": "${_destinationLatLng.longitude}",
+    "destination_pincode": "$dpincode",
+    "destination_address": daddr,
+    "vehicle_type_id": 1,
+    "material_weight": "2000",
+    "material_type": producttype.text,
+    "distance": distancef.text,
+    "calculated_price": distancef.text,
+    "booking_date": _controllerdx.text
+}
+
+
+)
+);
+if(isbtnpgrs){
+  return ;
+}
+
+setState(() {
+  isbtnpgrs=true;
+});
+
+
+
+
+    final dc = await http.post(
+        Uri.parse("https://admin.returnlorry.com/appservice/createbookingrequest"),
+        body: json.encode(
+          
+{
+    "Token": prefs.getString("Token"),
+    "userId": prefs.getString("userId"),
+    "userPhone": prefs.getString("userPhone"),
+    "userType": prefs.getString("userType"),
+    "pick_up_point_lat": "${_sourceLatLng.latitude}",
+    "pick_up_point_long": "${_sourceLatLng.longitude}",
+    "pick_up_point_pincode": "$spincode",
+    "pick_up_point_address": saddr,
+    "destination_lat": "${_destinationLatLng.latitude}",
+    "destination_long": "${_destinationLatLng.longitude}",
+    "destination_pincode": "$dpincode",
+    "destination_address": daddr,
+    "vehicle_type_id": 1,
+    "material_weight": "2000",
+    "material_type": producttype.text,
+    "distance": distancef.text,
+    "calculated_price": distancef.text ,
+    "booking_date": _controllerdx.text
+}
+
+
+
+        ));
+
+
+
+ ScaffoldMessenger.of(context).showSnackBar( SnackBar(duration: Duration(seconds: 5), content: Text("${jsonDecode(dc.body)?['data']['msg']}"),backgroundColor: Colors.green,));
+
+
+setState(() {
+  isbtnpgrs=false;
+});
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// @override
+//   void initState() async{
+  
+//     final response = await http.get(Uri.parse('https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&key=$apiKey'));
+
+  
+
+//   }
+
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    double xheight = MediaQuery.of(context).size.height;
+    double xwidth = MediaQuery.of(context).size.width;
+
+
+
+
 return  Scaffold(
+
+drawer: Drawer(child: ListView(children: [const Text("data")],)),
 
 body: SingleChildScrollView(child:   Stack(
         children: [
-
-SizedBox(height: xheight,),
           Container(
             height: xheight*.5,
             child: GoogleMap(
@@ -90,13 +310,13 @@ SizedBox(height: xheight,),
           )
            
           ,
-          Positioned(
-          
-          top: xheight*.46,
-            child: Container(
-            height: xheight*.54,
-            width: xwidth,
-            decoration: const BoxDecoration(color: Color.fromARGB(255, 255, 255, 255),
+   
+          Column(
+            children: [
+              Padding(padding: EdgeInsets.only(top: xheight*.45)),
+              Container(
+                width: xwidth,
+                decoration: const BoxDecoration(color: Color.fromARGB(255, 255, 255, 255),
 
 borderRadius: BorderRadius.only(topLeft: Radius.circular(
   30
@@ -104,120 +324,205 @@ borderRadius: BorderRadius.only(topLeft: Radius.circular(
 
 
 
-            ),
-            
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Column(children: [
-            
-            SizedBox(height: xheight*.03,),
-            
+                ),
+                
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Column(children: [
+                
+                SizedBox(height: xheight*.03,),
+                
 
 MapAutoCompleteField(
 
-            googleMapApiKey: apiKey,
-            controller: srcctlx,
-            itemBuilder: (BuildContext context, suggestion) {
-              return ListTile(
-                title: Text(suggestion.description),
-              );
-            },
-            onSuggestionSelected: (suggestion) {
-              srcctl.text = suggestion.description;
-              print(suggestion);
-            },
-          
-            inputDecoration: const InputDecoration(
-              hintText: "Pick Up Point",
-              prefixIcon: Icon(Icons.location_pin,color: Color(0xff0c50b4),)
-            ),
-            
-            )
-            ,
-            const SizedBox(height: 10,),
+                googleMapApiKey: apiKey,
+                controller: srcctlx,
+                itemBuilder: (BuildContext context, suggestion) {
+                  return ListTile(
+                    title: Text(suggestion.description),
+                  );
+                },
+                onSuggestionSelected: (suggestion) async {
+                  srcctlx.text = suggestion.description;
+
+try{
+                  
+                  final tg=await getPlaceDetails(suggestion.placeId);
+
+setState(() {
+  
+  _sourceLatLng=LatLng(tg?["latitude"], tg?["longitude"]);
+
+spincode=tg?["postalCode"];
+saddr=suggestion.description;
+  
+});
+
+await calculateDistance();
+}catch(y){
+print(y);
+
+print("problem hare");
+
+}
+
+                },
+              
+                inputDecoration: const InputDecoration(
+                  hintText: "Pick Up Point",
+                  prefixIcon: Icon(Icons.location_pin,color: Color(0xff0c50b4),)
+                ),
+                
+                )
+                ,
+                const SizedBox(height: 10,),
 MapAutoCompleteField(
 
-            googleMapApiKey: apiKey,
-            controller: srcctl,
-            itemBuilder: (BuildContext context, suggestion) {
-              return ListTile(
-                title: Text(suggestion.description),
-              );
-            },
-            onSuggestionSelected: (suggestion) async {
-              srcctl.text = suggestion.description;
+                googleMapApiKey: apiKey,
+                controller: srcctl,
+                itemBuilder: (BuildContext context, suggestion) {
+                  return ListTile(
+                    title: Text(suggestion.description),
+                  );
+                },
+                onSuggestionSelected: (suggestion) async {
+                  srcctl.text = suggestion.description;
 
 
- 
-            },
-          
-            inputDecoration: const InputDecoration(
-              hintText: "Destination Point",
-              prefixIcon: Icon(Icons.location_pin,color: Color(0xff0c50b4),)
-            ),
-            
-            )
-            ,
-            const SizedBox(height: 10,),
 
-            const TextField(
 
-decoration: InputDecoration(hintText: "Product Type",prefixIcon: Icon(Icons.shopping_cart,color: Color(0xff0c50b4))),
-            ),
+                 
+     final tg=await getPlaceDetails(suggestion.placeId);
 
-                        const SizedBox(height: 10,),
+setState(() {
+  
+  daddr= suggestion.description;
+  _destinationLatLng=LatLng(tg?["latitude"], tg?["longitude"]);
+dpincode=tg?["postalCode"];
+  
+});
+try{
+            await calculateDistance();
 
-            TextField(
-            controller: _controllerdx,
-           onTap: (){_selectDate(context);
-                  },
+}catch(xd){
+
+  print("problem harex$xd",);
+}
+                },
+              
+                inputDecoration: const InputDecoration(
+                  hintText: "Destination Point",
+                  prefixIcon: Icon(Icons.location_pin,color: Color(0xff0c50b4),)
+                ),
+                
+                )
+                ,
+                const SizedBox(height: 10,),
+
+                 TextField(
+                  controller: producttype,
+
+decoration: const InputDecoration(hintText: "Product Type",prefixIcon: Icon(Icons.shopping_cart,color: Color(0xff0c50b4))),
+                ),
+
+                            const SizedBox(height: 10,),
+
+                TextField(
+                controller: _controllerdx,
+               onTap: (){_selectDate(context);
+                      },
 decoration: const InputDecoration(prefixIcon: Icon(Icons.calendar_month_outlined,color: Color(0xff0c50b4)),
 hintText: "PickUp date"
 ),
 
-            )
+                )
 ,
-            const SizedBox(height: 10,),
+                const SizedBox(height: 10,),
 
-const TextField(
+ TextField(
   keyboardType: TextInputType.number,
-  decoration: InputDecoration(
+  controller: offerfare,
+  decoration: const InputDecoration(
     hintText: "Offer Your Fare",
     prefixIcon: Icon( Icons.currency_rupee,color: Color(0xff0c50b4),
   
   
   )),
   
+) , const SizedBox(height: 10,),
+
+ TextField(
+  controller: distancef,
+  keyboardType: TextInputType.number,
+  decoration: const InputDecoration(
+    hintText: "Distance",
+    prefixIcon: Icon( Icons.social_distance,color: Color(0xff0c50b4),
+  
+  
+  )),
+  
 )
-            
-            ,
+                
+                ,
 
-            const Expanded(child: SizedBox()),
+const SizedBox(height: 30,),
 
- Container(
-              padding: const EdgeInsets.only(right: 10,left: 10,bottom: 10),
-              height: 60,
-              width: xwidth,
-              child: ElevatedButton(
-                onPressed: () {
+  SizedBox(
+                      width: xwidth * .9,
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: () {
+                         
+                        createbooking();
+                      
+                        },
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xff0D6EFD),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16))),
+                        child:
+                        isbtnpgrs? const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            
+                            SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(color: Colors.white,)),
+                              
+                              Text("     Please Wait")
+                          
+                          ],
+                        ):
+                            const Text("Find Driver", style: TextStyle(fontSize: 20)),
+                      ),
+                    ),
+
+const SizedBox(height: 10,),
+
+
 
                 
-                },
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xff0D6EFD),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16))),
-                child: const Text("Find Driver", style: TextStyle(fontSize: 20)),
+                ],),
+                )
               ),
-            ),
-            
-            
-            ],),
-            )
-          ))
+            ],
+          )
+
+,
+
+IconButton.outlined(onPressed: (){
+  
+  setState(() {
+
+      showsidex=!showsidex;
+      print(showsidex);
+
+  });
 
 
-
+} , icon: const Icon(Icons.menu,size: 35,))
+,
 
         ]
 )
@@ -228,4 +533,3 @@ resizeToAvoidBottomInset: true,
   }
 
 }
-

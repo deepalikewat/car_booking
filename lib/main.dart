@@ -1,3 +1,4 @@
+import 'package:car_booking/DriverDashboard.dart';
 import 'package:car_booking/UserDasboard.dart';
 import 'package:car_booking/booking.dart';
 import 'package:car_booking/drftest.dart';
@@ -30,10 +31,15 @@ class MainApp extends StatelessWidget {
 
       return    MaterialApp(
         theme: ThemeData(
-          backgroundColor: Color(0xffF8FBFF)
+
+scaffoldBackgroundColor: Color(0xfff8fbff)
+
 
         ),
-        home: Lorry());
+
+        home: UserDashBoard());
+
+        
     // 
   }
 }
