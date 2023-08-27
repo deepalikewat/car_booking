@@ -18,7 +18,7 @@ Future<void> checkUserType() async {
 
    Future.delayed(const Duration(seconds: 3), () {
     if (prefs.getString("userType")=="1"){
-      Navigator.push(context, MaterialPageRoute(builder: (context) =>  UserDashBoard()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) =>  const UserDashBoard()));
 
     }else if(prefs.getString("userType")=="2"){
 

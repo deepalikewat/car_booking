@@ -1,10 +1,13 @@
 import 'dart:io';
 
 import 'package:car_booking/UserDasboard.dart';
+import 'package:car_booking/rloginn.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 class Profile extends StatefulWidget {
   @override
   State<Profile> createState() => dix();
@@ -12,6 +15,32 @@ class Profile extends StatefulWidget {
 
 //gg
 class dix extends State<Profile> {
+
+String fileToBase64(File file) {
+  List<int> imageBytes = file.readAsBytesSync();
+  String base64String = base64Encode(imageBytes);
+  return base64String;
+}
+
+
+
+Future<void> syncp() async{
+  
+
+
+
+
+
+}
+
+
+@override
+  void initState() {
+    // TODO: implement initState
+    syncp();
+  }
+
+  bool isbtnpgrs=false;
   File? _image;
   String drProfileImg="ABC XYZ";
   final picker = ImagePicker();
@@ -38,14 +67,114 @@ class dix extends State<Profile> {
 
   // void dinc() {}
   Future<void> drf_profile() async {
-    final datax = json.encode({
-      "driver_name": p_name.text,
-      "driver_phone": p_num.text,
-      "driver_email": p_emailid.text,
-      "driver_address": p_addr.text,
-    });
 
-    // print(datax);
+  if (_image != null) {
+    String base64String = fileToBase64(_image!);
+    print("Base64 encoded string:\n$base64String");
+  } else {
+    print("Image file is null.");
+  }
+
+
+
+
+
+setState(() {
+  isbtnpgrs=true;
+});
+
+
+
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+//   var umx;
+
+// try{
+
+
+// if(_image==null){
+//    umx="";
+// }else{
+//    umx=base64Encode(_image!.readAsBytesSync());
+// }
+
+
+// print({
+      
+  
+//     "Token": prefs.getString("Token"),
+//     "userId": prefs.getString("userId"),
+//     "userPhone": prefs.getString("userPhone"),
+//     "userType": prefs.getString("userType"),
+//     "name": p_name.text,
+//     "phone":  p_num.text,
+//     "email": p_emailid.text,
+//     "address": p_addr.text,
+//     "profile_image":umx
+
+// }
+
+//         );
+
+
+// // ignore: empty_catches
+// }catch(opl){
+// print(opl);
+// }
+
+  
+    final dc = await http.post(
+        Uri.parse("https://admin.returnlorry.com/appservice/updateprofile"),
+        body: json.encode(
+        
+{
+      
+  
+    "Token": prefs.getString("Token"),
+    "userId": prefs.getString("userId"),
+    "userPhone": prefs.getString("userPhone"),
+    "userType": prefs.getString("userType"),
+    "name": p_name.text,
+    "phone":  p_num.text,
+    "email": p_emailid.text,
+    "address": p_addr.text,
+    "profile_image":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAA"
+
+}
+
+        )
+        
+        );
+
+    
+
+
+   final rc = json.decode(dc.body);
+
+  
+  print(rc);
+
+  final SharedPreferences pref = await SharedPreferences.getInstance();
+
+  pref.setString("profile_image", rc["data"]["data"]["profile_image"]);
+  pref.setString("name", rc["data"]["data"]["name"]);
+  pref.setString("email", rc["data"]["data"]["email"]);
+  pref.setString("address", rc["data"]["data"]["address"]);
+  
+
+  // ignore: use_build_context_synchronously
+  ScaffoldMessenger.of(context).showSnackBar( SnackBar(content: Center( child: Text('${rc["data"]["msg"]}')),backgroundColor: Color.fromARGB(255, 26, 3, 89),));
+
+
+
+
+// ignore: use_build_context_synchronously
+Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+                           
+                          return  const UserDashBoard();
+                           
+
+                         },));
+                    
 
 
 
@@ -53,12 +182,12 @@ class dix extends State<Profile> {
 
   }
 
-  void dinc() {}
 
   @override
   Widget build(BuildContext context) {
     double xwidth = MediaQuery.of(context).size.width;
     double xheight = MediaQuery.of(context).size.height;
+
 
     return Scaffold(
       body: Center(
@@ -99,7 +228,9 @@ class dix extends State<Profile> {
                         height: 130,
                         fit: BoxFit.cover,
                       )
-                    : Image.file(
+                    : kIsWeb? Image.network(_image!.path, width: 130,
+                        height: 130,
+                        fit: BoxFit.cover,): Image.file(
                         _image!,
                         width: 130,
                         height: 130,
@@ -145,7 +276,7 @@ class dix extends State<Profile> {
 
         Container(
           padding: const EdgeInsets.only(bottom: 8),
-          width: xwidth - 70,
+          width: xwidth *.9,
           child: const Text(
             "Full Name",
             style: TextStyle(fontSize: 18, color: Color(0xff1B1E28)),
@@ -153,7 +284,7 @@ class dix extends State<Profile> {
         ),
 
         Container(
-          width: xwidth - 60,
+          width: xwidth * .9,
           child: TextField(
             controller: p_name,
             onChanged: (value) {
@@ -172,7 +303,7 @@ class dix extends State<Profile> {
 
         Container(
           padding: const EdgeInsets.only(bottom: 8, top: 20),
-          width: xwidth - 70,
+          width: xwidth * .9,
           child: const Text(
             "Enter Number",
             style: TextStyle(fontSize: 18, color: Color(0xff1B1E28)),
@@ -180,7 +311,7 @@ class dix extends State<Profile> {
         ),
 
         Container(
-          width: xwidth - 60,
+          width: xwidth *.9,
           child: TextField(
             controller: p_num,
             style: const TextStyle(fontSize: 16),
@@ -198,7 +329,7 @@ class dix extends State<Profile> {
 
         Container(
           padding: const EdgeInsets.only(bottom: 8, top: 20),
-          width: xwidth - 70,
+          width: xwidth *.9,
           child: const Text(
             "Email Id",
             style: TextStyle(fontSize: 18, color: Color(0xff1B1E28)),
@@ -206,7 +337,7 @@ class dix extends State<Profile> {
         ),
 
         Container(
-          width: xwidth - 60,
+          width: xwidth * .9,
           child: TextField(
             controller: p_emailid,
             style: const TextStyle(fontSize: 16),
@@ -220,7 +351,7 @@ class dix extends State<Profile> {
 
         Container(
           padding: const EdgeInsets.only(bottom: 8, top: 20),
-          width: xwidth - 70,
+          width: xwidth *.9,
           child: const Text(
             "Enter Address",
             style: TextStyle(fontSize: 18, color: Color(0xff1B1E28)),
@@ -228,7 +359,7 @@ class dix extends State<Profile> {
         ),
 
         Container(
-          width: xwidth - 60,
+          width: xwidth * .9,
           child: TextField(
             controller: p_addr,
             style: const TextStyle(fontSize: 16),
@@ -240,25 +371,41 @@ class dix extends State<Profile> {
           ),
         ),
         const Expanded(child: Text("")),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          height: 60,
-          width: xwidth,
-          child: ElevatedButton(
-            onPressed: () {
-UserDashBoard();
 
-            },
-            style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xff0D6EFD),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16))),
-            child: const Text(
-              "Update",
-              style: TextStyle(fontSize: 20),
-            ),
-          ),
-        ),
+
+          SizedBox(
+                      width: xwidth * .9,
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: () {
+                         
+                        drf_profile();
+                      
+                        },
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xff0D6EFD),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16))),
+                        child:
+                        isbtnpgrs? const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            
+                            SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(color: Colors.white,)),
+                              
+                              Text("     Please Wait")
+                          
+                          ],
+                        ):
+                            const Text("Updates", style: TextStyle(fontSize: 20)),
+                      ),
+                    ),
+
+
+        
         const SizedBox(
           height: 20,
         )

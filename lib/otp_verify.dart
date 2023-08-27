@@ -322,7 +322,9 @@ const Text(""),
                 listenForMultipleSmsOnAndroid: true,
                 separatorBuilder: (index) => const SizedBox(width: 8),
                 validator: (value) {
-                  return value == '${widget.otp}' ? rax() : 'Pin is incorrect';
+                   value == '${widget.otp}' ? rax() : ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Invalid otp"),backgroundColor: Colors.red,));
+               
+               return"";
                 },
               ),
               SizedBox(
