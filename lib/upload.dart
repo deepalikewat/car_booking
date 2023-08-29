@@ -145,6 +145,7 @@ class dux extends State<Upload> {
             child: Center(
                 child: Column(
       children: [
+
         const Text(
           "Upload Documents",
           style: TextStyle(
@@ -168,12 +169,14 @@ class dux extends State<Upload> {
                   icon: const Icon(
                     Icons.add_card,
                     size: 50,
-                    color: Colors.black,
+                    color: Color.fromARGB(255, 16, 105, 129),
                   ),
                   label: const Text(""),
                   style: ElevatedButton.styleFrom(
+
                       backgroundColor: const Color(0xffF3F6FF),
                       shape: RoundedRectangleBorder(
+                        
                           borderRadius: BorderRadius.circular(10))),
                 ),
                 SizedBox(

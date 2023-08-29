@@ -37,7 +37,11 @@ class ri extends State<Driver> {
   TextEditingController d_license = TextEditingController();
   // void dinc() {}
   Future<void> drf_driver() async {
-    final datax = json.encode({
+
+   
+    Navigator.push(context, MaterialPageRoute(
+                builder: (context) {
+                  return Owner(driverx: {
       "driver_name": d_name.text,
       "driver_phone": d_num.text,
       "driver_email": d_emailid.text,
@@ -45,10 +49,12 @@ class ri extends State<Driver> {
       "driver_aadhar_no": d_adhar.text,
       "driver_driving_license_no": d_license.text,
     });
-    print(datax);
+                },
+              ));
+
   }
 
-  void dinc() {}
+
 
   @override
   Widget build(BuildContext context) {
@@ -233,7 +239,7 @@ class ri extends State<Driver> {
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         Container(
@@ -242,11 +248,8 @@ class ri extends State<Driver> {
           width: xwidth,
           child: ElevatedButton(
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(
-                builder: (context) {
-                  return Owner();
-                },
-              ));
+             
+             drf_driver();
             },
             style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xff0D6EFD),
@@ -264,4 +267,6 @@ class ri extends State<Driver> {
       ]))),
     ));
   }
+  
+  
 }
