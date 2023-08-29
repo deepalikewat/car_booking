@@ -14,7 +14,7 @@ class DriverDashBoardx  extends State<DriverDashBoard>{
    
 return Scaffold(
 
-body: Text("Driver"),
+body: Center(child: Text("404 Not Found")),
 
 );
 

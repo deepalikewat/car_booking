@@ -1,4 +1,5 @@
 import 'package:car_booking/DriverDashboard.dart';
+import 'package:car_booking/UploadDashboard.dart';
 import 'package:car_booking/UserDasboard.dart';
 import 'package:car_booking/booking.dart';
 import 'package:car_booking/drftest.dart';
@@ -28,7 +29,22 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     
+<<<<<<< HEAD
       return    MaterialApp(home: Lorry());
+=======
+
+      return    MaterialApp(
+        theme: ThemeData(
+
+scaffoldBackgroundColor: const Color(0xfff8fbff)
+
+
+        ),
+
+        home:  UploadDashboard());
+
+        
+>>>>>>> 881732f (cc)
     // 
   }
 }

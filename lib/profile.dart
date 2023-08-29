@@ -67,9 +67,9 @@ Future<void> syncp() async{
 
   // void dinc() {}
   Future<void> drf_profile() async {
-
+ String base64String ="x";
   if (_image != null) {
-    String base64String = fileToBase64(_image!);
+     base64String = fileToBase64(_image!);
     print("Base64 encoded string:\n$base64String");
   } else {
     print("Image file is null.");
@@ -137,7 +137,7 @@ setState(() {
     "phone":  p_num.text,
     "email": p_emailid.text,
     "address": p_addr.text,
-    "profile_image":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAA"
+    "profile_image":"data:image/png;base64,$base64String "
 
 }
 

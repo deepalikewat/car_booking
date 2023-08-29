@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:google_maps_webservice_ex/places.dart';
+import 'package:google_maps_webservice_ex/places.dart' as plasex;
 import 'package:map_autocomplete_field/map_autocomplete_field.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -22,13 +22,15 @@ class UserDashBoard extends StatefulWidget {
 class UserDashBoardx  extends State<UserDashBoard>{
 
   GoogleMapController? _mapController;
+    Set<Polyline> _polylines = {};
+
   final TextEditingController _sourceController = TextEditingController();
   final TextEditingController _destinationController = TextEditingController();
   final apiKey ='AIzaSyDXLXII5-jnC-fJ5hSF3xc5ucf_O_ecOfQ';
-  LatLng _sourceLatLng= const LatLng(0, 0);
+  LatLng _sourceLatLng= const LatLng(21.1290, 82.7692);
   late LatLng _destinationLatLng= const LatLng(21.1280, 82.7792);
   TextEditingController controller = TextEditingController();
-  final GoogleMapsPlaces _place = GoogleMapsPlaces(apiKey: "AIzaSyDXLXII5-jnC-fJ5hSF3xc5ucf_O_ecOfQ" );
+  final plasex.GoogleMapsPlaces _places = plasex.GoogleMapsPlaces(apiKey: "AIzaSyDXLXII5-jnC-fJ5hSF3xc5ucf_O_ecOfQ" );
 
   TextEditingController srcctl = TextEditingController();
   TextEditingController srcctlx = TextEditingController();
@@ -39,7 +41,8 @@ class UserDashBoardx  extends State<UserDashBoard>{
   final TextEditingController _controllerdx = TextEditingController();
   
   bool showsidex=false;
-  double rxt=0;
+  double rxt=0.0;
+  String distance="";
   
   bool isbtnpgrs=false;
   String spincode="0";
@@ -67,6 +70,39 @@ Future<void> _selectDate(BuildContext context) async {
     }
   }
    
+   void _addPolyline() {
+    setState(() {
+      _polylines.add(Polyline(
+        polylineId: PolylineId('route'),
+        color: Colors.blue,
+        points: [_sourceLatLng, _destinationLatLng],
+      ));
+    });
+
+     LatLngBounds bounds = LatLngBounds(
+    southwest: LatLng(
+      _sourceLatLng.latitude < _destinationLatLng.latitude ? _sourceLatLng.latitude : _destinationLatLng.latitude,
+      _sourceLatLng.longitude < _destinationLatLng.longitude ? _sourceLatLng.longitude : _destinationLatLng.longitude,
+    ),
+    northeast: LatLng(
+      _sourceLatLng.latitude >= _destinationLatLng.latitude ? _sourceLatLng.latitude : _destinationLatLng.latitude,
+      _sourceLatLng.longitude >= _destinationLatLng.longitude ? _sourceLatLng.longitude : _destinationLatLng.longitude,
+    ),
+  );
+
+
+  // WidgetsBinding.instance!.addPostFrameCallback((_) {
+  //   _mapController?.animateCamera(
+  //     CameraUpdate.newLatLngBounds(
+  //       bounds,
+  //       100.0,
+  //     ),
+  //   );
+  // });
+    
+  }
+
+
 
 
 Future<void> calculateDistance() async {
@@ -78,12 +114,13 @@ Future<void> calculateDistance() async {
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
-      double meters = data['rows'][0]['elements'][0]['distance']['value'];
+      dynamic meters = data['rows'][0]['elements'][0]['distance']['value'];
       setState(() {
        
-        rxt = meters;
+      distance="$meters";
+      print("totaldistance is $meters");
 
-distancef.text="$rxt";
+distancef.text="$meters";
       });
     }
   }
@@ -144,6 +181,23 @@ print("find near code");
   return null;
 }
 
+
+double mkdble(dynamic value){
+  double doubleValue;
+if (value is double) {
+  doubleValue = value; 
+} else if (value is int) {
+  doubleValue = value.toDouble(); 
+} else if (value is String) {
+  doubleValue = double.tryParse(value) ?? 0.0; 
+} else {
+ 
+  doubleValue = 0.0; 
+}
+
+return doubleValue;
+
+}
 
 
 
@@ -293,6 +347,7 @@ body: SingleChildScrollView(child:   Stack(
               ),
               onMapCreated: (controller) {
                 _mapController = controller;
+                _addPolyline();
               },
               markers: {
                 Marker(
@@ -349,20 +404,31 @@ try{
                   
                   final tg=await getPlaceDetails(suggestion.placeId);
 
+try{
+LatLng rg=LatLng(mkdble( tg?["latitude"]), mkdble( tg?["longitude"]));
+ print("fuck you$rg");
+}catch(rt){
+
+  print("fuck you$rt");
+}
+
 setState(() {
   
-  _sourceLatLng=LatLng(tg?["latitude"], tg?["longitude"]);
+  print("im goodboy ${tg?['latitude'].runtimeType}");
+ _sourceLatLng=LatLng( tg?["latitude"], tg?["longitude"]);
 
 spincode=tg?["postalCode"];
 saddr=suggestion.description;
   
+
 });
 
 await calculateDistance();
+
 }catch(y){
 print(y);
 
-print("problem hare");
+print("problem harddde$y");
 
 }
 
@@ -394,10 +460,21 @@ MapAutoCompleteField(
                  
      final tg=await getPlaceDetails(suggestion.placeId);
 
+try{
+LatLng rg=LatLng(mkdble( tg?["latitude"]), mkdble( tg?["longitude"]));
+
+print("fuck you value$rg");
+
+}catch(rt){
+
+  print("fuck you$rt");
+}
+
+
 setState(() {
   
   daddr= suggestion.description;
-  _destinationLatLng=LatLng(tg?["latitude"], tg?["longitude"]);
+  _destinationLatLng=LatLng(mkdble( tg?["latitude"]), mkdble( tg?["longitude"]));
 dpincode=tg?["postalCode"];
   
 });
@@ -406,7 +483,7 @@ try{
 
 }catch(xd){
 
-  print("problem harex$xd",);
+  print("problem harex$xd");
 }
                 },
               
