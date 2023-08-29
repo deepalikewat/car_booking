@@ -36,9 +36,9 @@ body: Center(
       child: Row(children: [
     
     
-    ElevatedButton(onPressed:()=> dinc(context,"adhar card"), child:
+    // ElevatedButton(onPressed:()=> dinc(context,"adhar card"), child:
     
-     )
+    //  )
     
     
       ],),
