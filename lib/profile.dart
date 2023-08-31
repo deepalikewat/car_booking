@@ -75,51 +75,10 @@ Future<void> syncp() async{
     print("Image file is null.");
   }
 
-
-
-
-
 setState(() {
   isbtnpgrs=true;
 });
-
-
-
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-//   var umx;
-
-// try{
-
-
-// if(_image==null){
-//    umx="";
-// }else{
-//    umx=base64Encode(_image!.readAsBytesSync());
-// }
-
-
-// print({
-      
-  
-//     "Token": prefs.getString("Token"),
-//     "userId": prefs.getString("userId"),
-//     "userPhone": prefs.getString("userPhone"),
-//     "userType": prefs.getString("userType"),
-//     "name": p_name.text,
-//     "phone":  p_num.text,
-//     "email": p_emailid.text,
-//     "address": p_addr.text,
-//     "profile_image":umx
-
-// }
-
-//         );
-
-
-// // ignore: empty_catches
-// }catch(opl){
-// print(opl);
-// }
 
   
     final dc = await http.post(
@@ -190,226 +149,228 @@ Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
 
 
     return Scaffold(
-      body: Center(
-          child: Column(children: [
-        SizedBox(
-          height: xheight * .01,
-        ),
-        // Row(
-        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //   children: [
-        //     const Text(""),
-        //     const Text("Edit Profile",
-        //         style: TextStyle(
-        //             color: Color(0xff000000),
-        //             fontSize: 28,
-        //             fontWeight: FontWeight.bold)),
-        //     TextButton(
-        //       onPressed: () {},
-        //       style: TextButton.styleFrom(
-        //           // backgroundColor: const Color.fromARGB(255, 68, 44, 44),
-        //           foregroundColor: Colors.blueAccent),
-        //       child: const Text("Done"),
-        //     ),
-        //   ],
-        // ),
-
-        Padding(padding: EdgeInsets.only(top: xheight * 0.01)),
-
-        Container(
-          height: 130,
-          width: 130,
-          child: Stack(children: [
-            ClipOval(
-                child: _image == null
-                    ? const Image(
-                        image: AssetImage("img/QT.jpeg"),
-                        width: 130,
-                        height: 130,
-                        fit: BoxFit.cover,
-                      )
-                    : kIsWeb? Image.network(_image!.path, width: 130,
-                        height: 130,
-                        fit: BoxFit.cover,): Image.file(
-                        _image!,
-                        width: 130,
-                        height: 130,
-                        fit: BoxFit.cover,
-                      )),
-            Positioned(
-                bottom: 0,
-                right: 0,
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.camera_alt,
-                    color: Colors.red,
-                  ),
-                  onPressed: () {
-                    getImage();
-                  },
-                ))
-          ]),
-        ),
-
-        
-        SizedBox(
-          height: xheight * .01,
-        ),
-        const Padding(padding: EdgeInsets.only(top: 10)),
-        // const Padding(padding: EdgeInsets.only(top: 20, bottom: 10)),
-         Text(
-          drProfileImg,
-          style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w400,
-              color: Color(0xff1B1E28)),
-        ),
-
-         Padding(
-          padding: const EdgeInsets.only(top: 8, bottom: 10),
-          child: TextButton( onPressed: () {
-            
-          }, child: const Text("Change Profile Picture",
-            style: TextStyle(fontSize: 16, color: Color(0xff0D6EFD)),
-          ),
-        )),
-
-        Container(
-          padding: const EdgeInsets.only(bottom: 8),
-          width: xwidth *.9,
-          child: const Text(
-            "Full Name",
-            style: TextStyle(fontSize: 18, color: Color(0xff1B1E28)),
-          ),
-        ),
-
-        Container(
-          width: xwidth * .9,
-          child: TextField(
-            controller: p_name,
-            onChanged: (value) {
-              setState(() {
-                drProfileImg=value;
-              });
-            },
-            style: const TextStyle(fontSize: 16),
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(15))),
-              hintText: "name",
-            ),
-          ),
-        ),
-
-        Container(
-          padding: const EdgeInsets.only(bottom: 8, top: 20),
-          width: xwidth * .9,
-          child: const Text(
-            "Enter Number",
-            style: TextStyle(fontSize: 18, color: Color(0xff1B1E28)),
-          ),
-        ),
-
-        Container(
-          width: xwidth *.9,
-          child: TextField(
-            controller: p_num,
-            style: const TextStyle(fontSize: 16),
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(15))),
-      
-                            prefixIcon:  Padding(
-                                padding: EdgeInsets.all(15),
-                                child: Text('+91') ),
-            ),
-            
-          ),
-        ),
-
-        Container(
-          padding: const EdgeInsets.only(bottom: 8, top: 20),
-          width: xwidth *.9,
-          child: const Text(
-            "Email Id",
-            style: TextStyle(fontSize: 18, color: Color(0xff1B1E28)),
-          ),
-        ),
-
-        Container(
-          width: xwidth * .9,
-          child: TextField(
-            controller: p_emailid,
-            style: const TextStyle(fontSize: 16),
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(15))),
-              hintText: "Driver@gmial.com",
-            ),
-          ),
-        ),
-
-        Container(
-          padding: const EdgeInsets.only(bottom: 8, top: 20),
-          width: xwidth *.9,
-          child: const Text(
-            "Enter Address",
-            style: TextStyle(fontSize: 18, color: Color(0xff1B1E28)),
-          ),
-        ),
-
-        Container(
-          width: xwidth * .9,
-          child: TextField(
-            controller: p_addr,
-            style: const TextStyle(fontSize: 16),
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(15))),
-              hintText: "Enter Full Address",
-            ),
-          ),
-        ),
-        const Expanded(child: Text("")),
-
-
+      body: SingleChildScrollView(
+        child: Center(
+            child: Column(children: [
           SizedBox(
-                      width: xwidth * .9,
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: () {
-                         
-                        drf_profile();
-                      
-                        },
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xff0D6EFD),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16))),
-                        child:
-                        isbtnpgrs? const Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            
-                            SizedBox(
-                              height: 20,
-                              width: 20,
-                              child: CircularProgressIndicator(color: Colors.white,)),
-                              
-                              Text("     Please Wait")
-                          
-                          ],
-                        ):
-                            const Text("Updates", style: TextStyle(fontSize: 20)),
-                      ),
+            height: xheight * .01,
+          ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     const Text(""),
+          //     const Text("Edit Profile",
+          //         style: TextStyle(
+          //             color: Color(0xff000000),
+          //             fontSize: 28,
+          //             fontWeight: FontWeight.bold)),
+          //     TextButton(
+          //       onPressed: () {},
+          //       style: TextButton.styleFrom(
+          //           // backgroundColor: const Color.fromARGB(255, 68, 44, 44),
+          //           foregroundColor: Colors.blueAccent),
+          //       child: const Text("Done"),
+          //     ),
+          //   ],
+          // ),
+      
+          Padding(padding: EdgeInsets.only(top: xheight * 0.01)),
+      
+          Container(
+            height: 130,
+            width: 130,
+            child: Stack(children: [
+              ClipOval(
+                  child: _image == null
+                      ? const Image(
+                          image: AssetImage("img/QT.jpeg"),
+                          width: 130,
+                          height: 130,
+                          fit: BoxFit.cover,
+                        )
+                      : kIsWeb? Image.network(_image!.path, width: 130,
+                          height: 130,
+                          fit: BoxFit.cover,): Image.file(
+                          _image!,
+                          width: 130,
+                          height: 130,
+                          fit: BoxFit.cover,
+                        )),
+              Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: IconButton(
+                    icon: const Icon(
+                      Icons.camera_alt,
+                      color: Colors.red,
                     ),
-
-
+                    onPressed: () {
+                      getImage();
+                    },
+                  ))
+            ]),
+          ),
+      
+          
+          SizedBox(
+            height: xheight * .01,
+          ),
+          const Padding(padding: EdgeInsets.only(top: 10)),
+          // const Padding(padding: EdgeInsets.only(top: 20, bottom: 10)),
+           Text(
+            drProfileImg,
+            style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w400,
+                color: Color(0xff1B1E28)),
+          ),
+      
+           Padding(
+            padding: const EdgeInsets.only(top: 8, bottom: 10),
+            child: TextButton( onPressed: () {
+              
+            }, child: const Text("Change Profile Picture",
+              style: TextStyle(fontSize: 16, color: Color(0xff0D6EFD)),
+            ),
+          )),
+      
+          Container(
+            padding: const EdgeInsets.only(bottom: 8),
+            width: xwidth *.9,
+            child: const Text(
+              "Full Name",
+              style: TextStyle(fontSize: 18, color: Color(0xff1B1E28)),
+            ),
+          ),
+      
+          Container(
+            width: xwidth * .9,
+            child: TextField(
+              controller: p_name,
+              onChanged: (value) {
+                setState(() {
+                  drProfileImg=value;
+                });
+              },
+              style: const TextStyle(fontSize: 16),
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(15))),
+                hintText: "name",
+              ),
+            ),
+          ),
+      
+          Container(
+            padding: const EdgeInsets.only(bottom: 8, top: 20),
+            width: xwidth * .9,
+            child: const Text(
+              "Enter Number",
+              style: TextStyle(fontSize: 18, color: Color(0xff1B1E28)),
+            ),
+          ),
+      
+          Container(
+            width: xwidth *.9,
+            child: TextField(
+              controller: p_num,
+              style: const TextStyle(fontSize: 16),
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(15))),
         
-        const SizedBox(
-          height: 20,
-        )
-      ])),
+                              prefixIcon:  Padding(
+                                  padding: EdgeInsets.all(15),
+                                  child: Text('+91') ),
+              ),
+              
+            ),
+          ),
+      
+          Container(
+            padding: const EdgeInsets.only(bottom: 8, top: 20),
+            width: xwidth *.9,
+            child: const Text(
+              "Email Id",
+              style: TextStyle(fontSize: 18, color: Color(0xff1B1E28)),
+            ),
+          ),
+      
+          Container(
+            width: xwidth * .9,
+            child: TextField(
+              controller: p_emailid,
+              style: const TextStyle(fontSize: 16),
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(15))),
+                hintText: "Driver@gmial.com",
+              ),
+            ),
+          ),
+      
+          Container(
+            padding: const EdgeInsets.only(bottom: 8, top: 20),
+            width: xwidth *.9,
+            child: const Text(
+              "Enter Address",
+              style: TextStyle(fontSize: 18, color: Color(0xff1B1E28)),
+            ),
+          ),
+      
+          Container(
+            width: xwidth * .9,
+            child: TextField(
+              controller: p_addr,
+              style: const TextStyle(fontSize: 16),
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(15))),
+                hintText: "Enter Full Address",
+              ),
+            ),
+          ),
+          const Expanded(child: Text("")),
+      
+      
+            SizedBox(
+                        width: xwidth * .9,
+                        height: 50,
+                        child: ElevatedButton(
+                          onPressed: () {
+                           
+                          drf_profile();
+                        
+                          },
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xff0D6EFD),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16))),
+                          child:
+                          isbtnpgrs? const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              
+                              SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: CircularProgressIndicator(color: Colors.white,)),
+                                
+                                Text("     Please Wait")
+                            
+                            ],
+                          ):
+                              const Text("Updates", style: TextStyle(fontSize: 20)),
+                        ),
+                      ),
+      
+      
+          
+          const SizedBox(
+            height: 20,
+          )
+        ])),
+      ),
     );
   }
 }

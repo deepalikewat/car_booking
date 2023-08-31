@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:car_booking/DriverDashboard.dart';
+import 'package:car_booking/UploadDashboard.dart';
 import 'package:car_booking/upload.dart';
 import 'package:car_booking/uploadx.dart';
 import 'package:flutter/material.dart';
@@ -56,6 +57,11 @@ class rix extends State<Owner> {
   TextEditingController o_adhar = TextEditingController();
 
 
+String fileToBase64(File file) {
+  List<int> imageBytes = file.readAsBytesSync();
+  String base64String = base64Encode(imageBytes);
+  return base64String;
+}
   // void dinc() {}
   Future<void> drf_owner() async {
     final datax = json.encode({
@@ -107,7 +113,7 @@ class rix extends State<Owner> {
  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
                            
                         
-                        return DriverDashBoard();
+                        return UploadDashboard();
                          },));
 
 

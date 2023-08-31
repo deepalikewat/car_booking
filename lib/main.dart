@@ -38,7 +38,7 @@ scaffoldBackgroundColor: const Color(0xfff8fbff)
 
         ),
 
-        home:  UploadDashboard());
+        home:  Lorry());
 
         
     // 

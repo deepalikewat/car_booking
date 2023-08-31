@@ -412,7 +412,8 @@ drf_login(context);
                       "Resend OTP",
                       style: TextStyle(fontSize: 20),
                     ),
-                  )):
+                  ))
+                  :
             SizedBox( width: xwidth*.8,child:
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
