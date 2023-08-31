@@ -34,15 +34,16 @@ class dux extends State<Upload> {
         builder: (BuildContext context) {
           return AlertDialog(
               content: Container(
-                  height: 300,
-                  width: 400,
+                  height: 370,
+                  width: 390,
                   decoration:
                       BoxDecoration(borderRadius: BorderRadius.circular(90)),
-                  // decoration:
-                  //     BoxDecoration(borderRadius: BorderRadius.circular(90)),
                   child: Center(
                       child: Column(
                     children: [
+                      const SizedBox(
+                        height: 20,
+                      ),
                       const Text(
                         "Upload Documents",
                         style: TextStyle(
@@ -56,24 +57,27 @@ class dux extends State<Upload> {
                         children: [
                           Column(
                             children: [
-                              ElevatedButton.icon(
-                                onPressed: () {
-                                  dinc(context);
-
-                                  getImage();
-                                },
-                                icon: const Icon(
-                                  Icons.add_card,
-                                  size: 70,
+                              SizedBox(
+                                height: 100,
+                                child: ElevatedButton.icon(
+                                  onPressed: () {
+                                    dinc(context);
+                                    getImage();
+                                  },
+                                  icon: const Icon(
+                                    Icons.add_card,
+                                    size: 70,
+                                    color: Color(0xff7092F6),
+                                  ),
+                                  label: const Text(""),
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: Color(0xffF9F9FB),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(16))),
                                 ),
-                                label: const Text(""),
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.transparent,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(16))),
                               ),
-                              Padding(padding: EdgeInsets.only(top: 50)),
+                              Padding(padding: EdgeInsets.only(top: 30)),
                               const Text(
                                 "Front",
                                 style: TextStyle(
@@ -92,10 +96,11 @@ class dux extends State<Upload> {
                                 icon: const Icon(
                                   Icons.add_card,
                                   size: 70,
+                                  color: Color(0xff7092F6),
                                 ),
                                 label: const Text(""),
                                 style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.transparent,
+                                    backgroundColor: Color(0xffF9F9FB),
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(16))),
@@ -128,7 +133,7 @@ class dux extends State<Upload> {
                         ),
                       ),
                       const SizedBox(
-                        height: 20,
+                        height: 5,
                       )
                     ],
                   ))));
@@ -145,7 +150,6 @@ class dux extends State<Upload> {
             child: Center(
                 child: Column(
       children: [
-
         const Text(
           "Upload Documents",
           style: TextStyle(
@@ -173,10 +177,8 @@ class dux extends State<Upload> {
                   ),
                   label: const Text(""),
                   style: ElevatedButton.styleFrom(
-
                       backgroundColor: const Color(0xffF3F6FF),
                       shape: RoundedRectangleBorder(
-                        
                           borderRadius: BorderRadius.circular(10))),
                 ),
                 SizedBox(
