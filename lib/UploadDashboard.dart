@@ -98,20 +98,6 @@ setState(() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       } else {
         print('No image selected');
       }
