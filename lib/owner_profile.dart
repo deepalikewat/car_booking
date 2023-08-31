@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:car_booking/DriverDashboard.dart';
 import 'package:car_booking/UploadDashboard.dart';
+import 'package:car_booking/UploadDashboard.dart';
 import 'package:car_booking/upload.dart';
 import 'package:car_booking/uploadx.dart';
 import 'package:flutter/material.dart';
@@ -53,6 +54,11 @@ class rix extends State<Owner> {
     return base64String;
   }
 
+String fileToBase64(File file) {
+  List<int> imageBytes = file.readAsBytesSync();
+  String base64String = base64Encode(imageBytes);
+  return base64String;
+}
   // void dinc() {}
   Future<void> drf_owner() async {
     final datax = json.encode({
@@ -66,38 +72,46 @@ class rix extends State<Owner> {
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-      final dc = await http.post(
-          Uri.parse("https://admin.returnlorry.com/appservice/updateprofile"),
-          body: json.encode({
-            "Token": prefs.getString("Token"),
-            "userId": prefs.getString("userId"),
-            "userPhone": prefs.getString("userPhone"),
-            "userType": prefs.getString("userType"),
-            "owner_name": o_name.text,
-            "owner_phone": o_num.text,
-            "owner_email": o_emailid.text,
-            "owner_address": o_addr.text,
-            "owner_aadhar_no": o_adhar.text,
-            "vehicle_no": "WB7564HG5",
-            "vehicle_type": 1,
-            "vehicle_source_pincode": "731224",
-            "transport_year": "2014",
-            "driver_name": widget.driverx["driver_name"],
-            "driver_phone": widget.driverx["driver_phone"],
-            "driver_email": widget.driverx["driver_email"],
-            "driver_dob": widget.driverx["driver_dob"],
-            "driver_aadhar_no": widget.driverx["driver_aadhar_no"],
-            "driver_driving_license_no":
-                widget.driverx["driver_driving_license_no"]
-          }));
+   
+    final dc = await http.post(
+        Uri.parse("https://admin.returnlorry.com/appservice/updateprofile"),
+        body: json.encode({
+    
+    "Token": prefs.getString("Token"),
+    "userId": prefs.getString("userId"),
+    "userPhone": prefs.getString("userPhone"),
+    "userType": prefs.getString("userType"),
 
-      // ignore: use_build_context_synchronously
-      Navigator.pushReplacement(context, MaterialPageRoute(
-        builder: (context) {
-          return UploadDashboard();
-        },
-      ));
-    } catch (rtd) {
+
+    "owner_name": o_name.text,
+      "owner_phone": o_num.text,
+      "owner_email": o_emailid.text,
+      "owner_address": o_addr.text,
+      "owner_aadhar_no": o_adhar.text,
+    "vehicle_no": "WB7564HG5",
+    "vehicle_type": 1,
+    "vehicle_source_pincode": "731224",
+    "transport_year": "2014",
+    "driver_name": widget.driverx["driver_name"],
+    "driver_phone": widget.driverx["driver_phone"],
+    "driver_email": widget.driverx["driver_email"],
+    "driver_dob": widget.driverx["driver_dob"],
+    "driver_aadhar_no": widget.driverx["driver_aadhar_no"],
+    "driver_driving_license_no": widget.driverx["driver_driving_license_no"]
+
+
+         
+        }));
+
+ // ignore: use_build_context_synchronously
+ Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+                           
+                        
+                        return UploadDashboard();
+                         },));
+
+
+    }catch(rtd){
       print(rtd);
     }
   }

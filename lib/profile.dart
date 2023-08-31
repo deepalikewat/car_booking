@@ -356,7 +356,7 @@ Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
                                 width: 20,
                                 child: CircularProgressIndicator(color: Colors.white,)),
                                 
-                                Text("Please Wait") 
+                                Text("     Please Wait")
                             
                             ],
                           ):

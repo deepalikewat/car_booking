@@ -29,9 +29,15 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         theme: ThemeData(
-            scaffoldBackgroundColor: Color.fromARGB(255, 240, 241, 240)),
-        home: DriverDashBoard());
+
+scaffoldBackgroundColor: const Color(0xfff8fbff)
+
+
+        ),
+
+        home:  Lorry());
+
+        
+    // 
   }
 }
-
-//
