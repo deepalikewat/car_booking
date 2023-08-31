@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 1375253 (ccx)
 import 'package:car_booking/DriverDashboard.dart';
 import 'package:car_booking/UploadDashboard.dart';
 import 'package:car_booking/UserDasboard.dart';
@@ -11,12 +14,20 @@ import 'package:car_booking/rloginn.dart';
 import 'package:car_booking/front.dart';
 import 'package:car_booking/lorry.dart';
 import 'package:car_booking/otp_verify.dart';
+<<<<<<< HEAD
 import 'package:car_booking/rough3.dart';
 import 'package:car_booking/sign_in.dart';
 import 'package:car_booking/upload.dart';
 import 'package:car_booking/uploadx.dart';
 =======
 >>>>>>> 9f03000 (hh)
+=======
+import 'package:car_booking/rough.dart';
+
+import 'package:car_booking/sign_in.dart';
+import 'package:car_booking/upload.dart';
+import 'package:car_booking/uploadx.dart';
+>>>>>>> 1375253 (ccx)
 import 'package:flutter/material.dart';
 import 'map_with_autocomplete.dart';
 
@@ -32,9 +43,8 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         theme: ThemeData(scaffoldBackgroundColor: const Color(0xfff8fbff)),
-        home:  Yix());
-
-        // A
+        home: Upload()
+        );
 
     //
   }
