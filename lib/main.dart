@@ -46,54 +46,17 @@ class MainApp extends StatelessWidget {
         home: Upload()
         );
 
-    //
+      return    MaterialApp(
+        theme: ThemeData(
+
+scaffoldBackgroundColor: const Color(0xfff8fbff)
+
+
+        ),
+
+        home:  Lorry());
+
+        
+    // 
   }
 }
-
-
-class Yix extends StatefulWidget {
-  int otp=0;
-  
-
-  @override
-  State<Yix> createState() => Dipf();
-}
-
-
-  
-class Dipf extends State<Yix> {
-
-    final xlist=<String>["Raju","deepali","qwertyuiop"];
-
-
-
-  @override
-  Widget build(BuildContext context) {
-  
-
-
-  
-  
-return  const Scaffold(
-
-body: Center(
-
-
-child:  ListTile(),
-
-
-
-
-
-
-
-)
-);
-
-
-  }
-
-}
-
-
-
