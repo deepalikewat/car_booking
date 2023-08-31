@@ -447,7 +447,7 @@ class _VerificationScreenState extends State<VerificationScreen>
                 return Transform.scale(
                   scale: _scale.value,
                   child: Transform.rotate(
-                    angle: _rotation.value * 6.283, // 6.283 radians = 360 degrees
+                    angle: _rotation.value * 6.283, 
                     child: const Icon(
                       Icons.hourglass_empty,
                       size: 100,
