@@ -12,462 +12,233 @@ class DriverDashBoard extends StatefulWidget {
 class DriverDashBoardx extends State<DriverDashBoard> {
   @override
   Widget build(BuildContext context) {
-
- double xwidth = MediaQuery.of(context).size.width;
+    double xwidth = MediaQuery.of(context).size.width;
     double xheight = MediaQuery.of(context).size.height;
 
-   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
+    Future<void> sendloc() async {
+      await Future.delayed(Duration(seconds: 2));
 
-   
-return Scaffold(key: _scaffoldKey,
+      setState(() {});
+    }
 
-    
-    drawer: const Drawer(backgroundColor: Color(0xff0F6868)),
-   body: Stack(
-     children: [
-       Container(
-          height: xheight*.45,
-
-
-          decoration: const BoxDecoration(
+    return Scaffold(
+        key: _scaffoldKey,
+        
+        drawer: const Drawer(backgroundColor: Color(0xff0F6868)),
+        body: Container(
           
-          gradient: LinearGradient(
+          child: Stack(
+            
+            children: [
+              Container(
+                height: xheight * .45,
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
                     colors: [Color(0xff1B7D7D), Color(0xff828448)],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomRight,
                   ),
-
-        ),
-                  
-           child:  SafeArea(
-             child: Column(
-               children: [
-                const SizedBox(height: 10,),
-               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-                children: [
-                IconButton(onPressed: (){
-_scaffoldKey.currentState!.openDrawer();
-                }, icon: const Icon(Icons.menu,size: 40,color: Colors.white,),
-
                 ),
-                const Text("Return Lorry", textAlign: TextAlign.center, style: TextStyle(fontSize: 25,color: Colors.white,fontWeight: FontWeight.bold),),
-                 IconButton(onPressed: (){
-_scaffoldKey.currentState!.openDrawer();
-                }, icon: const Icon(Icons.circle_notifications,size: 40,color: Colors.white, ),
-
-                ),
-                
-                ]
-                
-                
-                
-                ,)
-               ],
-             ),
-           ),
-
-       )
-       ,
-
-
-Container(
-  width: xwidth,
-  margin: EdgeInsets.only(top: xheight*.3),
-  decoration: const BoxDecoration(
-
-
-color: Color.fromARGB(255, 132, 17, 17),
-
-borderRadius: BorderRadius.only(topLeft: Radius.circular(
-  30
-),topRight: Radius.circular(30))
-
-  ),
-  child:   const Column(
-  
-  
-  
-    children: [
-  
-  Text("data")
-  
-    ],
-  
-  ),
-)
-
-
-
-     ],
-   )
-       
-
-
-                    const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Raju haldar",
-                          style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          "Manager.fbrsystems@gmail.com",
-                          style: TextStyle(
-                              fontSize: 10, fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-
-                // Container(
-                //   margin: EdgeInsets.symmetric(horizontal: 20),
-                //   height: xheight * 0.06,
-                //   decoration: BoxDecoration(
-                //     borderRadius: BorderRadius.circular(10),
-                //     color: const Color(0xffE7E7E7),
-                //   ),
-                //   child: Row(
-                //     // crossAxisAlignment: CrossAxisAlignment.center,
-                //     mainAxisAlignment: MainAxisAlignment.center,
-                //     children: [
-                //       SizedBox(
-                //         width: xwidth * .01,
-                //       ),
-                //       ClipRRect(
-                //         borderRadius: BorderRadius.circular(8),
-                //         child: Container(
-                //           height: 35,
-                //           width: 35,
-                //           color: const Color(0xff116D6D),
-                //           child: const Icon(
-                //             Icons.add_card,
-                //             size: 18,
-                //           ),
-                //         ),
-                //       ),
-                //       Padding(padding: EdgeInsets.only(left: xwidth * 0.05)),
-                //       const Column(
-                //         mainAxisAlignment: MainAxisAlignment.center,
-                //         crossAxisAlignment: CrossAxisAlignment.start,
-                //         children: [
-                //           Text(
-                //             "Available Balance",
-                //             style: TextStyle(
-                //                 fontSize: 15,
-                //                 fontWeight: FontWeight.bold,
-                //                 color: Color(0xff116D6D)),
-                //           ),
-                //           Text(
-                //             "Manager.fbrsystems@gmail.com",
-                //             style: TextStyle(
-                //                 fontSize: 10, fontWeight: FontWeight.bold),
-                //           ),
-                //         ],
-                //       ),
-                //     ],
-                //   ),
-                // ),
-                SizedBox(
-                  height: xheight * 0.02,
-                ),
-                InkWell(
-                  onTap: () {},
-                  child: Row(
+                child: SafeArea(
+                  child: Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 30, right: 30),
-                        child: ClipOval(
-                          child: Container(
-                            height: 40,
-                            width: 40,
-                            color: const Color(0xffE7E7E7),
-                            child: const Icon(
-                              Icons.menu,
-                              size: 15,
-                              color: Color(0xff116D6D),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                _scaffoldKey.currentState!.openDrawer();
+                              },
+                              icon: const Icon(
+                                Icons.menu,
+                                size: 40,
+                                color: Colors.white,
+                              ),
                             ),
-                          ),
+                            const Text(
+                              "Return Lorry",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 25,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                _scaffoldKey.currentState!.openDrawer();
+                              },
+                              icon: const Icon(
+                                Icons.circle_notifications,
+                                size: 40,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      const Text(
-                        "My Orders",
-                        style: TextStyle(color: Color(0xff4E4E4E)),
+                      Container(
+                        margin:
+                            const EdgeInsets.only(top: 10, left: 20, right: 20),
+                        padding: const EdgeInsets.all(20),
+                        decoration: const BoxDecoration(
+                            color: Color(0xfff1f5f3),
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20),
+                                topRight: Radius.circular(20))),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                const Image(
+                                  image: AssetImage("img/dp.png"),
+                                  width: 60,
+                                  height: 60,
+                                ),
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                const Column(
+                                  children: [
+                                    Text(
+                                      "data",
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Text(
+                                      "data",
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 25,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                const Expanded(child: Text("")),
+                                FilledButton(
+                                    onPressed: () {},
+                                    style: const ButtonStyle(
+                                        backgroundColor: MaterialStatePropertyAll(
+                                            Colors.white),
+                                        padding: MaterialStatePropertyAll(
+                                            EdgeInsets.symmetric(
+                                                horizontal: 25))),
+                                    child: const Text(
+                                      "☢ Refresh",
+                                      style: TextStyle(
+                                          color: Color(0xff44c951),
+                                          fontWeight: FontWeight.bold),
+                                    ))
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
+                      Container(
+                        margin: const EdgeInsets.only(left: 20, right: 20),
+                        padding: const EdgeInsets.all(20),
+                        decoration: const BoxDecoration(
+                            color: Color(0x5f749b83),
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(20),
+                                bottomRight: Radius.circular(20))),
+                        child: const Row(
+                          children: [
+                            // Text("data",style: TextStyle(color: Color.fromARGB(255, 255, 255, 255),fontSize: 16, fontWeight: FontWeight.bold),),
+        
+                            SizedBox(
+                                width: 180,
+                                child:
+                                    MarqueeText(text: "Last Updated Location")),
+                            Expanded(child: Text("")),
+                            Text("10:00",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold))
+                          ],
+                        ),
+                      )
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: xheight * 0.01,
+              ),
+              Container(
+                width: xwidth,
+                margin: EdgeInsets.only(top: xheight * .37,left: 10,right: 10),
+                decoration: const BoxDecoration(
+                    color: Color(0xfff1f5f3),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                        topRight: Radius.circular(30))),
+                child: const Column(
+                  children: [Text("data")],
                 ),
-                InkWell(
-                  onTap: () {},
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 30, right: 30),
-                        child: ClipOval(
-                          child: Container(
-                            height: 40,
-                            width: 40,
-                            color: const Color(0xffE7E7E7),
-                            child: const Icon(
-                              Icons.login,
-                              size: 15,
-                              color: Color(0xff116D6D),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const Text(
-                        "Refer & Earn",
-                        style: TextStyle(color: Color(0xff4E4E4E)),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: xheight * 0.01,
-                ),
-                InkWell(
-                  onTap: () {},
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 30, right: 30),
-                        child: ClipOval(
-                          child: Container(
-                            height: 40,
-                            width: 40,
-                            color: const Color(0xffE7E7E7),
-                            child: const Icon(
-                              Icons.info,
-                              size: 15,
-                              color: Color(0xff116D6D),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const Text(
-                        "About Us",
-                        style: TextStyle(color: Color(0xff4E4E4E)),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: xheight * 0.01,
-                ),
-                InkWell(
-                  onTap: () {},
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 30, right: 30),
-                        child: ClipOval(
-                          child: Container(
-                            height: 40,
-                            width: 40,
-                            color: const Color(0xffE7E7E7),
-                            child: const Icon(
-                              Icons.share,
-                              size: 15,
-                              color: Color(0xff116D6D),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const Text(
-                        "Share App",
-                        style: TextStyle(color: Color(0xff4E4E4E)),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: xheight * 0.01,
-                ),
-                InkWell(
-                  onTap: () {},
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 30, right: 30),
-                        child: ClipOval(
-                          child: Container(
-                            height: 40,
-                            width: 40,
-                            color: const Color(0xffE7E7E7),
-                            child: const Icon(
-                              Icons.quiz,
-                              size: 15,
-                              color: Color(0xff116D6D),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const Text(
-                        "FAQ",
-                        style: TextStyle(color: Color(0xff4E4E4E)),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: xheight * 0.01,
-                ),
-                InkWell(
-                  onTap: () {},
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 30, right: 30),
-                        child: ClipOval(
-                          child: Container(
-                            height: 40,
-                            width: 40,
-                            color: const Color(0xffE7E7E7),
-                            child: const Icon(
-                              Icons.textsms,
-                              size: 15,
-                              color: Color(0xff116D6D),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const Text(
-                        "Terms & Conditions",
-                        style: TextStyle(color: Color(0xff4E4E4E)),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: xheight * 0.01,
-                ),
-                InkWell(
-                  onTap: () {},
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 30, right: 30),
-                        child: ClipOval(
-                          child: Container(
-                            height: 40,
-                            width: 40,
-                            color: const Color(0xffE7E7E7),
-                            child: const Icon(
-                              Icons.description,
-                              size: 15,
-                              color: Color(0xff116D6D),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const Text(
-                        "Privacy policy",
-                        style: TextStyle(color: Color(0xff4E4E4E)),
-                      ),
-                    ],
-                  ),
-                ),
-                const Expanded(child: SizedBox()),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: xwidth * .04,
-                    ),
-                    const ClipOval(
-                      child: Icon(
-                        Icons.logout,
-                        color: Colors.red,
-                      ),
-                    ),
-                    Padding(padding: EdgeInsets.only(left: xwidth * 0.05)),
-                    const Text(
-                      "Log Out",
-                      style: TextStyle(fontSize: 15, color: Colors.red),
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 20,
-                )
-              ],
-            ),
+              )
+            ],
           ),
-        ),
-        body: Stack(
-          children: [
-            Container(
-              height: xheight * .45,
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Color(0xff1B7D7D), Color(0xff828448)],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomRight,
-                ),
-              ),
-              child: SafeArea(
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            _scaffoldKey.currentState!.openDrawer();
-                          },
-                          icon: const Icon(
-                            Icons.menu,
-                            size: 40,
-                            color: Colors.white,
-                          ),
-                        ),
-                        const Text(
-                          "Return Lorry",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 25,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            _scaffoldKey.currentState!.openDrawer();
-                          },
-                          icon: const Icon(
-                            Icons.circle_notifications,
-                            size: 40,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            ),
-            Container(
-              width: xwidth,
-              margin: EdgeInsets.only(top: xheight * .3),
-              decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 132, 17, 17),
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30))),
-              child: const Column(
-                children: [Text("data")],
-              ),
-            )
-          ],
         ));
+  }
+}
+
+class MarqueeText extends StatefulWidget {
+  final String text;
+
+  const MarqueeText({super.key, required this.text});
+
+  @override
+  State<MarqueeText> createState() => _MarqueeTextState();
+}
+
+class _MarqueeTextState extends State<MarqueeText> {
+  late ScrollController _scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+    _scrollText();
+  }
+
+  void _scrollText() async {
+    // while (true) {
+    //   await Future.delayed(const Duration(milliseconds: 100));
+    //   if (_scrollController.position.maxScrollExtent > 0) {
+    //     if (_scrollController.position.pixels ==
+    //         _scrollController.position.maxScrollExtent) {
+    //       _scrollController.jumpTo(0.0);
+    //     } else {
+    //       _scrollController.animateTo(
+    //         _scrollController.position.pixels + 1.0,
+    //         duration: const Duration(milliseconds: 100),
+    //         curve: Curves.linear,
+    //       );
+    //     }
+    //   }
+    // }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      controller: _scrollController,
+      child: Text(
+        widget.text,
+        style: const TextStyle(color: Colors.white, fontSize: 20),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 }
