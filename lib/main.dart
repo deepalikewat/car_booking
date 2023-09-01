@@ -35,9 +35,10 @@ class MainApp extends StatelessWidget {
 
 scaffoldBackgroundColor: const Color(0xfff8fbff)
 
+
         ),
 
-        home:  Lorry());
+        home:  DriverDashBoard());
 
         
     // 
