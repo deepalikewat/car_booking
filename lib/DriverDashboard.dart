@@ -1,4 +1,5 @@
-import 'dart:ui';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 
 import 'dart:ui';
 
@@ -9,7 +10,11 @@ class DriverDashBoard extends StatefulWidget {
   State<DriverDashBoard> createState() => DriverDashBoardx();
 }
 
+
+
+
 class DriverDashBoardx extends State<DriverDashBoard> {
+
 
   List<Map<String, dynamic>> bookingData = [
     {
@@ -78,7 +83,56 @@ class DriverDashBoardx extends State<DriverDashBoard> {
     _isExpandedList = List.generate(bookingData.length, (index) => false);
   }
 
-  void rtvv() {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Future<Position> _determinePosition() async {
+  bool serviceEnabled;
+  LocationPermission permission;
+
+  serviceEnabled = await Geolocator.isLocationServiceEnabled();
+  if (!serviceEnabled) {
+
+
+    return Future.error('Location services are disabled.');
+  }
+
+  permission = await Geolocator.checkPermission();
+  if (permission == LocationPermission.denied) {
+    permission = await Geolocator.requestPermission();
+    if (permission == LocationPermission.denied) {
+     
+     
+      return Future.error('Location permissions are denied');
+    }
+  }
+  
+  if (permission == LocationPermission.deniedForever) {
+
+    return Future.error(
+      'Location permissions are permanently denied, we cannot request permissions.');
+  } 
+
+  
+  
+  return await Geolocator.getCurrentPosition();
+}
+
+
+
+
+  Future<void> rtvv() async {
 
     Map<String, dynamic> ryo={
       "request_booking_id": 1,
@@ -108,7 +162,21 @@ class DriverDashBoardx extends State<DriverDashBoard> {
       "request_status": {"status_code": "0", "status": "Open"}
     };
     
-    bookingData.add(ryo);
+  List<Placemark> placemarks = await placemarkFromCoordinates(23.5830, 87.5153
+);
+
+
+    print('raju${placemarks[0].name}'); 
+    
+//    _determinePosition().then((value)  async {
+
+//   List<Placemark> placemarks = await placemarkFromCoordinates(23.5830, 87.5153
+// );
+
+
+//     print('raju${placemarks[0]}'); });
+//   //  print(_determinePosition());
+    
   }
 
 final TextEditingController _textEditingController=TextEditingController();
