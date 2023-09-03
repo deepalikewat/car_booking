@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class DriverDashBoard extends StatefulWidget {
   @override
@@ -178,6 +182,17 @@ Future<Position> _determinePosition() async {
 //   //  print(_determinePosition());
     
   }
+
+
+GoooGolgole(double sourceLatitude, double sourceLongitude, double destLatitude, double destLongitude) async {
+  final directionsUri = 'https://www.google.com/maps/dir/$sourceLatitude,$sourceLongitude/$destLatitude,$destLongitude';
+  if (await canLaunchUrlString(directionsUri)) {
+    await launchUrlString(directionsUri);
+  } else {
+    throw 'Could not launch $directionsUri';
+  }
+}
+
 
 final TextEditingController _textEditingController=TextEditingController();
 
@@ -397,8 +412,10 @@ SingleChildScrollView(
                 headerBuilder: (BuildContext context, bool isExpanded) {
   
   
+  
 
                   return ListTile(
+                  
                   
                     leading: CircleAvatar(
                   
@@ -414,7 +431,36 @@ SingleChildScrollView(
                   
                     trailing: FilledButton(
                   
-                        onPressed: () {},
+                        onPressed: () async {
+
+
+final googleUrl=Uri.dataFromString("comgooglemaps://?saddr=22.568660563718094,88.61089299422036&daddr=22.568660563718094,88.51089299422036&directionsmode=driving");
+final appleUrl= Uri.dataFromString("comgooglemaps://?saddr=22.568660563718094,88.61089299422036&daddr=22.568660563718094,88.51089299422036&directionsmode=driving");
+
+GoooGolgole(22.568660563718094,88.61089299422036,22.568660563718094,88.51089299422036);
+
+
+
+
+// if (Platform.isIOS) {
+//   if (await canLaunchUrl( appleUrl)) {
+//     await launchUrl(appleUrl);
+//   } else {
+//     if (await canLaunchUrl(googleUrl)) {
+//       await launchUrl(googleUrl);
+//     } else {
+//       throw 'Could not open the map.';
+//     }
+//   }
+// } else {
+//   if (await canLaunchUrl(googleUrl)) {
+//       await launchUrl(googleUrl);
+//     } else {
+//       throw 'Could not open the map.';
+//     }
+// }
+
+                        },
                   
                         style: const ButtonStyle(
                   
