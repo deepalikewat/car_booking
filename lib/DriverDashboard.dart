@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:flutter/material.dart';
@@ -19,68 +20,72 @@ class DriverDashBoardx extends State<DriverDashBoard> {
 
 
   List<Map<String, dynamic>> bookingData = [
-    {
-      "request_booking_id": 1,
-      "booking_user": {
-        "id": 1,
-        "name": "Raju",
-        "dp": "https://dcac.du.ac.in/assets/img/item.jpg"
-      },
-      "pick_up_point": {
-        "lat": "24.185764",
-        "long": "87.791982",
-        "pincode": "713148",
-        "address": "sdfsdf,sdf,sd,fdsf,d,f"
-      },
-      "destination_point": {
-        "lat": "22.568660563718094",
-        "long": "88.51089299422036",
-        "pincode": "713148",
-        "address": "sds,dfsdf,fdsdf"
-      },
-      "vehicle_type_id": 1,
-      "material_weight": 2000,
-      "material_type": "Plastic",
-      "distance": 250,
-      "calculated_price": 299,
-      "booking_date": "2023-05-20 12:31:57",
-      "request_status": {"status_code": "0", "status": "Open"}
-    },
-    {
-      "request_booking_id": 1,
-      "booking_user": {
-        "id": 1,
-        "name": "Raju",
-        "dp": "https://dcac.du.ac.in/assets/img/item.jpg"
-      },
-      "pick_up_point": {
-        "lat": "24.185764",
-        "long": "87.791982",
-        "pincode": "713148",
-        "address": "sdfsdf,sdf,sd,fdsf,d,f"
-      },
-      "destination_point": {
-        "lat": "22.568660563718094",
-        "long": "88.51089299422036",
-        "pincode": "713148",
-        "address": "sds,dfsdf,fdsdf"
-      },
-      "vehicle_type_id": 1,
-      "material_weight": 2000,
-      "material_type": "Plastic",
-      "distance": 250,
-      "calculated_price": 25000,
-      "booking_date": "2023-05-20 12:31:57",
-      "request_status": {"status_code": "0", "status": "Open"}
-    },
-    // Add more test data as needed
+
   ];
+
+  //   {
+  //     "request_booking_id": 1,
+  //     "booking_user": {
+  //       "id": 1,
+  //       "name": "Raju",
+  //       "dp": "https://autohyre.com/assets/images/output-onlinepngtools.png"
+  //     },
+  //     "pick_up_point": {
+  //       "lat": "24.185764",
+  //       "long": "87.791982",
+  //       "pincode": "713148",
+  //       "address": "sdfsdf,sdf,sd,fdsf,d,f"
+  //     },
+  //     "destination_point": {
+  //       "lat": "22.568660563718094",
+  //       "long": "88.51089299422036",
+  //       "pincode": "713148",
+  //       "address": "sds,dfsdf,fdsdf"
+  //     },
+  //     "vehicle_type_id": 1,
+  //     "material_weight": 2000,
+  //     "material_type": "Plastic",
+  //     "distance": 250,
+  //     "calculated_price": 299,
+  //     "booking_date": "2023-05-20 12:31:57",
+  //     "request_status": {"status_code": "0", "status": "Open"}
+  //   },
+  //   {
+  //     "request_booking_id": 1,
+  //     "booking_user": {
+  //       "id": 1,
+  //       "name": "Raju",
+  //       "dp": "https://autohyre.com/assets/images/output-onlinepngtools.png"
+  //     },
+  //     "pick_up_point": {
+  //       "lat": "24.185764",
+  //       "long": "87.791982",
+  //       "pincode": "713148",
+  //       "address": "sdfsdf,sdf,sd,fdsf,d,f"
+  //     },
+  //     "destination_point": {
+  //       "lat": "22.568660563718094",
+  //       "long": "88.51089299422036",
+  //       "pincode": "713148",
+  //       "address": "sds,dfsdf,fdsdf"
+  //     },
+  //     "vehicle_type_id": 1,
+  //     "material_weight": 2000,
+  //     "material_type": "Plastic",
+  //     "distance": 250,
+  //     "calculated_price": 25000,
+  //     "booking_date": "2023-05-20 12:31:57",
+  //     "request_status": {"status_code": "0", "status": "Open"}
+  //   },
+  //   // Add more test data as needed
+  // ];
 
   List<bool> _isExpandedList = [];
 
   @override
   void initState() {
     super.initState();
+    setvaluex();
 
     _isExpandedList = List.generate(bookingData.length, (index) => false);
   }
@@ -141,7 +146,7 @@ Future<Position> _determinePosition() async {
       "booking_user": {
         "id": 1,
         "name": "Raju",
-        "dp": "https://dcac.du.ac.in/assets/img/item.jpg"
+        "dp": "https://autohyre.com/assets/images/output-onlinepngtools.png"
       },
       "pick_up_point": {
         "lat": "24.185764",
@@ -164,11 +169,17 @@ Future<Position> _determinePosition() async {
       "request_status": {"status_code": "0", "status": "Open"}
     };
     
-  List<Placemark> placemarks = await placemarkFromCoordinates(23.5830, 87.5153
-);
+  // List<Placemark> placemarks = await placemarkFromCoordinates(23.5830, 87.5153);
 
 
-    print('raju${placemarks[0].name}'); 
+  //   print('raju${placemarks[0].name}'); 
+
+
+setState(() {
+  bookingData.add(ryo);
+});
+
+  
     
 //    _determinePosition().then((value)  async {
 
@@ -192,7 +203,26 @@ GoooGolgole(double sourceLatitude, double sourceLongitude, double destLatitude, 
 }
 
 
+String _driver_email="";
+String _driver_photo="";
+String _driver_name="";
+
 final TextEditingController _textEditingController=TextEditingController();
+
+ setvaluex() async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+setState(() {
+  _driver_email=prefs.getString("driver_email") ?? "";
+  _driver_photo=prefs.getString("owner_photo")??"";
+  _driver_name=prefs.getString("driver_name")??"";
+
+  print(_driver_photo);
+
+});
+
+
+ }
 
   @override
   Widget build(BuildContext context) {
@@ -202,7 +232,7 @@ final TextEditingController _textEditingController=TextEditingController();
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     Future<void> sendloc() async {
-      await Future.delayed(Duration(seconds: 2));
+      await Future.delayed(const Duration(seconds: 2));
 
       setState(() {});
     }
@@ -210,496 +240,600 @@ final TextEditingController _textEditingController=TextEditingController();
     return Scaffold(
         key: _scaffoldKey,
         
-        drawer: const Drawer(backgroundColor: Color(0xff0F6868)),
-        body: Stack(
-          
-          children: [
-            Container(
-              height: xheight * .45,
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Color(0xff1B7D7D), Color(0xff828448)],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomRight,
-                ),
-              ),
-              child: SafeArea(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                         top: 10,
-                         left: 15,
-                         right: 20
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              _scaffoldKey.currentState!.openDrawer();
-                            },
-                            icon: const Icon(
-                              Icons.menu,
-                              size: 40,
-                              color: Colors.white,
-                            ),
-                          ),
-                          const Text(
-                            "Return Lorry",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 25,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              _scaffoldKey.currentState!.openDrawer();
-                            },
-                            icon: const Icon(
-                              Icons.circle_notifications,
-                              size: 40,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      margin:
-                          const EdgeInsets.only(top: 20, left: 20, right: 20),
-                      padding: const EdgeInsets.all(20),
-                      decoration: const BoxDecoration(
-                          color: Color(0xfff1f5f3),
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20))),
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              const Image(
-                                image: AssetImage("img/dp.png"),
-                                width: 60,
-                                height: 60,
-                              ),
-                              const SizedBox(
-                                width: 20,
-                              ),
-                              const Column(
-                                children: [
-                                  Text(
-                                    "data",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    "data",
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 25,
-                                    ),
-                                  )
-                                ],
-                              ),
-                              const Expanded(child: Text("")),
-                              FilledButton(
-                                  onPressed: () {},
-                                  style: const ButtonStyle(
-                                      backgroundColor: MaterialStatePropertyAll(
-                                          Colors.white),
-                                      padding: MaterialStatePropertyAll(
-                                          EdgeInsets.symmetric(
-                                              horizontal: 25))),
-                                  child: const Text(
-                                    "☢ Refresh",
-                                    style: TextStyle(
-                                        color: Color(0xff44c951),
-                                        fontWeight: FontWeight.bold),
-                                  ))
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(left: 20, right: 20),
-                      padding: const EdgeInsets.all(20),
-                      decoration: const BoxDecoration(
-                          color: Color(0x5f749b83),
-                          borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(20),
-                              bottomRight: Radius.circular(20))),
-                      child: const Row(
-                        children: [
-                          // Text("data",style: TextStyle(color: Color.fromARGB(255, 255, 255, 255),fontSize: 16, fontWeight: FontWeight.bold),),
+        drawer:  Drawer(backgroundColor: const Color(0xff0F6868),
         
-                          SizedBox(
-                              width: 180,
-                              child:
-                                  MarqueeText(text: "Last Updated Location")),
-                          Expanded(child: Text("")),
-                          Text("10:00",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold))
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            Container(
-              width: xwidth,
-              margin: EdgeInsets.only(top: xheight * .36),
-              height: xheight * .65 ,
-              padding: EdgeInsets.only(top: 30 ),
-              decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30))),
-              child: 
-              
-
-SingleChildScrollView(
-  child:   ExpansionPanelList(
-  
-
-            expandIconColor: Color.fromARGB(255, 11, 75, 75),
-  
-            elevation: 1,
-  
-  
-            expansionCallback: (int panelIndex, bool isExpanded) {
-  
-              setState(() {
-  
-  
-  
-                    _isExpandedList = List.generate(bookingData.length, (index) => false);
-  
-                                    _isExpandedList[panelIndex] = !isExpanded;
-  
-                                    _textEditingController.text="${bookingData.elementAt(panelIndex)['calculated_price']}";
-  
-  
-  
-  
-  
-              });
-  
-            },
-  
-            children: bookingData.asMap().entries.map((entry) {
-  
-              final int index = entry.key;
-  
-              final Map<String, dynamic> booking = entry.value;
-  
-  
-  
-              return ExpansionPanel(
-  
-  
-                headerBuilder: (BuildContext context, bool isExpanded) {
-  
-  
-  
-
-                  return ListTile(
-                  
-                  
-                    leading: CircleAvatar(
-                  
-                      backgroundImage:
-                  
-                          NetworkImage(booking['booking_user']['dp']),
-                  
-                    ),
-                  
-                    title: Text(booking['booking_user']['name']),
-                  
-                    subtitle: Text(booking['material_type']),
-                  
-                    trailing: FilledButton(
-                  
-                        onPressed: () async {
-
-GoooGolgole(22.568660563718094,88.61089299422036,22.568660563718094,88.51089299422036);
-
-
-
-                        },
-                  
-                        style: const ButtonStyle(
-                  
-                            backgroundColor:
-                  
-                                MaterialStatePropertyAll(Color(0x401D8989))),
-                  
-                        child: Text(
-                  
-                          '${booking['distance']} km',
-                  
-                          style: const TextStyle(
-                  
-                              color: Color(0xff0F6868),
-                  
-                              fontWeight: FontWeight.bold),
-                  
-                        )),
-                  
-                  );
-  
-                },
-  
-                body: Column(children: [
-  
-                  const Divider(),
-  
-                  ListTile(
-  
-                    leading: Ink(
-  
-                        decoration: const ShapeDecoration(
-  
-                            shape: CircleBorder(), color: Color(0xff0F6868)),
-  
-                        child: const SizedBox(
-  
-                          width: 35,
-  
-                          height: 35,
-  
-                          child:
-  
-                              Icon(Icons.home, size: 20, color: Colors.white),
-  
-                        )),
-  
-                    title: Text("${booking['destination_point']['address']}"),
-  
-                  ),
-  
-                  ListTile(
-  
-                    leading: Ink(
-  
-                        decoration: const ShapeDecoration(
-  
-                            shape: CircleBorder(), color: Color(0xff0F6868)),
-  
-                        child: const SizedBox(
-  
-                          width: 35,
-  
-                          height: 35,
-  
-                          child: Icon(Icons.location_city,
-  
-                              size: 20, color: Colors.white),
-  
-                        )),
-  
-                    title: Text(
-  
-                        'Pickup Point: ${booking['pick_up_point']['address']}'),
-  
-                  ),
-  
-  
-  
-                  ListTile(
-  
-                    leading: Ink(
-  
-                        decoration: const ShapeDecoration(
-  
-                            shape: CircleBorder(), color: Color(0xff0F6868)),
-  
-                        child: const SizedBox(
-  
-                          width: 35,
-  
-                          height: 35,
-  
-                          child:
-  
-                              Icon(Icons.alarm, size: 20, color: Colors.white),
-  
-                        )),
-  
-                    title: Text(
-  
-                      "${booking['booking_date']}",
-  
-                    ),
-  
-                  ),
-  
-  
-  
-                  ListTile(
-  
                     
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+
+
+DrawerHeader(child: Row(
+  children: [
+
+    const ClipOval(child: Image(image: AssetImage("img/QT.jpeg"),height: 80,)),
+    const SizedBox(width: 20,),
+    Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+Text(_driver_name,style: const TextStyle(fontSize: 20,color: Colors.white,fontWeight: FontWeight.bold),),
+Text(_driver_email,style: const TextStyle(fontSize: 15,color: Colors.white,fontWeight: FontWeight.bold),)
+      ],
+    )
+  ],
+)
+
+
+)
+
+,
+
+Padding(
+  padding: const EdgeInsets.all(8.0),
+  child:   TextButton.icon(onPressed: 
   
-                    leading: Ink(
+  (){}, icon: const Icon(Icons.arrow_outward_rounded,size: 35,color: Colors.white,), label: const Padding(
   
-                        decoration: const ShapeDecoration(
+    padding: EdgeInsets.only(left: 50),
   
-                            shape: CircleBorder(), color: Color(0xff0F6868)),
+    child:   Text("My Order",style: TextStyle(color: Colors.white,),
+    )
   
-                        child: const SizedBox(
+  )),
+)
+,
+Padding(
+  padding: const EdgeInsets.all(8.0),
+  child:   TextButton.icon(onPressed: 
   
-                          width: 35,
+  (){}, icon: const Icon(Icons.arrow_outward_rounded,size: 35,color: Colors.white,), label: const Padding(
   
-                          height: 35,
+    padding: EdgeInsets.only(left: 50),
   
-                          child: Icon(Icons.currency_rupee,
+    child:   Text("My Order",style: TextStyle(color: Colors.white,),
+    )
   
-                              size: 20, color: Colors.white),
+  )),
+)
+,
+Padding(
+  padding: const EdgeInsets.all(8.0),
+  child:   TextButton.icon(onPressed: 
   
-                        )),
+  (){}, icon: const Icon(Icons.arrow_outward_rounded,size: 35,color: Colors.white,), label: const Padding(
   
-                    title: Ink(
+    padding: EdgeInsets.only(left: 50),
   
-                        decoration: const ShapeDecoration(
+    child:   Text("My Order",style: TextStyle(color: Colors.white,),
+    )
   
-                            shape: RoundedRectangleBorder(
+  )),
+)
+,
+Padding(
+  padding: const EdgeInsets.all(8.0),
+  child:   TextButton.icon(onPressed: 
   
-                                side: BorderSide.none,
+  (){}, icon: const Icon(Icons.arrow_outward_rounded,size: 35,color: Colors.white,), label: const Padding(
   
-                                borderRadius: BorderRadius.horizontal(
+    padding: EdgeInsets.only(left: 50),
   
-                                    left: Radius.circular(30),
+    child:   Text("My Order",style: TextStyle(color: Colors.white,),
+    )
   
-                                    right: Radius.circular(30))),
-  
-                            color: Color(0xff0F6868)),
-  
-                        child:  SizedBox(
-  
-                          height: 35,
-  
-                          child: TextField(
-  
-                            controller: _textEditingController,
-  
-                            decoration: const InputDecoration(
-  
-                                border: InputBorder.none,
-  
-                                contentPadding: EdgeInsets.only(bottom: 15)),
-  
-                            textAlign: TextAlign.center,
-  
-                            style: const TextStyle(
-  
+  )),
+)
+,
+
+
+        ],),
+        
+        
+        
+        
+        )
+        
+        
+        
+        ,
+        body: SingleChildScrollView(
+          child: Stack(
+            
+            children: [
+              Container(
+                height: xheight * .45,
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Color(0xff1B7D7D), Color(0xff828448)],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomRight,
+                  ),
+                ),
+                child: SafeArea(
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                           top: 10,
+                           left: 15,
+                           right: 20
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                _scaffoldKey.currentState!.openDrawer();
+                              },
+                              icon: const Icon(
+                                Icons.menu,
+                                size: 40,
                                 color: Colors.white,
-  
-                                fontWeight: FontWeight.bold,
-  
-                                fontSize: 20),
-  
-                          ),
-  
-                        )),
-  
-                    trailing: FilledButton(
-  
-                        onPressed: () {
-  
-                          rtvv();
-  
-                          print(booking);
-  
-                        },
-  
-                        style: const ButtonStyle(
-  
-                            backgroundColor:
-  
-                                MaterialStatePropertyAll(Color(0xff0F6868))),
-  
-                        child: const Text(
-  
-                          'Respond',
-  
-                          style: TextStyle(
-  
-                              color: Colors.white, fontWeight: FontWeight.bold),
-  
-                        )),
-  
-                  )
-  
-  
-  
-  ,
-  
-  
-  // Padding(
-  
-  //   padding: const EdgeInsets.all(15.0),
-  
-  //   child:   Center(child:FilledButton(onPressed: () {
-  
-  
-  
-  //   print(booking)
-  
-  
-  
-  //                           },
-  
-  
-  
-  //                           style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Color(0xff0F6868))),
-  
-  
-  
-  //                            child: Text('Send Requests   ₹ ${booking['calculated_price']} ',style: const TextStyle( color: Colors.white,fontWeight: FontWeight.bold),)),
-  
-  
-  
-  //                   ),
-  
-  // )
-  
-                ]),
-  
+                              ),
+                            ),
+                            const Text(
+                              "Return Lorry",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 25,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            IconButton(
+                              onPressed: () {
+
+                                rtvv();
+
+                                _scaffoldKey.currentState!.openDrawer();
+                              },
+                              icon: const Icon(
+                                Icons.circle_notifications,
+                                size: 40,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        margin:
+                            const EdgeInsets.only(top: 20, left: 20, right: 20),
+                        padding: const EdgeInsets.all(20),
+                        decoration: const BoxDecoration(
+                            color: Color(0xfff1f5f3),
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20),
+                                topRight: Radius.circular(20))),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                const Image(
+                                  image:  AssetImage("img/dp.png"),
+                                  width: 60,
+                                  height: 60,
+                                ),
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                 Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      _driver_name,
+                                      style: const TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Text(
+_driver_email,
+                                      style: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 15,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                const Expanded(child: Text("")),
+                                FilledButton(
+                                    onPressed: () {},
+                                    style: const ButtonStyle(
+                                        backgroundColor: MaterialStatePropertyAll(
+                                            Colors.white),
+                                        padding: MaterialStatePropertyAll(
+                                            EdgeInsets.symmetric(
+                                                horizontal: 25))),
+                                    child: const Text(
+                                      "☢ Refresh",
+                                      style: TextStyle(
+                                          color: Color(0xff44c951),
+                                          fontWeight: FontWeight.bold),
+                                    ))
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(left: 20, right: 20),
+                        padding: const EdgeInsets.all(20),
+                        decoration: const BoxDecoration(
+                            color: Color(0x5f749b83),
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(20),
+                                bottomRight: Radius.circular(20))),
+                        child: const Row(
+                          children: [
+                            // Text("data",style: TextStyle(color: Color.fromARGB(255, 255, 255, 255),fontSize: 16, fontWeight: FontWeight.bold),),
+          
+                            SizedBox(
+                                width: 180,
+                                child:
+                                    MarqueeText(text: "Last Updated Location")),
+                            Expanded(child: Text("")),
+                            Text("10:00",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold))
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                width: xwidth,
+                margin: EdgeInsets.only(top: xheight * .36),
+                height: xheight * .65 ,
+                padding: const EdgeInsets.only(top: 30 ),
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                        topRight: Radius.circular(30))),
+                child: 
                 
-  
-                isExpanded: _isExpandedList[index],
-  
-              );
-  
-            }).toList(),
-  
+        
+        SingleChildScrollView(
+          child:   ExpansionPanelList(
+          
+        
+              expandIconColor: const Color.fromARGB(255, 11, 75, 75),
+          
+              elevation: 1,
+          
+          
+          
+              expansionCallback: (int panelIndex, bool isExpanded) {
+          
+                setState(() {
+          
+          
+          
+                      _isExpandedList = List.generate(bookingData.length, (index) => false);
+          
+                                      _isExpandedList[panelIndex] = !isExpanded;
+          
+                                      _textEditingController.text="${bookingData.elementAt(panelIndex)['calculated_price']}";
+          
+          
+          
+          
+          
+                });
+          
+              },
+          
+              children: bookingData.asMap().entries.map((entry) {
+          
+                final int index = entry.key;
+          
+                final Map<String, dynamic> booking = entry.value;
+          
+          
+          
+                return ExpansionPanel(
+          
+          
+                  headerBuilder: (BuildContext context, bool isExpanded) {
+          
+          
+          
+        
+                    return ListTile(
+                    
+                    
+                      leading: CircleAvatar(
+                    
+                        backgroundImage:
+                    
+                            NetworkImage(booking['booking_user']['dp']),
+                    
+                      ),
+                    
+                      title: Text(booking['booking_user']['name']),
+                    
+                      subtitle: Text(booking['material_type']),
+                    
+                      trailing: FilledButton(
+                    
+                          onPressed: () async {
+        
+        GoooGolgole(22.568660563718094,88.61089299422036,22.568660563718094,88.51089299422036);
+        
+        
+        
+                          },
+                    
+                          style: const ButtonStyle(
+                    
+                              backgroundColor:
+                    
+                                  MaterialStatePropertyAll(Color(0x401D8989))),
+                    
+                          child: Text(
+                    
+                            '${booking['distance']} km',
+                    
+                            style: const TextStyle(
+                    
+                                color: Color(0xff0F6868),
+                    
+                                fontWeight: FontWeight.bold),
+                    
+                          )),
+                    
+                    );
+          
+                  },
+          
+                  body: Column(children: [
+          
+                    const Divider(),
+          
+                    ListTile(
+          
+                      leading: Ink(
+          
+                          decoration: const ShapeDecoration(
+          
+                              shape: CircleBorder(), color: Color(0xff0F6868)),
+          
+                          child: const SizedBox(
+          
+                            width: 35,
+          
+                            height: 35,
+          
+                            child:
+          
+                                Icon(Icons.home, size: 20, color: Colors.white),
+          
+                          )),
+          
+                      title: Text("${booking['destination_point']['address']}"),
+          
+                    ),
+          
+                    ListTile(
+          
+                      leading: Ink(
+          
+                          decoration: const ShapeDecoration(
+          
+                              shape: CircleBorder(), color: Color(0xff0F6868)),
+          
+                          child: const SizedBox(
+          
+                            width: 35,
+          
+                            height: 35,
+          
+                            child: Icon(Icons.location_city,
+          
+                                size: 20, color: Colors.white),
+          
+                          )),
+          
+                      title: Text(
+          
+                          'Pickup Point: ${booking['pick_up_point']['address']}'),
+          
+                    ),
+          
+          
+          
+                    ListTile(
+          
+                      leading: Ink(
+          
+                          decoration: const ShapeDecoration(
+          
+                              shape: CircleBorder(), color: Color(0xff0F6868)),
+          
+                          child: const SizedBox(
+          
+                            width: 35,
+          
+                            height: 35,
+          
+                            child:
+          
+                                Icon(Icons.alarm, size: 20, color: Colors.white),
+          
+                          )),
+          
+                      title: Text(
+          
+                        "${booking['booking_date']}",
+          
+                      ),
+          
+                    ),
+          
+          
+          
+                    ListTile(
+          
+                      
+          
+                      leading: Ink(
+          
+                          decoration: const ShapeDecoration(
+          
+                              shape: CircleBorder(), color: Color(0xff0F6868)),
+          
+                          child: const SizedBox(
+          
+                            width: 35,
+          
+                            height: 35,
+          
+                            child: Icon(Icons.currency_rupee,
+          
+                                size: 20, color: Colors.white),
+          
+                          )),
+          
+                      title: Ink(
+          
+                          decoration: const ShapeDecoration(
+          
+                              shape: RoundedRectangleBorder(
+          
+                                  side: BorderSide.none,
+          
+                                  borderRadius: BorderRadius.horizontal(
+          
+                                      left: Radius.circular(30),
+          
+                                      right: Radius.circular(30))),
+          
+                              color: Color(0xff0F6868)),
+          
+                          child:  SizedBox(
+          
+                            height: 35,
+          
+                            child: TextField(
+          
+                              controller: _textEditingController,
+          
+                              decoration: const InputDecoration(
+          
+                                  border: InputBorder.none,
+          
+                                  contentPadding: EdgeInsets.only(bottom: 15)),
+          
+                              textAlign: TextAlign.center,
+          
+                              style: const TextStyle(
+          
+                                  color: Colors.white,
+          
+                                  fontWeight: FontWeight.bold,
+          
+                                  fontSize: 20),
+          
+                            ),
+          
+                          )),
+          
+                      trailing: FilledButton(
+          
+                          onPressed: () {
+          
+                            rtvv();
+          
+                            print(booking);
+          
+                          },
+          
+                          style: const ButtonStyle(
+          
+                              backgroundColor:
+          
+                                  MaterialStatePropertyAll(Color(0xff0F6868))),
+          
+                          child: const Text(
+          
+                            'Respond',
+          
+                            style: TextStyle(
+          
+                                color: Colors.white, fontWeight: FontWeight.bold),
+          
+                          )),
+          
+                    )
+          
+          
+          
+          ,
+          
+          
+          // Padding(
+          
+          //   padding: const EdgeInsets.all(15.0),
+          
+          //   child:   Center(child:FilledButton(onPressed: () {
+          
+          
+          
+          //   print(booking)
+          
+          
+          
+          //                           },
+          
+          
+          
+          //                           style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Color(0xff0F6868))),
+          
+          
+          
+          //                            child: Text('Send Requests   ₹ ${booking['calculated_price']} ',style: const TextStyle( color: Colors.white,fontWeight: FontWeight.bold),)),
+          
+          
+          
+          //                   ),
+          
+          // )
+          
+                  ]),
+          
+                  
+          
+                  isExpanded: _isExpandedList[index],
+          
+                );
+          
+              }).toList(),
+          
+            ),
+        ),
+          
+          
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+              )
+            ],
           ),
-),
-        
-        
-
-
-
-
-
-
-
-
-
-
-
-
-            )
-          ],
         ));
   }
 }
