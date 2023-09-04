@@ -31,9 +31,55 @@ class rix extends State<Owner> {
 
     print(pickedFile?.path);
     // File image = await ImagePicker.pickImage(source: ImageSource.gallery);
+   
+   
+
+
+
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  
+   if (pickedFile != null) {
+    final dc = await http.post(
+        Uri.parse("https://admin.returnlorry.com/appservice/uploadphoto"),
+        body: json.encode(
+        
+{
+      
+  
+    "Token": prefs.getString("Token"),
+    "userId": prefs.getString("userId"),
+    "userPhone": prefs.getString("userPhone"),
+    "userType": prefs.getString("userType"),
+    "imagetype":"owner_photo",
+     "image": "data:image/png;base64,${fileToBase64(File(pickedFile.path))}"
+  
+
+
+
+
+   
+           }     ));
+
+           prefs.setString("owner_photo",jsonDecode(dc.body)["data"]["data"]["owner_photo"]);
+           prefs.setString("driver_name",widget.driverx["driver_name"]??"Return Lorry");
+           prefs.setString("driver_email",widget.driverx["driver_email"]??"driver@returnlorry.com");
+
+   }
+
+
+
+   
+   
     setState(() {
       if (pickedFile != null) {
+
+
+
         _image = File(pickedFile.path);
+
+
+        
       } else {
         print('No image selected');
       }
