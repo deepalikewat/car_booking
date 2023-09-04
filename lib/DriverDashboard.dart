@@ -14,20 +14,10 @@ class DriverDashBoard extends StatefulWidget {
   State<DriverDashBoard> createState() => DriverDashBoardx();
 }
 
-
-
-
 class DriverDashBoardx extends State<DriverDashBoard> {
+  List<Map<String, dynamic>> bookingData = [];
 
-
-
-
-  List<Map<String, dynamic>> bookingData = [
-
-  ];
-
-
-
+bool loadingx=true;
   //   {
   //     "request_booking_id": 1,
   //     "booking_user": {
@@ -95,104 +85,61 @@ class DriverDashBoardx extends State<DriverDashBoard> {
     _isExpandedList = List.generate(bookingData.length, (index) => false);
   }
 
+  Future<Position> _determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-Future<Position> _determinePosition() async {
-  bool serviceEnabled;
-  LocationPermission permission;
-
-  serviceEnabled = await Geolocator.isLocationServiceEnabled();
-  if (!serviceEnabled) {
-
-
-    return Future.error('Location services are disabled.');
-  }
-
-  permission = await Geolocator.checkPermission();
-  if (permission == LocationPermission.denied) {
-    permission = await Geolocator.requestPermission();
-    if (permission == LocationPermission.denied) {
-     
-     
-      return Future.error('Location permissions are denied');
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
     }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    return await Geolocator.getCurrentPosition();
   }
-  
-  if (permission == LocationPermission.deniedForever) {
-
-    return Future.error(
-      'Location permissions are permanently denied, we cannot request permissions.');
-  } 
-
-  
-  
-  return await Geolocator.getCurrentPosition();
-}
-
-
-
 
   Future<void> rtvv() async {
-
-
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     final dc = await http.post(
         Uri.parse("https://admin.returnlorry.com/appservice/getbookingrequest"),
-        body: jsonEncode({ 
-    "Token": prefs.getString("Token"),
-    "userId": prefs.getString("userId"),
-    "userPhone": prefs.getString("userPhone"),
-    "userType": prefs.getString("userType"),
+        body: jsonEncode({
+          "Token": prefs.getString("Token"),
+          "userId": prefs.getString("userId"),
+          "userPhone": prefs.getString("userPhone"),
+          "userType": prefs.getString("userType"),
+        }));
+
+    final rty = jsonDecode(dc.body)["data"]["data"];
+
+    int i = 0;
+    bookingData.clear();
+
+    for (var ty in rty) {
+      i++;
+
+      bookingData.add(ty);
     }
-        ));
 
-
-
-
-
-final rty=jsonDecode(dc.body)["data"]["data"];
-
-int i =0;
-bookingData.clear();
-
-for (var ty in rty){
-
-i++;
-
-bookingData.add(ty);
-
-}
-
-
-
-
-
-setState(() {
-  
-        _isExpandedList = List.generate(bookingData.length, (index) => false);
-
-});
-
-
+    setState(() {
+      _isExpandedList = List.generate(bookingData.length, (index) => false);
+    });
 
 // setState(() {
 
 //       _isExpandedList = List.generate(bookingData.length, (index) => false);
-
-
 
 //   print("raju");
 // });
@@ -223,68 +170,56 @@ setState(() {
     //   "booking_date": "2023-05-20 12:31:57",
     //   "request_status": {"status_code": "0", "status": "Open"}
     // };
-    
 
+    // List<Placemark> placemarks = await placemarkFromCoordinates(23.5830, 87.5153);
 
-  // List<Placemark> placemarks = await placemarkFromCoordinates(23.5830, 87.5153);
-
-
-  //   print('raju${placemarks[0].name}'); 
-
+    //   print('raju${placemarks[0].name}');
 
 // setState(() {
 
 //       _isExpandedList = List.generate(bookingData.length+1, (index) => false);
 //       bookingData.add(ryo);
 
-
 //   print("raju");
 // });
 
-  
-    
 //    _determinePosition().then((value)  async {
 
 //   List<Placemark> placemarks = await placemarkFromCoordinates(23.5830, 87.5153
 // );
 
-
 //     print('raju${placemarks[0]}'); });
 //   //  print(_determinePosition());
-    
   }
 
-
-GoooGolgole(double sourceLatitude, double sourceLongitude, double destLatitude, double destLongitude) async {
-  final directionsUri = 'https://www.google.com/maps/dir/$sourceLatitude,$sourceLongitude/$destLatitude,$destLongitude';
-  if (await canLaunchUrlString(directionsUri)) {
-    await launchUrlString(directionsUri);
-  } else {
-    throw 'Could not launch $directionsUri';
+  GoooGolgole(double sourceLatitude, double sourceLongitude,
+      double destLatitude, double destLongitude) async {
+    final directionsUri =
+        'https://www.google.com/maps/dir/$sourceLatitude,$sourceLongitude/$destLatitude,$destLongitude';
+    if (await canLaunchUrlString(directionsUri)) {
+      await launchUrlString(directionsUri);
+    } else {
+      throw 'Could not launch $directionsUri';
+    }
   }
-}
 
+  String _driver_email = "";
+  String _driver_photo = "";
+  String _driver_name = "";
 
-String _driver_email="";
-String _driver_photo="";
-String _driver_name="";
+  final TextEditingController _textEditingController = TextEditingController();
 
-final TextEditingController _textEditingController=TextEditingController();
+  setvaluex() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
 
- setvaluex() async {
-  final SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _driver_email = prefs.getString("driver_email") ?? "";
+      _driver_photo = prefs.getString("owner_photo") ?? "";
+      _driver_name = prefs.getString("driver_name") ?? "";
 
-setState(() {
-  _driver_email=prefs.getString("driver_email") ?? "";
-  _driver_photo=prefs.getString("owner_photo")??"";
-  _driver_name=prefs.getString("driver_name")??"";
-
-  print(_driver_photo);
-
-});
-
-
- }
+      print(_driver_photo);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -301,107 +236,121 @@ setState(() {
 
     return Scaffold(
         key: _scaffoldKey,
-        
-        drawer:  Drawer(backgroundColor: const Color(0xff0F6868),
-        
-                    
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-
-
-DrawerHeader(child: Row(
-  children: [
-
-    const ClipOval(child: Image(image: AssetImage("img/QT.jpeg"),height: 80,)),
-    const SizedBox(width: 20,),
-    Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-Text(_driver_name,style: const TextStyle(fontSize: 20,color: Colors.white,fontWeight: FontWeight.bold),),
-Text(_driver_email,style: const TextStyle(fontSize: 15,color: Colors.white,fontWeight: FontWeight.bold),)
-      ],
-    )
-  ],
-)
-
-
-)
-
-,
-
-Padding(
-  padding: const EdgeInsets.all(8.0),
-  child:   TextButton.icon(onPressed: 
-  
-  (){}, icon: const Icon(Icons.arrow_outward_rounded,size: 35,color: Colors.white,), label: const Padding(
-  
-    padding: EdgeInsets.only(left: 50),
-  
-    child:   Text("My Order",style: TextStyle(color: Colors.white,),
-    )
-  
-  )),
-)
-,
-Padding(
-  padding: const EdgeInsets.all(8.0),
-  child:   TextButton.icon(onPressed: 
-  
-  (){}, icon: const Icon(Icons.arrow_outward_rounded,size: 35,color: Colors.white,), label: const Padding(
-  
-    padding: EdgeInsets.only(left: 50),
-  
-    child:   Text("My Order",style: TextStyle(color: Colors.white,),
-    )
-  
-  )),
-)
-,
-Padding(
-  padding: const EdgeInsets.all(8.0),
-  child:   TextButton.icon(onPressed: 
-  
-  (){}, icon: const Icon(Icons.arrow_outward_rounded,size: 35,color: Colors.white,), label: const Padding(
-  
-    padding: EdgeInsets.only(left: 50),
-  
-    child:   Text("My Order",style: TextStyle(color: Colors.white,),
-    )
-  
-  )),
-)
-,
-Padding(
-  padding: const EdgeInsets.all(8.0),
-  child:   TextButton.icon(onPressed: 
-  
-  (){}, icon: const Icon(Icons.arrow_outward_rounded,size: 35,color: Colors.white,), label: const Padding(
-  
-    padding: EdgeInsets.only(left: 50),
-  
-    child:   Text("My Order",style: TextStyle(color: Colors.white,),
-    )
-  
-  )),
-)
-,
-
-
-        ],),
-        
-        
-        
-        
-        )
-        
-        
-        
-        ,
+        drawer: Drawer(
+          backgroundColor: const Color(0xff0F6868),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              DrawerHeader(
+                  child: Row(
+                children: [
+                  const ClipOval(
+                      child: Image(
+                    image: AssetImage("img/QT.jpeg"),
+                    height: 80,
+                  )),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        _driver_name,
+                        style: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        _driver_email,
+                        style: const TextStyle(
+                            fontSize: 15,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  )
+                ],
+              )),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextButton.icon(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.arrow_outward_rounded,
+                      size: 35,
+                      color: Colors.white,
+                    ),
+                    label: const Padding(
+                        padding: EdgeInsets.only(left: 50),
+                        child: Text(
+                          "My Order",
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ))),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextButton.icon(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.arrow_outward_rounded,
+                      size: 35,
+                      color: Colors.white,
+                    ),
+                    label: const Padding(
+                        padding: EdgeInsets.only(left: 50),
+                        child: Text(
+                          "My Order",
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ))),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextButton.icon(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.arrow_outward_rounded,
+                      size: 35,
+                      color: Colors.white,
+                    ),
+                    label: const Padding(
+                        padding: EdgeInsets.only(left: 50),
+                        child: Text(
+                          "My Order",
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ))),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextButton.icon(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.arrow_outward_rounded,
+                      size: 35,
+                      color: Colors.white,
+                    ),
+                    label: const Padding(
+                        padding: EdgeInsets.only(left: 50),
+                        child: Text(
+                          "My Order",
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ))),
+              ),
+            ],
+          ),
+        ),
         body: SingleChildScrollView(
           child: Stack(
-            
             children: [
               Container(
                 height: xheight * .45,
@@ -416,11 +365,8 @@ Padding(
                   child: Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(
-                           top: 10,
-                           left: 15,
-                           right: 20
-                        ),
+                        padding:
+                            const EdgeInsets.only(top: 10, left: 15, right: 20),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -444,7 +390,6 @@ Padding(
                             ),
                             IconButton(
                               onPressed: () {
-
                                 rtvv();
 
                                 _scaffoldKey.currentState!.openDrawer();
@@ -472,14 +417,14 @@ Padding(
                             Row(
                               children: [
                                 const Image(
-                                  image:  AssetImage("img/dp.png"),
+                                  image: AssetImage("img/dp.png"),
                                   width: 60,
                                   height: 60,
                                 ),
                                 const SizedBox(
                                   width: 20,
                                 ),
-                                 Column(
+                                Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -491,7 +436,7 @@ Padding(
                                           fontWeight: FontWeight.bold),
                                     ),
                                     Text(
-_driver_email,
+                                      _driver_email,
                                       style: const TextStyle(
                                         color: Colors.grey,
                                         fontSize: 15,
@@ -502,12 +447,12 @@ _driver_email,
                                 const Expanded(child: Text("")),
                                 FilledButton(
                                     onPressed: () {
-                                      
                                       rtvv();
                                     },
                                     style: const ButtonStyle(
-                                        backgroundColor: MaterialStatePropertyAll(
-                                            Colors.white),
+                                        backgroundColor:
+                                            MaterialStatePropertyAll(
+                                                Colors.white),
                                         padding: MaterialStatePropertyAll(
                                             EdgeInsets.symmetric(
                                                 horizontal: 25))),
@@ -533,7 +478,7 @@ _driver_email,
                         child: const Row(
                           children: [
                             // Text("data",style: TextStyle(color: Color.fromARGB(255, 255, 255, 255),fontSize: 16, fontWeight: FontWeight.bold),),
-          
+
                             SizedBox(
                                 width: 180,
                                 child:
@@ -551,355 +496,214 @@ _driver_email,
                   ),
                 ),
               ),
+            
               Container(
                 width: xwidth,
                 margin: EdgeInsets.only(top: xheight * .36),
-                height: xheight * .65 ,
-                padding: const EdgeInsets.only(top: 30 ),
+                height: xheight * .65,
+                padding: const EdgeInsets.only(top: 30),
                 decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(30),
                         topRight: Radius.circular(30))),
-                child: 
-                
-        
-        SingleChildScrollView(
-          child:   ExpansionPanelList(
-          
-        
-              expandIconColor: const Color.fromARGB(255, 11, 75, 75),
-          
-              elevation: 1,
-          
-          
-          
-              expansionCallback: (int panelIndex, bool isExpanded) {
-          
-                setState(() {
-          
-          
-          
-                      _isExpandedList = List.generate(bookingData.length, (index) => false);
-          
-                                      _isExpandedList[panelIndex] = !isExpanded;
-          
-                                      _textEditingController.text="${bookingData.elementAt(panelIndex)['calculated_price']}";
-          
-          
-          
-          
-          
-                });
-          
-              },
-          
-              children: bookingData.asMap().entries.map((entry) {
-          
-                final int index = entry.key;
-          
-                final Map<String, dynamic> booking = entry.value;
-          
-          
-          
-                return ExpansionPanel(
-          
-          
-                  headerBuilder: (BuildContext context, bool isExpanded) {
-          
-          
-          
-        
-                    return ListTile(
-                    
-                    
-                      leading: CircleAvatar(
-                    
-                        backgroundImage: (booking['booking_user']['image']=="https://admin.returnlorry.com/uploads/users/") ? const AssetImage("img/dp.png") as ImageProvider<Object>:
-                            NetworkImage(booking['booking_user']['image']),
-                    
-                      ),
-                    
-                      title: Text(booking['booking_user']['name']??"Unnamed"),
-                    
-                      subtitle: Text(booking['material_type']),
-                    
-                      trailing: FilledButton(
-                    
-                          onPressed: () async {
-        
-        GoooGolgole(22.568660563718094,88.61089299422036,22.568660563718094,88.51089299422036);
-        
-        
-        
-                          },
-                    
-                          style: const ButtonStyle(
-                    
-                              backgroundColor:
-                    
-                                  MaterialStatePropertyAll(Color(0x401D8989))),
-                    
-                          child: Text(
-                    
-                            '${booking['distance']} km',
-                    
-                            style: const TextStyle(
-                    
-                                color: Color(0xff0F6868),
-                    
-                                fontWeight: FontWeight.bold),
-                    
-                          )),
-                    
-                    );
-          
-                  },
-          
-                  body: Column(children: [
-          
-                    const Divider(),
-          
-                    ListTile(
-          
-                      leading: Ink(
-          
-                          decoration: const ShapeDecoration(
-          
-                              shape: CircleBorder(), color: Color(0xff0F6868)),
-          
-                          child: const SizedBox(
-          
-                            width: 35,
-          
-                            height: 35,
-          
-                            child:
-          
-                                Icon(Icons.home, size: 20, color: Colors.white),
-          
-                          )),
-          
-                      title: Text("${booking['destination_point']['address']}"),
-          
-                    ),
-          
-                    ListTile(
-          
-                      leading: Ink(
-          
-                          decoration: const ShapeDecoration(
-          
-                              shape: CircleBorder(), color: Color(0xff0F6868)),
-          
-                          child: const SizedBox(
-          
-                            width: 35,
-          
-                            height: 35,
-          
-                            child: Icon(Icons.location_city,
-          
-                                size: 20, color: Colors.white),
-          
-                          )),
-          
-                      title: Text(
-          
-                          'Pickup Point: ${booking['pick_up_point']['address']}'),
-          
-                    ),
-          
-          
-          
-                    ListTile(
-          
-                      leading: Ink(
-          
-                          decoration: const ShapeDecoration(
-          
-                              shape: CircleBorder(), color: Color(0xff0F6868)),
-          
-                          child: const SizedBox(
-          
-                            width: 35,
-          
-                            height: 35,
-          
-                            child:
-          
-                                Icon(Icons.alarm, size: 20, color: Colors.white),
-          
-                          )),
-          
-                      title: Text(
-          
-                        "${booking['booking_date']}",
-          
-                      ),
-          
-                    ),
-          
-          
-          
-                    ListTile(
-          
-                      
-          
-                      leading: Ink(
-          
-                          decoration: const ShapeDecoration(
-          
-                              shape: CircleBorder(), color: Color(0xff0F6868)),
-          
-                          child: const SizedBox(
-          
-                            width: 35,
-          
-                            height: 35,
-          
-                            child: Icon(Icons.currency_rupee,
-          
-                                size: 20, color: Colors.white),
-          
-                          )),
-          
-                      title: Ink(
-          
-                          decoration: const ShapeDecoration(
-          
-                              shape: RoundedRectangleBorder(
-          
-                                  side: BorderSide.none,
-          
-                                  borderRadius: BorderRadius.horizontal(
-          
-                                      left: Radius.circular(30),
-          
-                                      right: Radius.circular(30))),
-          
-                              color: Color(0xff0F6868)),
-          
-                          child:  SizedBox(
-          
-                            height: 35,
-          
-                            child: TextField(
-          
-                              controller: _textEditingController,
-          
-                              decoration: const InputDecoration(
-          
-                                  border: InputBorder.none,
-          
-                                  contentPadding: EdgeInsets.only(bottom: 15)),
-          
-                              textAlign: TextAlign.center,
-          
-                              style: const TextStyle(
-          
-                                  color: Colors.white,
-          
-                                  fontWeight: FontWeight.bold,
-          
-                                  fontSize: 20),
-          
+                child: loadingx? const Padding(
+                  padding: EdgeInsets.all(100.0),
+                  child: CircularProgressIndicator(strokeWidth: 10,semanticsLabel: "lol",),
+                ): SingleChildScrollView(
+                  child: ExpansionPanelList(
+                    expandIconColor: const Color.fromARGB(255, 11, 75, 75),
+                    elevation: 1,
+                    expansionCallback: (int panelIndex, bool isExpanded) {
+                      setState(() {
+                        _isExpandedList =
+                            List.generate(bookingData.length, (index) => false);
+
+                        _isExpandedList[panelIndex] = !isExpanded;
+
+                        _textEditingController.text =
+                            "${bookingData.elementAt(panelIndex)['calculated_price']}";
+                      });
+                    },
+                    children: bookingData.asMap().entries.map((entry) {
+                      final int index = entry.key;
+
+                      final Map<String, dynamic> booking = entry.value;
+
+                      return ExpansionPanel(
+                        headerBuilder: (BuildContext context, bool isExpanded) {
+                          return ListTile(
+                            leading: CircleAvatar(
+                              backgroundImage: (booking['booking_user']
+                                          ['image'] ==
+                                      "https://admin.returnlorry.com/uploads/users/")
+                                  ? const AssetImage("img/dp.png")
+                                      as ImageProvider<Object>
+                                  : NetworkImage(
+                                      booking['booking_user']['image']),
                             ),
-          
-                          )),
-          
-                      trailing: FilledButton(
-          
-                          onPressed: () {
-          
-                            rtvv();
-          
-                            print(booking);
-          
-                          },
-          
-                          style: const ButtonStyle(
-          
-                              backgroundColor:
-          
-                                  MaterialStatePropertyAll(Color(0xff0F6868))),
-          
-                          child: const Text(
-          
-                            'Respond',
-          
-                            style: TextStyle(
-          
-                                color: Colors.white, fontWeight: FontWeight.bold),
-          
-                          )),
-          
-                    )
-          
-          
-          
-          ,
-          
-          
-          // Padding(
-          
-          //   padding: const EdgeInsets.all(15.0),
-          
-          //   child:   Center(child:FilledButton(onPressed: () {
-          
-          
-          
-          //   print(booking)
-          
-          
-          
-          //                           },
-          
-          
-          
-          //                           style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Color(0xff0F6868))),
-          
-          
-          
-          //                            child: Text('Send Requests   ₹ ${booking['calculated_price']} ',style: const TextStyle( color: Colors.white,fontWeight: FontWeight.bold),)),
-          
-          
-          
-          //                   ),
-          
-          // )
-          
-                  ]),
-          
-                  
-          
-                  isExpanded: _isExpandedList[index],
-          
-                );
-          
-              }).toList(),
-          
-            ),
-        ),
-          
-          
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-              )
+                            title: Text(
+                                booking['booking_user']['name'] ?? "Unnamed"),
+                            subtitle: Text(booking['material_type']),
+                            trailing: FilledButton(
+                                onPressed: () async {
+                                  GoooGolgole(
+                                      22.568660563718094,
+                                      88.61089299422036,
+                                      22.568660563718094,
+                                      88.51089299422036);
+                                },
+                                style: const ButtonStyle(
+                                    backgroundColor: MaterialStatePropertyAll(
+                                        Color(0x401D8989))),
+                                child: Text(
+                                  '${booking['distance']} km',
+                                  style: const TextStyle(
+                                      color: Color(0xff0F6868),
+                                      fontWeight: FontWeight.bold),
+                                )),
+                          );
+                        },
+                        body: Column(children: [
+                          const Divider(),
+
+                          ListTile(
+                            leading: Ink(
+                                decoration: const ShapeDecoration(
+                                    shape: CircleBorder(),
+                                    color: Color(0xff0F6868)),
+                                child: const SizedBox(
+                                  width: 35,
+                                  height: 35,
+                                  child: Icon(Icons.home,
+                                      size: 20, color: Colors.white),
+                                )),
+                            title: Text(
+                                "${booking['destination_point']['address']}"),
+                          ),
+
+                          ListTile(
+                            leading: Ink(
+                                decoration: const ShapeDecoration(
+                                    shape: CircleBorder(),
+                                    color: Color(0xff0F6868)),
+                                child: const SizedBox(
+                                  width: 35,
+                                  height: 35,
+                                  child: Icon(Icons.location_city,
+                                      size: 20, color: Colors.white),
+                                )),
+                            title: Text(
+                                'Pickup Point: ${booking['pick_up_point']['address']}'),
+                          ),
+
+                          ListTile(
+                            leading: Ink(
+                                decoration: const ShapeDecoration(
+                                    shape: CircleBorder(),
+                                    color: Color(0xff0F6868)),
+                                child: const SizedBox(
+                                  width: 35,
+                                  height: 35,
+                                  child: Icon(Icons.alarm,
+                                      size: 20, color: Colors.white),
+                                )),
+                            title: Text(
+                              "${booking['booking_date']}",
+                            ),
+                          ),
+
+                          ListTile(
+                            leading: Ink(
+                                decoration: const ShapeDecoration(
+                                    shape: CircleBorder(),
+                                    color: Color(0xff0F6868)),
+                                child: const SizedBox(
+                                  width: 35,
+                                  height: 35,
+                                  child: Icon(Icons.currency_rupee,
+                                      size: 20, color: Colors.white),
+                                )),
+                            title: Ink(
+                                decoration: const ShapeDecoration(
+                                    shape: RoundedRectangleBorder(
+                                        side: BorderSide.none,
+                                        borderRadius: BorderRadius.horizontal(
+                                            left: Radius.circular(30),
+                                            right: Radius.circular(30))),
+                                    color: Color(0xff0F6868)),
+                                child: SizedBox(
+                                  height: 35,
+                                  child: TextField(
+                                    controller: _textEditingController,
+                                    decoration: const InputDecoration(
+                                        border: InputBorder.none,
+                                        contentPadding:
+                                            EdgeInsets.only(bottom: 15)),
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
+                                  ),
+                                )),
+                            trailing: FilledButton(
+                                onPressed: () {
+                                  booking_respond({
+                                    "booking_request_id":
+                                        booking["booking_request_id"],
+                                    "booking_user_id": booking["booking_user"]
+                                        ["id"],
+                                    "calculated_price":
+                                        booking["calculated_price"],
+                                    "burgaining_price":
+                                        _textEditingController.text,
+                                    "response_status": "1"
+                                  });
+
+                                  print(booking);
+                                },
+                                style: const ButtonStyle(
+                                    backgroundColor: MaterialStatePropertyAll(
+                                        Color(0xff0F6868))),
+                                child: const Text(
+                                  'Respond',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                )),
+                          ),
+
+                          // Padding(
+
+                          //   padding: const EdgeInsets.all(15.0),
+
+                          //   child:   Center(child:FilledButton(onPressed: () {
+
+                          //   print(booking)
+
+                          //                           },
+
+                          //                           style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Color(0xff0F6868))),
+
+                          //                            child: Text('Send Requests   ₹ ${booking['calculated_price']} ',style: const TextStyle( color: Colors.white,fontWeight: FontWeight.bold),)),
+
+                          //                   ),
+
+                          // )
+                        ]),
+                        isExpanded: _isExpandedList[index],
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ),
             ],
           ),
         ));
   }
+
+  void booking_respond(Map<String, Object> map) {}
 }
 
 class MarqueeText extends StatefulWidget {
