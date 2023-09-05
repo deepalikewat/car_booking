@@ -20,6 +20,50 @@ class UserDashBoardx extends State<UserDashBoard> {
   GoogleMapController? _mapController;
   Set<Polyline> _polylines = {};
 
+
+
+
+
+
+
+
+
+Map<PolylineId, Polyline> _mapPolylines = {};
+int _polylineIdCounter = 1;
+
+List<LatLng> _createPoints() {
+  final List<LatLng> points = <LatLng>[];
+  points.add(const LatLng(1.875249, 0.845140));
+  points.add(const LatLng(4.851221, 1.715736));
+  points.add(const LatLng(8.196142, 2.094979));
+  points.add(const LatLng(12.196142, 3.094979));
+  points.add(const LatLng(16.196142, 4.094979));
+  points.add(const LatLng(20.196142, 5.094979));
+  return points;
+}
+void _add() {
+  final String polylineIdVal = 'polyline_id_$_polylineIdCounter';
+  _polylineIdCounter++;
+  final PolylineId polylineId = PolylineId(polylineIdVal);
+
+  final Polyline polyline = Polyline(
+    polylineId: polylineId,
+    consumeTapEvents: true,
+    color: Colors.red,
+    width: 5,
+    points: _createPoints(),
+  );
+
+  setState(() {
+    _mapPolylines[polylineId] = polyline;
+  });
+}
+
+
+
+
+
+
   final TextEditingController _sourceController = TextEditingController();
   final TextEditingController _destinationController = TextEditingController();
   final apiKey = 'AIzaSyDXLXII5-jnC-fJ5hSF3xc5ucf_O_ecOfQ';
@@ -80,7 +124,7 @@ class UserDashBoardx extends State<UserDashBoard> {
   void _addPolyline() {
     setState(() {
       _polylines.add(Polyline(
-        polylineId: PolylineId('route'),
+        polylineId: const PolylineId('route'),
         color: Colors.blue,
         points: [_sourceLatLng, _destinationLatLng],
       ));
@@ -126,7 +170,7 @@ class UserDashBoardx extends State<UserDashBoard> {
   );
 
     _mapController?.animateCamera(
-      
+
       CameraUpdate.newLatLngBounds(
         bounds,
         100.0,
@@ -323,6 +367,7 @@ setState(() {
 >>>>>>> 7f9b99b (lp)
 
     final dc = await http.post(
+<<<<<<< HEAD
         Uri.parse(
             "https://admin.returnlorry.com/appservice/createbookingrequest"),
         body: json.encode({
@@ -345,6 +390,67 @@ setState(() {
           "calculated_price": distancef.text,
           "booking_date": _controllerdx.text
         }));
+=======
+        Uri.parse("https://admin.returnlorry.com/appservice/createbookingrequest"),
+        body: json.encode(
+          
+{
+    "Token": prefs.getString("Token"),
+    "userId": prefs.getString("userId"),
+    "userPhone": prefs.getString("userPhone"),
+    "userType": prefs.getString("userType"),
+    "pick_up_point_lat": "${_sourceLatLng.latitude}",
+    "pick_up_point_long": "${_sourceLatLng.longitude}",
+    "pick_up_point_pincode": "$spincode",
+    "pick_up_point_address": saddr,
+    "destination_lat": "${_destinationLatLng.latitude}",
+    "destination_long": "${_destinationLatLng.longitude}",
+    "destination_pincode": "$dpincode",
+    "destination_address": daddr,
+    "vehicle_type_id": 1,
+    "material_weight": "2000",
+    "material_type": producttype.text,
+    "distance": distancef.text,
+    "calculated_price": distancef.text ,
+    "booking_date": _controllerdx.text
+}
+
+
+
+        ));
+
+
+
+ ScaffoldMessenger.of(context).showSnackBar( SnackBar(duration: const Duration(seconds: 5), content: Text("${jsonDecode(dc.body)?['data']['msg']}"),backgroundColor: Colors.green,));
+
+
+setState(() {
+  isbtnpgrs=false;
+});
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> 000f5e0 (v)
 
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       duration: Duration(seconds: 5),
@@ -393,22 +499,24 @@ return  Scaffold(
 
 drawer: Drawer(child: ListView(children: [const Text("data")],)),
 
-body: SingleChildScrollView(child:   Stack(
+body: Stack(
         children: [
           Container(
             height: xheight*.5,
             child: GoogleMap(
-              cameraTargetBounds: CameraTargetBounds(),
               mapType: MapType.normal,
                 zoomControlsEnabled: false,
 
-              initialCameraPosition: const CameraPosition(
-                target: LatLng(21.1290, 82.7792),
-                zoom: 15,
-              ),
+      initialCameraPosition: const CameraPosition(target: LatLng(0, 0), zoom: 4.0),
+      polylines: Set<Polyline>.of(_mapPolylines.values),
+
+              // initialCameraPosition: const CameraPosition(
+              //   target: LatLng(21.1290, 82.7792),
+              //   zoom: 15,
+              // ),
+
               onMapCreated: (controller) {
                 _mapController = controller;
-                _addPolyline();
               },
               markers: {
                 Marker(
@@ -423,6 +531,7 @@ body: SingleChildScrollView(child:   Stack(
               },
 >>>>>>> 7f9b99b (lp)
             ),
+<<<<<<< HEAD
             onMapCreated: (controller) {
               _mapController = controller;
               _addPolyline();
@@ -488,6 +597,236 @@ body: SingleChildScrollView(child:   Stack(
                               spincode = tg?["postalCode"];
                               saddr = suggestion.description;
                             });
+=======
+
+          )
+           
+          ,
+   
+          
+             Column(
+              children: [
+                Padding(
+            padding:     EdgeInsets.only(top: xheight*.45)),
+
+                Container(
+                  width: xwidth,
+                  decoration: const BoxDecoration(color: Color.fromARGB(255, 255, 255, 255),
+          
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(
+            30
+          ),topRight: Radius.circular(30))
+          
+          
+          
+                  ),
+                  
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Column(children: [
+                  
+                  SizedBox(height: xheight*.03,),
+                  
+          
+          MapAutoCompleteField(
+          
+                  googleMapApiKey: apiKey,
+                  controller: srcctlx,
+                  itemBuilder: (BuildContext context, suggestion) {
+                    return ListTile(
+                      title: Text(suggestion.description),
+                    );
+                  },
+                  onSuggestionSelected: (suggestion) async {
+                    srcctlx.text = suggestion.description;
+          
+          try{
+                    
+                    final tg=await getPlaceDetails(suggestion.placeId);
+          
+          try{
+          LatLng rg=LatLng(mkdble( tg?["latitude"]), mkdble( tg?["longitude"]));
+           print("fuck you$rg");
+          }catch(rt){
+          
+            print("fuck you$rt");
+          }
+          
+          setState(() {
+            
+            print("im goodboy ${tg?['latitude'].runtimeType}");
+           _sourceLatLng=LatLng( tg?["latitude"], tg?["longitude"]);
+          
+          spincode=tg?["postalCode"];
+          saddr=suggestion.description;
+            
+          
+          });
+          
+          await calculateDistance();
+          
+          }catch(y){
+          print(y);
+          
+          print("problem harddde$y");
+          
+          }
+          
+                  },
+                
+                  inputDecoration: const InputDecoration(
+                    hintText: "Pick Up Point",
+                    prefixIcon: Icon(Icons.location_pin,color: Color(0xff0c50b4),)
+                  ),
+                  
+                  )
+                  ,
+                  const SizedBox(height: 10,),
+          MapAutoCompleteField(
+          
+                  googleMapApiKey: apiKey,
+                  controller: srcctl,
+                  itemBuilder: (BuildContext context, suggestion) {
+                    return ListTile(
+                      title: Text(suggestion.description),
+                    );
+                  },
+                  onSuggestionSelected: (suggestion) async {
+                    srcctl.text = suggestion.description;
+          
+          
+          
+          
+                   
+               final tg=await getPlaceDetails(suggestion.placeId);
+          
+          try{
+          LatLng rg=LatLng(mkdble( tg?["latitude"]), mkdble( tg?["longitude"]));
+          
+          print("fuck you value$rg");
+          
+          }catch(rt){
+          
+            print("fuck you$rt");
+          }
+          
+          
+          setState(() {
+            
+            daddr= suggestion.description;
+            _destinationLatLng=LatLng(mkdble( tg?["latitude"]), mkdble( tg?["longitude"]));
+          dpincode=tg?["postalCode"];
+            
+          });
+          try{
+              await calculateDistance();
+          
+          }catch(xd){
+          
+            print("problem harex$xd");
+          }
+                  },
+                
+                  inputDecoration: const InputDecoration(
+                    hintText: "Destination Point",
+                    prefixIcon: Icon(Icons.location_pin,color: Color(0xff0c50b4),)
+                  ),
+                  
+                  )
+                  ,
+                  const SizedBox(height: 10,),
+          
+                   TextField(
+                    controller: producttype,
+          
+          decoration: const InputDecoration(hintText: "Product Type",prefixIcon: Icon(Icons.shopping_cart,color: Color(0xff0c50b4))),
+                  ),
+          
+                              const SizedBox(height: 10,),
+          
+                  TextField(
+                  controller: _controllerdx,
+                 onTap: (){_selectDate(context);
+                        },
+          decoration: const InputDecoration(prefixIcon: Icon(Icons.calendar_month_outlined,color: Color(0xff0c50b4)),
+          hintText: "PickUp date"
+          ),
+          
+                  )
+          ,
+                  const SizedBox(height: 10,),
+          
+           TextField(
+            keyboardType: TextInputType.number,
+            controller: offerfare,
+            decoration: const InputDecoration(
+              hintText: "Offer Your Fare",
+              prefixIcon: Icon( Icons.currency_rupee,color: Color(0xff0c50b4),
+            
+            
+            )),
+            
+          ) , const SizedBox(height: 10,),
+          
+           TextField(
+            controller: distancef,
+            keyboardType: TextInputType.number,
+            decoration: const InputDecoration(
+              hintText: "Distance",
+              prefixIcon: Icon( Icons.social_distance,color: Color(0xff0c50b4),
+            
+            
+            )),
+            
+          )
+                  
+                  ,
+          
+          const SizedBox(height: 30,),
+          
+            SizedBox(
+                        width: xwidth * .9,
+                        height: 50,
+                        child: ElevatedButton(
+                          onPressed: () {
+                           
+                          createbooking();
+                        
+                          },
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xff0D6EFD),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16))),
+                          child:
+                          isbtnpgrs? const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              
+                              SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: CircularProgressIndicator(color: Colors.white,)),
+                                
+                                Text("     Please Wait")
+                            
+                            ],
+                          ):
+                              const Text("Find Driver", style: TextStyle(fontSize: 20)),
+                        ),
+                      ),
+          
+          const SizedBox(height: 10,),
+          
+          
+          
+                  
+                  ],),
+                  )
+                ),
+              ],
+            ),
+          )
+>>>>>>> 000f5e0 (v)
 
                             await calculateDistance();
                           } catch (y) {
@@ -528,6 +867,7 @@ body: SingleChildScrollView(child:   Stack(
                             print("fuck you$rt");
                           }
 
+<<<<<<< HEAD
                           setState(() {
                             daddr = suggestion.description;
                             _destinationLatLng = LatLng(mkdble(tg?["latitude"]),
@@ -649,5 +989,14 @@ body: SingleChildScrollView(child:   Stack(
       ])),
       resizeToAvoidBottomInset: true,
     );
+=======
+} , icon: const Icon(Icons.menu,size: 35,))
+,
+
+        ]
+),
+resizeToAvoidBottomInset: true,
+);
+>>>>>>> 000f5e0 (v)
   }
 }
