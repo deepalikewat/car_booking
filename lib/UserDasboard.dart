@@ -24,50 +24,6 @@ class UserDashBoardx  extends State<UserDashBoard>{
   GoogleMapController? _mapController;
     Set<Polyline> _polylines = {};
 
-
-
-
-
-
-
-
-
-Map<PolylineId, Polyline> _mapPolylines = {};
-int _polylineIdCounter = 1;
-
-List<LatLng> _createPoints() {
-  final List<LatLng> points = <LatLng>[];
-  points.add(const LatLng(1.875249, 0.845140));
-  points.add(const LatLng(4.851221, 1.715736));
-  points.add(const LatLng(8.196142, 2.094979));
-  points.add(const LatLng(12.196142, 3.094979));
-  points.add(const LatLng(16.196142, 4.094979));
-  points.add(const LatLng(20.196142, 5.094979));
-  return points;
-}
-void _add() {
-  final String polylineIdVal = 'polyline_id_$_polylineIdCounter';
-  _polylineIdCounter++;
-  final PolylineId polylineId = PolylineId(polylineIdVal);
-
-  final Polyline polyline = Polyline(
-    polylineId: polylineId,
-    consumeTapEvents: true,
-    color: Colors.red,
-    width: 5,
-    points: _createPoints(),
-  );
-
-  setState(() {
-    _mapPolylines[polylineId] = polyline;
-  });
-}
-
-
-
-
-
-
   final TextEditingController _sourceController = TextEditingController();
   final TextEditingController _destinationController = TextEditingController();
   final apiKey ='AIzaSyDXLXII5-jnC-fJ5hSF3xc5ucf_O_ecOfQ';
@@ -94,7 +50,6 @@ void _add() {
   String saddr="";
   String daddr="";
   
-  
 
 Future<void> _selectDate(BuildContext context) async {
     final DateTime? selected = await showDatePicker(
@@ -118,13 +73,13 @@ Future<void> _selectDate(BuildContext context) async {
    void _addPolyline() {
     setState(() {
       _polylines.add(Polyline(
-        polylineId: const PolylineId('route'),
+        polylineId: PolylineId('route'),
         color: Colors.blue,
         points: [_sourceLatLng, _destinationLatLng],
       ));
     });
 
-    LatLngBounds bounds = LatLngBounds(
+     LatLngBounds bounds = LatLngBounds(
     southwest: LatLng(
       _sourceLatLng.latitude < _destinationLatLng.latitude ? _sourceLatLng.latitude : _destinationLatLng.latitude,
       _sourceLatLng.longitude < _destinationLatLng.longitude ? _sourceLatLng.longitude : _destinationLatLng.longitude,
@@ -135,15 +90,15 @@ Future<void> _selectDate(BuildContext context) async {
     ),
   );
 
-    _mapController?.animateCamera(
 
-      CameraUpdate.newLatLngBounds(
-        bounds,
-        100.0,
-        
-      ),
-    );
-  
+  // WidgetsBinding.instance!.addPostFrameCallback((_) {
+  //   _mapController?.animateCamera(
+  //     CameraUpdate.newLatLngBounds(
+  //       bounds,
+  //       100.0,
+  //     ),
+  //   );
+  // });
     
   }
 
@@ -207,6 +162,7 @@ Future<Map<String, dynamic>?> getPlaceDetails(String placeid) async {
 Future<String?> findNearestPostalCode(double latitude, double longitude) async {
   final response = await http.get(Uri.parse('https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&key=$apiKey'));
 
+print("find near code");
   if (response.statusCode == 200) {
     final data = json.decode(response.body);
     if (data['status'] == 'OK') {
@@ -253,8 +209,32 @@ Future<void> createbooking() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
 
+print(json.encode(
+          
+{
+    "Token": prefs.getString("Token"),
+    "userId": prefs.getString("userId"),
+    "userPhone": prefs.getString("userPhone"),
+    "userType": prefs.getString("userType"),
+    "pick_up_point_lat": "${_sourceLatLng.latitude}",
+    "pick_up_point_long": "${_sourceLatLng.longitude}",
+    "pick_up_point_pincode": "$spincode",
+    "pick_up_point_address": saddr,
+    "destination_lat": "${_destinationLatLng.latitude}",
+    "destination_long": "${_destinationLatLng.longitude}",
+    "destination_pincode": "$dpincode",
+    "destination_address": daddr,
+    "vehicle_type_id": 1,
+    "material_weight": "2000",
+    "material_type": producttype.text,
+    "distance": distancef.text,
+    "calculated_price": distancef.text,
+    "booking_date": _controllerdx.text
+}
 
 
+)
+);
 if(isbtnpgrs){
   return ;
 }
@@ -297,7 +277,7 @@ setState(() {
 
 
 
- ScaffoldMessenger.of(context).showSnackBar( SnackBar(duration: const Duration(seconds: 5), content: Text("${jsonDecode(dc.body)?['data']['msg']}"),backgroundColor: Colors.green,));
+ ScaffoldMessenger.of(context).showSnackBar( SnackBar(duration: Duration(seconds: 5), content: Text("${jsonDecode(dc.body)?['data']['msg']}"),backgroundColor: Colors.green,));
 
 
 setState(() {
@@ -361,16 +341,13 @@ body: SingleChildScrollView(child:   Stack(
               mapType: MapType.normal,
                 zoomControlsEnabled: false,
 
-      initialCameraPosition: const CameraPosition(target: LatLng(0, 0), zoom: 4.0),
-      polylines: Set<Polyline>.of(_mapPolylines.values),
-
-              // initialCameraPosition: const CameraPosition(
-              //   target: LatLng(21.1290, 82.7792),
-              //   zoom: 15,
-              // ),
-
+              initialCameraPosition: const CameraPosition(
+                target: LatLng(21.1290, 82.7792),
+                zoom: 15,
+              ),
               onMapCreated: (controller) {
                 _mapController = controller;
+                _addPolyline();
               },
               markers: {
                 Marker(
