@@ -23,7 +23,6 @@ import 'package:car_booking/uploadx.dart';
 >>>>>>> 9f03000 (hh)
 =======
 import 'package:car_booking/rough.dart';
-
 import 'package:car_booking/sign_in.dart';
 import 'package:car_booking/upload.dart';
 import 'package:car_booking/uploadx.dart';
@@ -42,21 +41,8 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        theme: ThemeData(scaffoldBackgroundColor: const Color(0xfff8fbff)),
-        home: Upload()
-        );
-
-      return    MaterialApp(
         theme: ThemeData(
-
-scaffoldBackgroundColor: const Color(0xfff8fbff)
-
-
-        ),
-
-        home:  Lorry());
-
-        
-    // 
+            scaffoldBackgroundColor:  Color.fromARGB(255, 240, 241, 240)),
+        home: DriverDashBoard());
   }
 }
