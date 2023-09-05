@@ -11,16 +11,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Owner extends StatefulWidget {
-
-Map<String, String> driverx;
+  Map<String, String> driverx;
 
   Owner({super.key, required this.driverx});
-
-
-
-
-
-
 
   @override
   State<Owner> createState() => rix();
@@ -30,8 +23,8 @@ Map<String, String> driverx;
 class rix extends State<Owner> {
   File? _image;
   final picker = ImagePicker();
-  
-  bool isbtnpgrsx=false;
+
+  bool isbtnpgrsx = false;
   Future getImage() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
@@ -41,12 +34,10 @@ class rix extends State<Owner> {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
       } else {
-        
         print('No image selected');
       }
     });
   }
-
 
   //rsuj
 
@@ -56,73 +47,60 @@ class rix extends State<Owner> {
   TextEditingController o_addr = TextEditingController();
   TextEditingController o_adhar = TextEditingController();
 
+  String fileToBase64(File file) {
+    List<int> imageBytes = file.readAsBytesSync();
+    String base64String = base64Encode(imageBytes);
+    return base64String;
+  }
 
-String fileToBase64(File file) {
-  List<int> imageBytes = file.readAsBytesSync();
-  String base64String = base64Encode(imageBytes);
-  return base64String;
-}
   // void dinc() {}
   Future<void> drf_owner() async {
     final datax = json.encode({
       // "driver_driving_license_no": o_license.text,
-      
     });
-   
-   setState(() {
-         isbtnpgrsx=true;
 
-   });
-   
-   
+    setState(() {
+      isbtnpgrsx = true;
+    });
+
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-   
-    final dc = await http.post(
-        Uri.parse("https://admin.returnlorry.com/appservice/updateprofile"),
-        body: json.encode({
-    
-    "Token": prefs.getString("Token"),
-    "userId": prefs.getString("userId"),
-    "userPhone": prefs.getString("userPhone"),
-    "userType": prefs.getString("userType"),
+      final dc = await http.post(
+          Uri.parse("https://admin.returnlorry.com/appservice/updateprofile"),
+          body: json.encode({
+            "Token": prefs.getString("Token"),
+            "userId": prefs.getString("userId"),
+            "userPhone": prefs.getString("userPhone"),
+            "userType": prefs.getString("userType"),
+            "owner_name": o_name.text,
+            "owner_phone": o_num.text,
+            "owner_email": o_emailid.text,
+            "owner_address": o_addr.text,
+            "owner_aadhar_no": o_adhar.text,
+            "vehicle_no": "WB7564HG5",
+            "vehicle_type": 1,
+            "vehicle_source_pincode": "731224",
+            "transport_year": "2014",
+            "driver_name": widget.driverx["driver_name"],
+            "driver_phone": widget.driverx["driver_phone"],
+            "driver_email": widget.driverx["driver_email"],
+            "driver_dob": widget.driverx["driver_dob"],
+            "driver_aadhar_no": widget.driverx["driver_aadhar_no"],
+            "driver_driving_license_no":
+                widget.driverx["driver_driving_license_no"]
+          }));
 
-
-    "owner_name": o_name.text,
-      "owner_phone": o_num.text,
-      "owner_email": o_emailid.text,
-      "owner_address": o_addr.text,
-      "owner_aadhar_no": o_adhar.text,
-    "vehicle_no": "WB7564HG5",
-    "vehicle_type": 1,
-    "vehicle_source_pincode": "731224",
-    "transport_year": "2014",
-    "driver_name": widget.driverx["driver_name"],
-    "driver_phone": widget.driverx["driver_phone"],
-    "driver_email": widget.driverx["driver_email"],
-    "driver_dob": widget.driverx["driver_dob"],
-    "driver_aadhar_no": widget.driverx["driver_aadhar_no"],
-    "driver_driving_license_no": widget.driverx["driver_driving_license_no"]
-
-
-         
-        }));
-
- // ignore: use_build_context_synchronously
- Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-                           
-                        
-                        return UploadDashboard();
-                         },));
-
-
-    }catch(rtd){
+      // ignore: use_build_context_synchronously
+      Navigator.pushReplacement(context, MaterialPageRoute(
+        builder: (context) {
+          return UploadDashboard();
+        },
+      ));
+    } catch (rtd) {
       print(rtd);
     }
-
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +108,8 @@ String fileToBase64(File file) {
     double xheight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      body: SingleChildScrollView(child:  Center(
+        body: SingleChildScrollView(
+      child: Center(
           child: Column(children: [
         SizedBox(
           height: xheight * .02,
@@ -282,7 +261,7 @@ String fileToBase64(File file) {
             ),
           ),
         ),
-const SizedBox(
+        const SizedBox(
           height: 10,
         ),
         Container(
@@ -291,10 +270,8 @@ const SizedBox(
           width: xwidth,
           child: ElevatedButton(
             onPressed: () {
-
-drf_owner();
-
-         },
+              drf_owner();
+            },
             style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xff0D6EFD),
                 shape: RoundedRectangleBorder(

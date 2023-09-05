@@ -11,12 +11,10 @@ import 'package:car_booking/front.dart';
 import 'package:car_booking/lorry.dart';
 import 'package:car_booking/otp_verify.dart';
 import 'package:car_booking/rough.dart';
-
 import 'package:car_booking/sign_in.dart';
 import 'package:car_booking/upload.dart';
 import 'package:car_booking/uploadx.dart';
 import 'package:flutter/material.dart';
-
 import 'map_with_autocomplete.dart';
 
 void main() {
@@ -30,21 +28,8 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        theme: ThemeData(scaffoldBackgroundColor: const Color(0xfff8fbff)),
-        home: Upload()
-        );
-
-      return    MaterialApp(
         theme: ThemeData(
-
-scaffoldBackgroundColor: const Color(0xfff8fbff)
-
-
-        ),
-
-        home:  Lorry());
-
-        
-    // 
+            scaffoldBackgroundColor:  Color.fromARGB(255, 240, 241, 240)),
+        home: DriverDashBoard());
   }
 }
