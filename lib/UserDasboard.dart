@@ -36,6 +36,21 @@ class UserDashBoardx extends State<UserDashBoard> {
   TextEditingController distancef = TextEditingController();
 
   final TextEditingController _controllerdx = TextEditingController();
+<<<<<<< HEAD
+=======
+  
+  bool showsidex=false;
+  double rxt=0.0;
+  String distance="";
+  
+  bool isbtnpgrs=false;
+  String spincode="0";
+  String dpincode="0"; 
+  String saddr="";
+  String daddr="";
+  
+  
+>>>>>>> 7f9b99b (lp)
 
   bool showsidex = false;
   double rxt = 0.0;
@@ -72,6 +87,7 @@ class UserDashBoardx extends State<UserDashBoard> {
     });
 
     LatLngBounds bounds = LatLngBounds(
+<<<<<<< HEAD
       southwest: LatLng(
         _sourceLatLng.latitude < _destinationLatLng.latitude
             ? _sourceLatLng.latitude
@@ -98,6 +114,28 @@ class UserDashBoardx extends State<UserDashBoard> {
     //     ),
     //   );
     // });
+=======
+    southwest: LatLng(
+      _sourceLatLng.latitude < _destinationLatLng.latitude ? _sourceLatLng.latitude : _destinationLatLng.latitude,
+      _sourceLatLng.longitude < _destinationLatLng.longitude ? _sourceLatLng.longitude : _destinationLatLng.longitude,
+    ),
+    northeast: LatLng(
+      _sourceLatLng.latitude >= _destinationLatLng.latitude ? _sourceLatLng.latitude : _destinationLatLng.latitude,
+      _sourceLatLng.longitude >= _destinationLatLng.longitude ? _sourceLatLng.longitude : _destinationLatLng.longitude,
+    ),
+  );
+
+    _mapController?.animateCamera(
+      
+      CameraUpdate.newLatLngBounds(
+        bounds,
+        100.0,
+        
+      ),
+    );
+  
+    
+>>>>>>> 7f9b99b (lp)
   }
 
   Future<void> calculateDistance() async {
@@ -136,8 +174,41 @@ class UserDashBoardx extends State<UserDashBoard> {
         final latitude = location['lat'];
         final longitude = location['lng'];
 
+<<<<<<< HEAD
         String postalCode = '';
         final addressComponents = result['address_components'];
+=======
+      String postalCode = '';
+      final addressComponents = result['address_components'];
+      for (var component in addressComponents) {
+        final types = List<String>.from(component['types']);
+        if (types.contains('postal_code')) {
+          postalCode = component['long_name'];
+          break;
+        }
+      }
+
+      if (postalCode.isEmpty) {
+        final nearestPostalCode = await findNearestPostalCode(latitude, longitude);
+        return {'latitude': latitude, 'longitude': longitude, 'postalCode': nearestPostalCode};
+      }
+
+      return {'latitude': latitude, 'longitude': longitude, 'postalCode': postalCode};
+    }
+  }
+  return null;
+}
+
+Future<String?> findNearestPostalCode(double latitude, double longitude) async {
+  final response = await http.get(Uri.parse('https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&key=$apiKey'));
+
+  if (response.statusCode == 200) {
+    final data = json.decode(response.body);
+    if (data['status'] == 'OK') {
+      final results = data['results'];
+      if (results.isNotEmpty) {
+        final addressComponents = results[0]['address_components'];
+>>>>>>> 7f9b99b (lp)
         for (var component in addressComponents) {
           final types = List<String>.from(component['types']);
           if (types.contains('postal_code')) {
@@ -232,9 +303,24 @@ class UserDashBoardx extends State<UserDashBoard> {
       return;
     }
 
+<<<<<<< HEAD
     setState(() {
       isbtnpgrs = true;
     });
+=======
+
+
+if(isbtnpgrs){
+  return ;
+}
+
+setState(() {
+  isbtnpgrs=true;
+});
+
+
+
+>>>>>>> 7f9b99b (lp)
 
     final dc = await http.post(
         Uri.parse(
@@ -283,6 +369,7 @@ class UserDashBoardx extends State<UserDashBoard> {
     double xheight = MediaQuery.of(context).size.height;
     double xwidth = MediaQuery.of(context).size.width;
 
+<<<<<<< HEAD
     return Scaffold(
       drawer: Drawer(
           child: ListView(
@@ -298,6 +385,43 @@ class UserDashBoardx extends State<UserDashBoard> {
             initialCameraPosition: const CameraPosition(
               target: LatLng(21.1290, 82.7792),
               zoom: 15,
+=======
+
+
+
+return  Scaffold(
+
+drawer: Drawer(child: ListView(children: [const Text("data")],)),
+
+body: SingleChildScrollView(child:   Stack(
+        children: [
+          Container(
+            height: xheight*.5,
+            child: GoogleMap(
+              cameraTargetBounds: CameraTargetBounds(),
+              mapType: MapType.normal,
+                zoomControlsEnabled: false,
+
+              initialCameraPosition: const CameraPosition(
+                target: LatLng(21.1290, 82.7792),
+                zoom: 15,
+              ),
+              onMapCreated: (controller) {
+                _mapController = controller;
+                _addPolyline();
+              },
+              markers: {
+                Marker(
+                  markerId: const MarkerId("source"),
+                  position: _sourceLatLng,
+                ),
+                Marker(
+                  markerId: const MarkerId("destination"),
+                  position: _destinationLatLng,
+                  
+                ),
+              },
+>>>>>>> 7f9b99b (lp)
             ),
             onMapCreated: (controller) {
               _mapController = controller;

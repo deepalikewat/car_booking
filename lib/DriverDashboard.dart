@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -88,6 +89,33 @@ bool loadingx=true;
     super.initState();
     setvaluex();
 
+Timer.periodic(const Duration(seconds: 1), (timer) {
+
+try{
+ if(!_scaffoldKey.currentState!.isDrawerOpen){
+setState(() {
+
+
+  if(t==0){
+
+    rtvv();
+
+  t=60;
+
+  }
+
+    t-=1;
+
+});      
+ 
+ }
+}
+catch(ixo){
+  timer.cancel();
+
+}
+ });
+
     _isExpandedList = List.generate(bookingData.length, (index) => false);
   }
 
@@ -119,6 +147,9 @@ bool loadingx=true;
   Future<void> rtvv() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
+setState(() {
+  loadingx=true;
+});
     final dc = await http.post(
         Uri.parse("https://admin.returnlorry.com/appservice/getbookingrequest"),
         body: jsonEncode({
@@ -132,7 +163,7 @@ bool loadingx=true;
 
     int i = 0;
     bookingData.clear();
-
+try{
     for (var ty in rty) {
       i++;
 
@@ -140,9 +171,13 @@ bool loadingx=true;
 
 
     }
+}catch(tc){
+print(tc);
+
+}
 
     setState(() {
-      // loadingx=false
+      loadingx=false;
       _isExpandedList = List.generate(bookingData.length, (index) => false);
     });
 
@@ -229,13 +264,14 @@ bool loadingx=true;
       print(_driver_photo);
     });
   }
+      final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
 
   @override
   Widget build(BuildContext context) {
     double xwidth = MediaQuery.of(context).size.width;
     double xheight = MediaQuery.of(context).size.height;
 
-    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     Future<void> sendloc() async {
       await Future.delayed(const Duration(seconds: 2));
@@ -286,7 +322,11 @@ bool loadingx=true;
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+
+
+
+                    },
                     icon: const Icon(
                       Icons.arrow_outward_rounded,
                       size: 35,
@@ -399,7 +439,6 @@ bool loadingx=true;
                             ),
                             IconButton(
                               onPressed: () {
-                                rtvv();
 
                                 _scaffoldKey.currentState!.openDrawer();
                               },
@@ -456,7 +495,7 @@ bool loadingx=true;
                                 const Expanded(child: Text("")),
                                 FilledButton(
                                     onPressed: () {
-                                      rtvv();
+
                                     },
                                     style: const ButtonStyle(
                                         backgroundColor:
@@ -484,17 +523,18 @@ bool loadingx=true;
                             borderRadius: BorderRadius.only(
                                 bottomLeft: Radius.circular(20),
                                 bottomRight: Radius.circular(20))),
-                        child: const Row(
+                        child:  Row(
                           children: [
-                            // Text("data",style: TextStyle(color: Color.fromARGB(255, 255, 255, 255),fontSize: 16, fontWeight: FontWeight.bold),),
 
-                            SizedBox(
+                            const Text("data",style: TextStyle(color: Color.fromARGB(255, 255, 255, 255),fontSize: 16, fontWeight: FontWeight.bold),),
+                           
+                            const SizedBox(
                                 width: 180,
                                 child:
                                     MarqueeText(text: "Last Updated Location")),
-                            Expanded(child: Text("")),
-                            Text("10:00",
-                                style: TextStyle(
+                            const Expanded(child: Text("")),
+                            Text("00:$t",
+                                style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold))
@@ -519,7 +559,7 @@ bool loadingx=true;
                 child: loadingx? const Padding(
                   padding: EdgeInsets.all(100.0),
                   child: SizedBox(height: 100,width: 100,child: CircularProgressIndicator(strokeWidth: 10,semanticsLabel: "lol",)),
-                ): SingleChildScrollView(
+                ):bookingData.isEmpty?const Center(child: Text("No Orders Abablable  Near You", textAlign: TextAlign.center,style: TextStyle(fontSize: 40),)): SingleChildScrollView(
                   child: ExpansionPanelList(
                     expandIconColor: const Color.fromARGB(255, 11, 75, 75),
                     elevation: 1,
@@ -716,6 +756,15 @@ bool loadingx=true;
   }
 
   void booking_respond(Map<String, Object> map) {}
+
+int t=0;
+
+
+ 
+ 
+
+
+
 }
 
 class MarqueeText extends StatefulWidget {
