@@ -1,3 +1,4 @@
+import 'package:car_booking/DriverDashboard.dart';
 import 'package:flutter/material.dart';
 
 import 'map_with_autocomplete.dart';
@@ -14,58 +15,29 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         theme: ThemeData(scaffoldBackgroundColor: const Color(0xfff8fbff)),
-        home:  Yix());
+        home: DriverDashBoard());
 
-        // A
+    // A
 
     //
   }
 }
 
-
 class Yix extends StatefulWidget {
-  int otp=0;
-  
+  int otp = 0;
 
   @override
   State<Yix> createState() => Dipf();
 }
 
-
-  
 class Dipf extends State<Yix> {
-
-    final xlist=<String>["Raju","deepali","qwertyuiop"];
-
-
+  final xlist = <String>["Raju", "deepali", "qwertyuiop"];
 
   @override
   Widget build(BuildContext context) {
-  
-
-
-  
-  
-return  const Scaffold(
-
-body: Center(
-
-
-child:  ListTile(),
-
-
-
-
-
-
-
-)
-);
-
-
+    return const Scaffold(
+        body: Center(
+      child: ListTile(),
+    ));
   }
-
 }
-
-
-
