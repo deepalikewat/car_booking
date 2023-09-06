@@ -86,6 +86,7 @@ bool loadingx=true;
 Timer.periodic(const Duration(seconds: 1), (timer) {
 
 try{
+  
  if(!_scaffoldKey.currentState!.isDrawerOpen){
 setState(() {
 
