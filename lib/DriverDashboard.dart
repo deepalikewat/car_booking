@@ -23,6 +23,8 @@ class DriverDashBoardx extends State<DriverDashBoard> {
             // backgroundColor: Color(0xff0F6868),
             child: Column(
               children: [
+                Padding(padding: EdgeInsets.only(top: xheight * 0.02)),
+
                 Row(
                   children: [
                     // Padding(padding: EdgeInsets.only(top: xheight * 0.2)),
@@ -55,10 +57,7 @@ class DriverDashBoardx extends State<DriverDashBoard> {
                     ),
                   ],
                 ),
-                SizedBox(
-                  //
-                  height: xheight * 0.03,
-                ),
+
                 // Container(
                 //   margin: EdgeInsets.symmetric(horizontal: 20),
                 //   height: xheight * 0.06,
@@ -108,22 +107,24 @@ class DriverDashBoardx extends State<DriverDashBoard> {
                 //   ),
                 // ),
                 SizedBox(
-                  height: xheight * 0.01,
+                  height: xheight * 0.02,
                 ),
                 InkWell(
                   onTap: () {},
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      ClipOval(
-                        child: Container(
-                          height: 40,
-                          width: 40,
-                          color: const Color(0xffE7E7E7),
-                          child: const Icon(
-                            Icons.menu,
-                            size: 15,
-                            color: Color(0xff116D6D),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 30, right: 30),
+                        child: ClipOval(
+                          child: Container(
+                            height: 40,
+                            width: 40,
+                            color: const Color(0xffE7E7E7),
+                            child: const Icon(
+                              Icons.menu,
+                              size: 15,
+                              color: Color(0xff116D6D),
+                            ),
                           ),
                         ),
                       ),
@@ -131,9 +132,6 @@ class DriverDashBoardx extends State<DriverDashBoard> {
                         "My Orders",
                         style: TextStyle(color: Color(0xff4E4E4E)),
                       ),
-                      SizedBox(
-                        width: xwidth * 0.2,
-                      ),
                     ],
                   ),
                 ),
@@ -143,17 +141,19 @@ class DriverDashBoardx extends State<DriverDashBoard> {
                 InkWell(
                   onTap: () {},
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      ClipOval(
-                        child: Container(
-                          height: 40,
-                          width: 40,
-                          color: const Color(0xffE7E7E7),
-                          child: const Icon(
-                            Icons.login,
-                            size: 15,
-                            color: Color(0xff116D6D),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 30, right: 30),
+                        child: ClipOval(
+                          child: Container(
+                            height: 40,
+                            width: 40,
+                            color: const Color(0xffE7E7E7),
+                            child: const Icon(
+                              Icons.login,
+                              size: 15,
+                              color: Color(0xff116D6D),
+                            ),
                           ),
                         ),
                       ),
@@ -161,39 +161,8 @@ class DriverDashBoardx extends State<DriverDashBoard> {
                         "Refer & Earn",
                         style: TextStyle(color: Color(0xff4E4E4E)),
                       ),
-                      SizedBox(
-                        width: xwidth * 0.2,
-                      ),
                     ],
                   ),
-                ),
-                SizedBox(
-                  width: xwidth * .03,
-                  height: xheight * 0.01,
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: xwidth * .04,
-                    ),
-                    ClipOval(
-                      child: Container(
-                        height: 40,
-                        width: 40,
-                        color: const Color(0xffE7E7E7),
-                        child: const Icon(
-                          Icons.info,
-                          size: 15,
-                          color: Color(0xff116D6D),
-                        ),
-                      ),
-                    ),
-                    Padding(padding: EdgeInsets.only(left: xwidth * 0.05)),
-                    const Text(
-                      "About Us",
-                      style: TextStyle(fontSize: 15),
-                    )
-                  ],
                 ),
                 SizedBox(
                   height: xheight * 0.01,
@@ -201,17 +170,48 @@ class DriverDashBoardx extends State<DriverDashBoard> {
                 InkWell(
                   onTap: () {},
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      ClipOval(
-                        child: Container(
-                          height: 40,
-                          width: 40,
-                          color: const Color(0xffE7E7E7),
-                          child: const Icon(
-                            Icons.share,
-                            size: 15,
-                            color: Color(0xff116D6D),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 30, right: 30),
+                        child: ClipOval(
+                          child: Container(
+                            height: 40,
+                            width: 40,
+                            color: const Color(0xffE7E7E7),
+                            child: const Icon(
+                              Icons.info,
+                              size: 15,
+                              color: Color(0xff116D6D),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const Text(
+                        "About Us",
+                        style: TextStyle(color: Color(0xff4E4E4E)),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: xheight * 0.01,
+                ),
+                InkWell(
+                  onTap: () {},
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 30, right: 30),
+                        child: ClipOval(
+                          child: Container(
+                            height: 40,
+                            width: 40,
+                            color: const Color(0xffE7E7E7),
+                            child: const Icon(
+                              Icons.share,
+                              size: 15,
+                              color: Color(0xff116D6D),
+                            ),
                           ),
                         ),
                       ),
@@ -219,9 +219,6 @@ class DriverDashBoardx extends State<DriverDashBoard> {
                         "Share App",
                         style: TextStyle(color: Color(0xff4E4E4E)),
                       ),
-                      SizedBox(
-                        width: xwidth * 0.2,
-                      ),
                     ],
                   ),
                 ),
@@ -231,17 +228,19 @@ class DriverDashBoardx extends State<DriverDashBoard> {
                 InkWell(
                   onTap: () {},
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      ClipOval(
-                        child: Container(
-                          height: 40,
-                          width: 40,
-                          color: const Color(0xffE7E7E7),
-                          child: const Icon(
-                            Icons.quiz,
-                            size: 15,
-                            color: Color(0xff116D6D),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 30, right: 30),
+                        child: ClipOval(
+                          child: Container(
+                            height: 40,
+                            width: 40,
+                            color: const Color(0xffE7E7E7),
+                            child: const Icon(
+                              Icons.quiz,
+                              size: 15,
+                              color: Color(0xff116D6D),
+                            ),
                           ),
                         ),
                       ),
@@ -249,9 +248,6 @@ class DriverDashBoardx extends State<DriverDashBoard> {
                         "FAQ",
                         style: TextStyle(color: Color(0xff4E4E4E)),
                       ),
-                      SizedBox(
-                        width: xwidth * 0.2,
-                      ),
                     ],
                   ),
                 ),
@@ -261,17 +257,19 @@ class DriverDashBoardx extends State<DriverDashBoard> {
                 InkWell(
                   onTap: () {},
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      ClipOval(
-                        child: Container(
-                          height: 40,
-                          width: 40,
-                          color: const Color(0xffE7E7E7),
-                          child: const Icon(
-                            Icons.textsms,
-                            size: 15,
-                            color: Color(0xff116D6D),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 30, right: 30),
+                        child: ClipOval(
+                          child: Container(
+                            height: 40,
+                            width: 40,
+                            color: const Color(0xffE7E7E7),
+                            child: const Icon(
+                              Icons.textsms,
+                              size: 15,
+                              color: Color(0xff116D6D),
+                            ),
                           ),
                         ),
                       ),
@@ -279,30 +277,28 @@ class DriverDashBoardx extends State<DriverDashBoard> {
                         "Terms & Conditions",
                         style: TextStyle(color: Color(0xff4E4E4E)),
                       ),
-                      SizedBox(
-                        width: xwidth * 0.2,
-                      ),
                     ],
                   ),
                 ),
                 SizedBox(
-                  width: xwidth * .03,
                   height: xheight * 0.01,
                 ),
                 InkWell(
                   onTap: () {},
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      ClipOval(
-                        child: Container(
-                          height: 40,
-                          width: 40,
-                          color: const Color(0xffE7E7E7),
-                          child: const Icon(
-                            Icons.description,
-                            size: 15,
-                            color: Color(0xff116D6D),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 30, right: 30),
+                        child: ClipOval(
+                          child: Container(
+                            height: 40,
+                            width: 40,
+                            color: const Color(0xffE7E7E7),
+                            child: const Icon(
+                              Icons.description,
+                              size: 15,
+                              color: Color(0xff116D6D),
+                            ),
                           ),
                         ),
                       ),
@@ -310,13 +306,10 @@ class DriverDashBoardx extends State<DriverDashBoard> {
                         "Privacy policy",
                         style: TextStyle(color: Color(0xff4E4E4E)),
                       ),
-                      SizedBox(
-                        width: xwidth * 0.2,
-                      ),
                     ],
                   ),
                 ),
-                const Expanded(child: Text("")),
+                const Expanded(child: SizedBox()),
                 Row(
                   children: [
                     SizedBox(
