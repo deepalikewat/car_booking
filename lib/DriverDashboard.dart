@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:car_booking/front.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -81,7 +82,11 @@ bool loadingx=true;
   @override
   void initState() {
     super.initState();
+
+_scrollText();
     setvaluex();
+        _scrollController = ScrollController();
+
 
 Timer.periodic(const Duration(seconds: 1), (timer) {
 
@@ -92,6 +97,8 @@ setState(() {
 
 
   if(t==0){
+
+
 
     rtvv();
 
@@ -145,6 +152,35 @@ catch(ixo){
 setState(() {
   loadingx=true;
 });
+
+
+
+
+
+
+    final dcx = await http.post(
+        Uri.parse("https://admin.returnlorry.com/appservice/getbookingrequest"),
+        body: jsonEncode({
+          "Token": prefs.getString("Token"),
+          "userId": prefs.getString("userId"),
+          "userPhone": prefs.getString("userPhone"),
+          "userType": prefs.getString("userType"),
+        }));
+
+final longlatx= _determinePosition();
+
+
+List<Placemark> placemarks = await placemarkFromCoordinates(23.5830, 87.5153);
+
+
+setState(() {
+  
+  
+  Lasr_update_location="${placemarks[0].name} ${placemarks[0].locality} ${placemarks[0].subAdministrativeArea} ${placemarks[0].administrativeArea}   ${placemarks[0].postalCode  }";
+
+});
+
+
     final dc = await http.post(
         Uri.parse("https://admin.returnlorry.com/appservice/getbookingrequest"),
         body: jsonEncode({
@@ -247,6 +283,7 @@ print(tc);
   String _driver_name = "";
 
   final TextEditingController _textEditingController = TextEditingController();
+String Lasr_update_location="Last Updated Locatoion..............";
 
   setvaluex() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -277,7 +314,6 @@ print(tc);
     return Scaffold(
         key: _scaffoldKey,
         drawer: Drawer(
-          backgroundColor: const Color(0xff0F6868),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -300,96 +336,270 @@ print(tc);
                         _driver_name,
                         style: const TextStyle(
                             fontSize: 20,
-                            color: Colors.white,
+                            color:Color.fromARGB(255, 20, 19, 19),
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
                         _driver_email,
                         style: const TextStyle(
                             fontSize: 15,
-                            color: Colors.white,
+                            color:Color(0xff4E4E4E),
                             fontWeight: FontWeight.bold),
                       )
                     ],
                   )
                 ],
               )),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextButton.icon(
-                    onPressed: () {
 
 
 
-                    },
-                    icon: const Icon(
-                      Icons.arrow_outward_rounded,
-                      size: 35,
-                      color: Colors.white,
-                    ),
-                    label: const Padding(
-                        padding: EdgeInsets.only(left: 50),
-                        child: Text(
-                          "My Order",
-                          style: TextStyle(
-                            color: Colors.white,
+
+
+
+              
+              
+                SizedBox(
+                  height: xheight * 0.02,
+                ),
+                InkWell(
+                  onTap: () {},
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 30, right: 30),
+                        child: ClipOval(
+                          child: Container(
+                            height: 40,
+                            width: 40,
+                            color: const Color(0xffE7E7E7),
+                            child: const Icon(
+                              Icons.menu,
+                              size: 15,
+                              color: Color(0xff116D6D),
+                            ),
                           ),
-                        ))),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextButton.icon(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.arrow_outward_rounded,
-                      size: 35,
-                      color: Colors.white,
-                    ),
-                    label: const Padding(
-                        padding: EdgeInsets.only(left: 50),
-                        child: Text(
-                          "My Order",
-                          style: TextStyle(
-                            color: Colors.white,
+                        ),
+                      ),
+                      const Text(
+                        "My Orders",
+                        style: TextStyle(color: Color(0xff4E4E4E)),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: xheight * 0.01,
+                ),
+                InkWell(
+                  onTap: () {},
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 30, right: 30),
+                        child: ClipOval(
+                          child: Container(
+                            height: 40,
+                            width: 40,
+                            color: const Color(0xffE7E7E7),
+                            child: const Icon(
+                              Icons.login,
+                              size: 15,
+                              color: Color(0xff116D6D),
+                            ),
                           ),
-                        ))),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextButton.icon(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.arrow_outward_rounded,
-                      size: 35,
-                      color: Colors.white,
-                    ),
-                    label: const Padding(
-                        padding: EdgeInsets.only(left: 50),
-                        child: Text(
-                          "My Order",
-                          style: TextStyle(
-                            color: Colors.white,
+                        ),
+                      ),
+                      const Text(
+                        "Refer & Earn",
+                        style: TextStyle(color: Color(0xff4E4E4E)),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: xheight * 0.01,
+                ),
+                InkWell(
+                  onTap: () {},
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 30, right: 30),
+                        child: ClipOval(
+                          child: Container(
+                            height: 40,
+                            width: 40,
+                            color: const Color(0xffE7E7E7),
+                            child: const Icon(
+                              Icons.info,
+                              size: 15,
+                              color: Color(0xff116D6D),
+                            ),
                           ),
-                        ))),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextButton.icon(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.arrow_outward_rounded,
-                      size: 35,
-                      color: Colors.white,
-                    ),
-                    label: const Padding(
-                        padding: EdgeInsets.only(left: 50),
-                        child: Text(
-                          "My Order",
-                          style: TextStyle(
-                            color: Colors.white,
+                        ),
+                      ),
+                      const Text(
+                        "About Us",
+                        style: TextStyle(color: Color(0xff4E4E4E)),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: xheight * 0.01,
+                ),
+                InkWell(
+                  onTap: () {},
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 30, right: 30),
+                        child: ClipOval(
+                          child: Container(
+                            height: 40,
+                            width: 40,
+                            color: const Color(0xffE7E7E7),
+                            child: const Icon(
+                              Icons.share,
+                              size: 15,
+                              color: Color(0xff116D6D),
+                            ),
                           ),
-                        ))),
-              ),
+                        ),
+                      ),
+                      const Text(
+                        "Share App",
+                        style: TextStyle(color: Color(0xff4E4E4E)),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: xheight * 0.01,
+                ),
+                InkWell(
+                  onTap: () {},
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 30, right: 30),
+                        child: ClipOval(
+                          child: Container(
+                            height: 40,
+                            width: 40,
+                            color: const Color(0xffE7E7E7),
+                            child: const Icon(
+                              Icons.quiz,
+                              size: 15,
+                              color: Color(0xff116D6D),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const Text(
+                        "FAQ",
+                        style: TextStyle(color: Color(0xff4E4E4E)),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: xheight * 0.01,
+                ),
+                InkWell(
+                  onTap: () {},
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 30, right: 30),
+                        child: ClipOval(
+                          child: Container(
+                            height: 40,
+                            width: 40,
+                            color: const Color(0xffE7E7E7),
+                            child: const Icon(
+                              Icons.textsms,
+                              size: 15,
+                              color: Color(0xff116D6D),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const Text(
+                        "Terms & Conditions",
+                        style: TextStyle(color: Color(0xff4E4E4E)),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: xheight * 0.01,
+                ),
+                InkWell(
+                  onTap: () {},
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 30, right: 30),
+                        child: ClipOval(
+                          child: Container(
+                            height: 40,
+                            width: 40,
+                            color: const Color(0xffE7E7E7),
+                            child: const Icon(
+                              Icons.description,
+                              size: 15,
+                              color: Color(0xff116D6D),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const Text(
+                        "Privacy policy",
+                        style: TextStyle(color: Color(0xff4E4E4E)),
+                      ),
+                    ],
+                  ),
+                ),
+                const Expanded(child: SizedBox()),
+                InkWell(
+                  onTap: () async {
+                    
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    prefs.clear();
+
+    // ignore: use_build_context_synchronously
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+                           
+                          return  Lorry();
+                           
+
+                         },));
+                  },
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: xwidth * .04,
+                      ),
+                      const ClipOval(
+                        child: Icon(
+                          Icons.logout,
+                          color: Colors.red,
+                        ),
+                      ),
+                      Padding(padding: EdgeInsets.all( xwidth * 0.05)),
+                      const Text(
+                        "Log Out",
+                        style: TextStyle(fontSize: 15, color: Colors.red),
+                      )
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                )
+              
             ],
           ),
         ),
@@ -490,7 +700,7 @@ print(tc);
                                 const Expanded(child: Text("")),
                                 FilledButton(
                                     onPressed: () {
-
+rtvv();
                                     },
                                     style: const ButtonStyle(
                                         backgroundColor:
@@ -521,13 +731,26 @@ print(tc);
                         child:  Row(
                           children: [
 
-                            const Text("data",style: TextStyle(color: Color.fromARGB(255, 255, 255, 255),fontSize: 16, fontWeight: FontWeight.bold),),
                            
-                            const SizedBox(
-                                width: 180,
-                                child:
-                                    MarqueeText(text: "Last Updated Location")),
-                            const Expanded(child: Text("")),
+SizedBox( 
+  width: xwidth*.6,
+  child:   SingleChildScrollView(
+  
+        scrollDirection: Axis.horizontal,
+  
+        controller: _scrollController,
+  
+        child: Text(
+  
+  Lasr_update_location,
+  
+          style: const TextStyle(color: Colors.white, fontSize: 20),
+  
+        )
+  
+  ),
+),
+                            const Expanded(child: SizedBox()),
                             Text("00:$t",
                                 style: const TextStyle(
                                     color: Colors.white,
@@ -574,6 +797,7 @@ print(tc);
 
                       final Map<String, dynamic> booking = entry.value;
 
+
                       return ExpansionPanel(
                         headerBuilder: (BuildContext context, bool isExpanded) {
                           return ListTile(
@@ -592,11 +816,11 @@ print(tc);
 
                                   //xloca
 
-                                  // GoooGolgole(
-                                  //     22.568660563718094,
-                                  //     88.61089299422036,
-                                  //     22.568660563718094,
-                                  //     88.51089299422036);
+                                  GoooGolgole(
+                                      22.568660563718094,
+                                      88.61089299422036,
+                                      22.568660563718094,
+                                      88.51089299422036);
 
 
                                 },
@@ -697,8 +921,8 @@ print(tc);
                             trailing: FilledButton(
                                 onPressed: () {
                                   booking_respond({
-                                    "booking_request_id":
-                                        booking["booking_request_id"],
+                                    "request_booking_id":
+                                        booking["request_booking_id"],
                                     "booking_user_id": booking["booking_user"]
                                         ["id"],
                                     "calculated_price":
@@ -748,6 +972,8 @@ print(tc);
             ],
           ),
         ));
+ 
+
   }
 
   void booking_respond(Map<String, Object> map) {}
@@ -757,63 +983,44 @@ int t=0;
 
  
  
+   late ScrollController _scrollController;
 
 
 
-}
 
-class MarqueeText extends StatefulWidget {
-  final String text;
 
-  const MarqueeText({super.key, required this.text});
 
-  @override
-  State<MarqueeText> createState() => _MarqueeTextState();
-}
 
-class _MarqueeTextState extends State<MarqueeText> {
-  late ScrollController _scrollController;
-
-  @override
-  void initState() {
-    super.initState();
-    _scrollController = ScrollController();
-    _scrollText();
-  }
 
   void _scrollText() async {
-    // while (true) {
-    //   await Future.delayed(const Duration(milliseconds: 100));
-    //   if (_scrollController.position.maxScrollExtent > 0) {
-    //     if (_scrollController.position.pixels ==
-    //         _scrollController.position.maxScrollExtent) {
-    //       _scrollController.jumpTo(0.0);
-    //     } else {
-    //       _scrollController.animateTo(
-    //         _scrollController.position.pixels + 1.0,
-    //         duration: const Duration(milliseconds: 100),
-    //         curve: Curves.linear,
-    //       );
-    //     }
-    //   }
-    // }
+    while (true) {
+      await Future.delayed(const Duration(milliseconds: 100));
+      if (_scrollController.position.maxScrollExtent > 0) {
+
+        if (_scrollController.position.pixels ==
+            _scrollController.position.maxScrollExtent) {
+          _scrollController.jumpTo(0.0);
+
+          
+        } else {
+
+
+          _scrollController.animateTo(
+            _scrollController.position.pixels + 5.0,
+            duration: const Duration(milliseconds: 100),
+            curve: Curves.linear,
+          );
+
+
+        }
+      }
+    }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      controller: _scrollController,
-      child: Text(
-        widget.text,
-        style: const TextStyle(color: Colors.white, fontSize: 20),
-      ),
-    );
-  }
-
-  @override
+    @override
   void dispose() {
     _scrollController.dispose();
     super.dispose();
   }
+
 }

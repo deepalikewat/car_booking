@@ -17,19 +17,19 @@ Future<void> checkUserType() async {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
 
    Future.delayed(const Duration(seconds: 3), () {
-    // if (prefs.getString("userType")=="1"){
-    //   Navigator.push(context, MaterialPageRoute(builder: (context) =>  const UserDashBoard()));
+    if (prefs.getString("userType")=="1"){
+      Navigator.push(context, MaterialPageRoute(builder: (context) =>  const UserDashBoard()));
 
-    // }else if(prefs.getString("userType")=="2"){
+    }else if(prefs.getString("userType")=="2"){
 
-    //         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>  DriverDashBoard()));
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>  DriverDashBoard()));
 
-    // }
-    // else{
+    }
+    else{
 
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const RLogin()));
 
-    // }
+    }
 
 
     });
