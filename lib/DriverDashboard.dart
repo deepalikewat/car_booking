@@ -193,9 +193,6 @@ setState(() {
     "current_pincode": "${placemarks[0].postalCode}"
         }));
 
-print(placemarks[0].postalCode);
-      
-      print(dcxv.body);
 
     final dc = await http.post(
         Uri.parse("https://admin.returnlorry.com/appservice/getbookingrequest"),
