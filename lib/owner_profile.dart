@@ -44,7 +44,6 @@ class rix extends State<Owner> {
 
   final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-  
    if (pickedFile != null) {
     final dc = await http.post(
         Uri.parse("https://admin.returnlorry.com/appservice/uploadphoto"),
@@ -67,10 +66,10 @@ class rix extends State<Owner> {
    
            }     ));
 
-           prefs.setString("owner_photo",jsonDecode(dc.body)["data"]["data"]["owner_photo"]);
-           prefs.setString("driver_name",widget.driverx["driver_name"]??"Return Lorry");
-           prefs.setString("driver_email",widget.driverx["driver_email"]??"driver@returnlorry.com");
+         await prefs.setString("owner_photo",jsonDecode(dc.body)["data"]["data"]["owner_photo"]);
 
+
+print(prefs.getKeys());
    }
 
 
@@ -154,6 +153,9 @@ String fileToBase64(File file) {
 
          
         }));
+
+         await  prefs.setString("driver_name",widget.driverx["driver_name"]??"Return Lorry");
+         await  prefs.setString("driver_email",widget.driverx["driver_email"]??"driver@returnlorry.com");
 
  // ignore: use_build_context_synchronously
  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {

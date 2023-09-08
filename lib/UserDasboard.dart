@@ -463,7 +463,6 @@ MapAutoCompleteField(
 try{
 LatLng rg=LatLng(mkdble( tg?["latitude"]), mkdble( tg?["longitude"]));
 
-print("fuck you value$rg");
 
 }catch(rt){
 

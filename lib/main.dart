@@ -1,24 +1,25 @@
 import 'package:car_booking/DriverDashboard.dart';
 import 'package:flutter/material.dart';
-
 import 'booking.dart';
 import 'front.dart';
 import 'map_with_autocomplete.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(MainApp());
 }
 //uuc
 
 class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+   MainApp({super.key});
+
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         theme: ThemeData(scaffoldBackgroundColor: const Color(0xfff8fbff)),
-        home:  Lorry());
+        home: DriverDashBoard()
 
+    );
         // A
 
     //

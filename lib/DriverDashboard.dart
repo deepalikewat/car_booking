@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:car_booking/UploadDashboard.dart';
 import 'package:car_booking/front.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -82,9 +83,9 @@ bool loadingx=true;
   @override
   void initState() {
     super.initState();
-
-_scrollText();
     setvaluex();
+_scrollText();
+
         _scrollController = ScrollController();
 
 
@@ -167,11 +168,10 @@ setState(() {
           "userType": prefs.getString("userType"),
         }));
 
-final longlatx= _determinePosition();
+final longlatx=await _determinePosition();
 
 
-List<Placemark> placemarks = await placemarkFromCoordinates(23.5830, 87.5153);
-
+List<Placemark> placemarks = await placemarkFromCoordinates(longlatx.latitude, longlatx.longitude);
 
 setState(() {
   
@@ -180,6 +180,22 @@ setState(() {
 
 });
 
+ final dcxv = await http.post(
+        Uri.parse("https://admin.returnlorry.com/appservice/vehicleupdatecurrentlocation"),
+        body: jsonEncode({
+          "Token": prefs.getString("Token"),
+          "userId": prefs.getString("userId"),
+          "userPhone": prefs.getString("userPhone"),
+          "userType": prefs.getString("userType"),
+
+          "current_lat": "${longlatx.latitude}",
+    "current_long": "${longlatx.longitude}",
+    "current_pincode": "${placemarks[0].postalCode}"
+        }));
+
+print(placemarks[0].postalCode);
+      
+      print(dcxv.body);
 
     final dc = await http.post(
         Uri.parse("https://admin.returnlorry.com/appservice/getbookingrequest"),
@@ -630,7 +646,7 @@ String Lasr_update_location="Last Updated Locatoion..............";
                               },
                               icon: const Icon(
                                 Icons.menu,
-                                size: 40,
+                                size: 30,
                                 color: Colors.white,
                               ),
                             ),
@@ -638,7 +654,7 @@ String Lasr_update_location="Last Updated Locatoion..............";
                               "Return Lorry",
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  fontSize: 25,
+                                  fontSize: 20,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -649,7 +665,7 @@ String Lasr_update_location="Last Updated Locatoion..............";
                               },
                               icon: const Icon(
                                 Icons.circle_notifications,
-                                size: 40,
+                                size: 30,
                                 color: Colors.white,
                               ),
                             ),
@@ -671,11 +687,11 @@ String Lasr_update_location="Last Updated Locatoion..............";
                               children: [
                                 const Image(
                                   image: AssetImage("img/dp.png"),
-                                  width: 60,
-                                  height: 60,
+                                  width: 40,
+                                  height: 40,
                                 ),
                                 const SizedBox(
-                                  width: 20,
+                                  width: 10,
                                 ),
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
@@ -685,22 +701,25 @@ String Lasr_update_location="Last Updated Locatoion..............";
                                       _driver_name,
                                       style: const TextStyle(
                                           color: Colors.black,
-                                          fontSize: 20,
+                                          fontSize: 15,
                                           fontWeight: FontWeight.bold),
                                     ),
                                     Text(
                                       _driver_email,
                                       style: const TextStyle(
                                         color: Colors.grey,
-                                        fontSize: 15,
+                                        fontSize: 11,
                                       ),
                                     )
                                   ],
                                 ),
-                                const Expanded(child: Text("")),
+
+const Expanded(child: SizedBox()),
+
+
                                 FilledButton(
                                     onPressed: () {
-rtvv();
+                                rtvv();
                                     },
                                     style: const ButtonStyle(
                                         backgroundColor:
@@ -708,11 +727,12 @@ rtvv();
                                                 Colors.white),
                                         padding: MaterialStatePropertyAll(
                                             EdgeInsets.symmetric(
-                                                horizontal: 25))),
+                                                horizontal: 15))),
                                     child: const Text(
                                       "☢ Refresh",
                                       style: TextStyle(
                                           color: Color(0xff44c951),
+                                          fontSize: 12,
                                           fontWeight: FontWeight.bold),
                                     ))
                               ],
@@ -744,7 +764,7 @@ SizedBox(
   
   Lasr_update_location,
   
-          style: const TextStyle(color: Colors.white, fontSize: 20),
+          style: const TextStyle(color: Colors.white, fontSize: 14),
   
         )
   
@@ -754,7 +774,7 @@ SizedBox(
                             Text("00:$t",
                                 style: const TextStyle(
                                     color: Colors.white,
-                                    fontSize: 20,
+                                    fontSize: 15,
                                     fontWeight: FontWeight.bold))
                           ],
                         ),
@@ -769,15 +789,27 @@ SizedBox(
                 margin: EdgeInsets.only(top: xheight * .36),
                 height: xheight * .65,
                 padding: const EdgeInsets.only(top: 30),
-                decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(30),
-                        topRight: Radius.circular(30))),
-                child: loadingx? const Padding(
-                  padding: EdgeInsets.all(100.0),
-                  child: SizedBox(height: 100,width: 100,child: CircularProgressIndicator(strokeWidth: 10,semanticsLabel: "lol",)),
-                ):bookingData.isEmpty?const Center(child: Text("No Orders Abablable  Near You", textAlign: TextAlign.center,style: TextStyle(fontSize: 40),)): SingleChildScrollView(
+                child: loadingx? const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    
+                    SizedBox(width: 250,height: 250, child: CircularProgressIndicator(strokeWidth: 10,)),
+
+                  ],
+                ):bookingData.isEmpty? const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+
+ Icon(
+                      Icons.car_crash,
+                      size: 100,
+                      color: Colors.blue,
+                    ),   
+                    SizedBox(height: 10,),
+
+                    Text("No Orders Abablable  Near You", textAlign: TextAlign.center,style: TextStyle(fontSize: 20),),
+                  ],
+                ): SingleChildScrollView(
                   child: ExpansionPanelList(
                     expandIconColor: const Color.fromARGB(255, 11, 75, 75),
                     elevation: 1,
@@ -817,10 +849,13 @@ SizedBox(
                                   //xloca
 
                                   GoooGolgole(
-                                      22.568660563718094,
-                                      88.61089299422036,
-                                      22.568660563718094,
-                                      88.51089299422036);
+                                      double.parse(booking['pick_up_point']['lat']),
+                                      double.parse(booking['pick_up_point']['long']),
+                                       double.parse(booking['destination_point']['lat']),
+                                      double.parse(booking['destination_point']['long'])
+                                  );
+
+                                     
 
 
                                 },
@@ -995,13 +1030,14 @@ int t=0;
   void _scrollText() async {
     while (true) {
       await Future.delayed(const Duration(milliseconds: 100));
+      if (mounted){
       if (_scrollController.position.maxScrollExtent > 0) {
 
         if (_scrollController.position.pixels ==
             _scrollController.position.maxScrollExtent) {
           _scrollController.jumpTo(0.0);
 
-          
+
         } else {
 
 
@@ -1014,6 +1050,7 @@ int t=0;
 
         }
       }
+    }
     }
   }
 

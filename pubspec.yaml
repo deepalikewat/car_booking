@@ -7,6 +7,7 @@ environment:
   sdk: '>=3.0.6 <4.0.0'
 
 dependencies:
+  audioplayers: ^5.1.0
   flutter:
     sdk: flutter
   geocoding: ^2.1.0
