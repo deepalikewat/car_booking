@@ -159,14 +159,14 @@ setState(() {
 
 
 
-    final dcx = await http.post(
-        Uri.parse("https://admin.returnlorry.com/appservice/getbookingrequest"),
-        body: jsonEncode({
-          "Token": prefs.getString("Token"),
-          "userId": prefs.getString("userId"),
-          "userPhone": prefs.getString("userPhone"),
-          "userType": prefs.getString("userType"),
-        }));
+    // final dcx = await http.post(
+    //     Uri.parse("https://admin.returnlorry.com/appservice/getbookingrequest"),
+    //     body: jsonEncode({
+    //       "Token": prefs.getString("Token"),
+    //       "userId": prefs.getString("userId"),
+    //       "userPhone": prefs.getString("userPhone"),
+    //       "userType": prefs.getString("userType"),
+    //     }));
 
 final longlatx=await _determinePosition();
 
@@ -307,6 +307,7 @@ String Lasr_update_location="Last Updated Locatoion..............";
       _driver_name = prefs.getString("driver_name") ?? "";
 
       print(_driver_photo);
+      
     });
   }
       final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();

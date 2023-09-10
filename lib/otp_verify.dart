@@ -34,8 +34,6 @@ int xt=0;
   final pinController = TextEditingController();
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
-
-
   int rs = 60; 
   bool _canResend = false;
   late Timer _timer;

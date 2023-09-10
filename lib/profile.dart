@@ -110,7 +110,6 @@ setState(() {
    final rc = json.decode(dc.body);
 
   
-  print(rc);
 
   final SharedPreferences pref = await SharedPreferences.getInstance();
 
@@ -121,7 +120,7 @@ setState(() {
   
 
   // ignore: use_build_context_synchronously
-  ScaffoldMessenger.of(context).showSnackBar( SnackBar(content: Center( child: Text('${rc["data"]["msg"]}')),backgroundColor: Color.fromARGB(255, 26, 3, 89),));
+  ScaffoldMessenger.of(context).showSnackBar( SnackBar(content: Center( child: Text('${rc["data"]["msg"]}')),backgroundColor: const Color.fromARGB(255, 26, 3, 89),));
 
 
 
@@ -330,8 +329,9 @@ Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
               ),
             ),
           ),
-          const Expanded(child: Text("")),
       
+      const SizedBox(height: 50,),
+
       
             SizedBox(
                         width: xwidth * .9,
