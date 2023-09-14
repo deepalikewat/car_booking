@@ -121,10 +121,10 @@ Future<void> calculateDistance() async {
       dynamic meters = data['rows'][0]['elements'][0]['distance']['value'];
       setState(() {
        
-      distance="$meters";
+      distance="${meters/1000}";
       print("totaldistance is $meters");
 
-distancef.text="$meters";
+distancef.text="${meters/1000}";
       });
     }
   }
@@ -524,13 +524,13 @@ child: getimx()
                   onTap: () {
 
 
-                     Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    //  Navigator.push(context, MaterialPageRoute(builder: (context) {
                            
-                          return  CustomerOrderResponce();
+                    //       return  CustomerOrderResponce();
 
                            
 
-                         },));
+                    //      },));
                   },
                   child: Row(
                     children: [
@@ -550,7 +550,7 @@ child: getimx()
                         ),
                       ),
                       const Text(
-                        "Order Responced",
+                        "My Trips",
                         style: TextStyle(color: Color(0xff4E4E4E)),
                       ),
                     ],
@@ -855,9 +855,13 @@ print("problem harddde$y");
 
                 },
               
-                inputDecoration: const InputDecoration(
+                inputDecoration:  InputDecoration(
                   hintText: "Pick Up Point",
-                  prefixIcon: Icon(Icons.location_pin,color: Color(0xff0c50b4),)
+                  prefixIcon: const Icon(Icons.home,color: Color(0xff0c50b4),),
+                  suffixIcon: IconButton(onPressed: (){
+
+
+                  }, icon: const Icon(Icons.location_pin))
                 ),
                 
                 )
@@ -908,7 +912,8 @@ try{
               
                 inputDecoration: const InputDecoration(
                   hintText: "Destination Point",
-                  prefixIcon: Icon(Icons.location_pin,color: Color(0xff0c50b4),)
+                  prefixIcon: Icon(Icons.location_city,color: Color(0xff0c50b4),),
+                  suffixIcon: Icon(Icons.location_pin,color: Color(0xff0c50b4),)
                 ),
                 
                 )

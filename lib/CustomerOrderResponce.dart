@@ -9,6 +9,10 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 class CustomerOrderResponce extends StatefulWidget {
 
+int request_booking_id;
+
+CustomerOrderResponce({super.key, required this.request_booking_id});
+
  @override
   State<CustomerOrderResponce> createState() => CustomerOrderResponcepvt();
 
@@ -41,17 +45,21 @@ setState(() {
 
     final dc = await http.post(
       
-        Uri.parse("https://admin.returnlorry.com/appservice/getbookingrequestlist"),
+        Uri.parse("https://admin.returnlorry.com/appservice/getresponselist"),
         body: jsonEncode({
           "Token": prefs.getString("Token"),
           "userId": prefs.getString("userId"),
           "userPhone": prefs.getString("userPhone"),
           "userType": prefs.getString("userType"),
+          "booking_request_id":widget.request_booking_id
+
         }));
 
 
 
     final rty = jsonDecode(dc.body)["data"]["data"];
+
+print(rty);
 
     int i = 0;
     bookingData.clear();
@@ -176,18 +184,18 @@ return   Scaffold(
   appBar: AppBar(title:
     
 
-      Center(child: const Text("Booking Responces", textAlign: TextAlign.center,)),
+      const Center(child: Text("Booking Responces", textAlign: TextAlign.center,)),
       
 actions: [
-
-  
-
-
        IconButton( onPressed:() {
                      rtvv();
 
              },icon: const Icon(Icons.refresh),)
+
     ],
+
+
+
   ),
   
 
@@ -242,26 +250,21 @@ body:
                         headerBuilder: (BuildContext context, bool isExpanded) {
                           return ListTile(
                             leading: CircleAvatar(
-                              backgroundImage: (booking['booking_user']['image'] != "https://admin.returnlorry.com/uploads/users/")
+                              backgroundImage: (booking['responsed_driver']['driver_photo'] != "https://admin.returnlorry.com/uploads/users/")
                                   ? const AssetImage("img/dp.png")
                                       as ImageProvider<Object>
                                   : NetworkImage(
-                                      booking['booking_user']['image']),
+                                      booking['responsed_driver']['driver_photo']),
                             ),
                             title: Text(
-                                booking['booking_user']['name'] ?? "Unnamed"),
-                            subtitle: Text(booking['material_type']),
-                            trailing: FilledButton(
+                                booking['responsed_driver']['name'] ?? "Unnamed"),
+                            subtitle: Text(booking['responsed_driver']['vehicle_no']),
+                            trailing: FilledButton.icon(
+                              
+                              icon: const Icon(Icons.currency_rupee_outlined,color: Color.fromARGB(230, 4, 43, 43),),
+                              
                                 onPressed: () async {
            
-                                  //xloca
-           
-                                  GoooGolgole(
-                                      double.parse(booking['pick_up_point']['lat']),
-                                      double.parse(booking['pick_up_point']['long']),
-                                       double.parse(booking['destination_point']['lat']),
-                                      double.parse(booking['destination_point']['long'])
-                                  );
            
                                      
            
@@ -270,8 +273,8 @@ body:
                                 style: const ButtonStyle(
                                     backgroundColor: MaterialStatePropertyAll(
                                         Color(0x401D8989))),
-                                child: Text(
-                                  '${booking['distance']} km',
+                                label: Text(
+                                  "${booking["burgaining_price"]}",
                                   style: const TextStyle(
                                       color: Color(0xff0F6868),
                                       fontWeight: FontWeight.bold),
@@ -282,142 +285,46 @@ body:
                           const Divider(),
            
                           ListTile(
-                            leading: Ink(
-                                decoration: const ShapeDecoration(
-                                    shape: CircleBorder(),
-                                    color: Color(0xff0F6868)),
-                                child: const SizedBox(
-                                  width: 35,
-                                  height: 35,
-                                  child: Icon(Icons.home,
-                                      size: 20, color: Colors.white),
-                                )),
-                            title: Text(
-                                "${booking['destination_point']['address']}"),
-                          ),
-           
-                          ListTile(
-                            leading: Ink(
-                                decoration: const ShapeDecoration(
-                                    shape: CircleBorder(),
-                                    color: Color(0xff0F6868)),
-                                child: const SizedBox(
-                                  width: 35,
-                                  height: 35,
-                                  child: Icon(Icons.location_city,
-                                      size: 20, color: Colors.white),
-                                )),
-                            title: Text(
-                                '${booking['pick_up_point']['address']}'),
-                          ),
-           
-                          ListTile(
-                            leading: Ink(
-                                decoration: const ShapeDecoration(
-                                    shape: CircleBorder(),
-                                    color: Color(0xff0F6868)),
-                                child: const SizedBox(
-                                  width: 35,
-                                  height: 35,
-                                  child: Icon(Icons.alarm,
-                                      size: 20, color: Colors.white),
-                                )),
-                            title: Text(
-                              "${booking['booking_date']}",
-                            ),
-                          ),
-           
-                          ListTile(
-                            leading: Ink(
-                                decoration: const ShapeDecoration(
-                                    shape: CircleBorder(),
-                                    color: Color(0xff0F6868)),
-                                child: const SizedBox(
-                                  width: 35,
-                                  height: 35,
-                                  child: Icon(Icons.currency_rupee,
-                                      size: 20, color: Colors.white),
-                                )),
-                            title: Text("${booking['calculated_price']}"),
-
-                            trailing:FilledButton(
-                                onPressed: () async {
-                                  // booking_respond({
-                                  //   "request_booking_id":
-                                  //       booking["request_booking_id"],
-                                  //   "booking_user_id": booking["booking_user"]
-                                  //       ["id"],
-                                  //   "calculated_price":
-                                  //       booking["calculated_price"],
-                                  //   "burgaining_price":
-                                  //       _textEditingController.text,
-                                  //   "response_status": "1"
-                                  // });
+                           
                             
-
-
-                                                              //   "request_booking_id":
-                                  //       booking["request_booking_id"],
-
-                                      final SharedPreferences prefs = await SharedPreferences.getInstance();
-
-
-    final dc = await http.post(
-      
-        Uri.parse("https://admin.returnlorry.com/appservice/cancelbookingrequest"),
-        body: jsonEncode({
-          "Token": prefs.getString("Token"),
-          "userId": prefs.getString("userId"),
-          "userPhone": prefs.getString("userPhone"),
-          "userType": prefs.getString("userType"),
-          "booking_request_id": booking["request_booking_id"]
-        }));
-
-
-
-    final rty = jsonDecode(dc.body)["data"]["msg"];
-
-
-
-            ScaffoldMessenger.of(context).showSnackBar( SnackBar(content: Text(rty),backgroundColor: Colors.red,));
-
-                                  print(booking);
-                                  print(rty);
+                            title: FilledButton(
+                              
+                              
+                                onPressed: () async {
+           
+           
                                 },
-                                style:  ButtonStyle(
+                                style: const ButtonStyle(
                                     backgroundColor: MaterialStatePropertyAll(
-                                        Color(  booking['request_status']['status_code']== 0 ? 0xff0F6868:0xff6f0000))),
-                                child:  Padding(
-                              padding: const EdgeInsets.symmetric(horizontal:10.0),
-                                  child: Text(booking['request_status']['status'],
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold)
-                                  
-                                  ),
-                                ),
-                                                     
-                                                    ),
+                                        Color(0x401D8989))),
+                                child: const Text(
+                                  "Accept",
+                                  style: TextStyle(
+                                      color: Color(0xff0F6868),
+                                      fontWeight: FontWeight.bold),
+                                )),
 
-                          )
+                                trailing: FilledButton(
+                              
+                              
+                                onPressed: () async {
            
-                          // Padding(
            
-                          //   padding: const EdgeInsets.all(15.0),
+                                },
+                                style: const ButtonStyle(
+                                    backgroundColor: MaterialStatePropertyAll(
+                                        Color.fromARGB(64, 85, 3, 49))),
+                                child: const Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 20),
+                                  child: Text(
+                                    "Deny",
+                                    style: TextStyle(
+                                        color: Color(0xff0F6868),
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                )),
+                          ),
            
-                          //   child:   Center(child:FilledButton(onPressed: () {
-           
-                          //   print(booking)
-           
-                          //                           },
-           
-                          //                           style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Color(0xff0F6868))),
-           
-                          //                            child: Text('Send Requests   ₹ ${booking['calculated_price']} ',style: const TextStyle( color: Colors.white,fontWeight: FontWeight.bold),)),
-           
-                          //                   ),
-           
-                          // )
                         ]),
                         isExpanded: _isExpandedList[index],
                       );

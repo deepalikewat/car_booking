@@ -20,7 +20,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         theme: ThemeData(scaffoldBackgroundColor: const Color(0xfff8fbff)),
-        home: UserDashBoard()
+        home: Lorry()
 
     );
         // A
